@@ -146,8 +146,8 @@ WithLog+ では、
 - Docker
 
 ### バックエンド
-- Ruby 3.x
-- Ruby on Rails 7.x
+- Ruby 3.3.6
+- Ruby on Rails 7.2.3
 
 ### フロントエンド
 - ERB
