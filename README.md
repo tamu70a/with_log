@@ -183,4 +183,9 @@ WithLog+ では、
 - 天気情報は外部APIから取得し、当日分を表示  
 - 体重管理は日付ごとのデータを保存し、グラフとして可視化  
 - バディ機能はユーザーの行動結果や状態に応じて  
-  あらかじめ用意したメッセージを表示する形で実装予定  
+  あらかじめ用意したメッセージを表示する形で実装予定
+
+---
+
+### 画面遷移図
+Figma：https://www.figma.com/design/zkOnceZfvWUp5qzNUCZtS5/WithLog-?node-id=0-1&t=djRkNnCwMfNuqbc6-1
