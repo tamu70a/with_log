@@ -191,3 +191,9 @@ WithLog+ では、
 
 ### 画面遷移図
 Figma：https://www.figma.com/design/zkOnceZfvWUp5qzNUCZtS5/WithLog-?node-id=0-1&t=NNLSULW1R4OSSx0p-1
+
+---
+
+### ER図
+
+[![Image from Gyazo](https://i.gyazo.com/ff07375d99ae959cd667aa7376968c7d.png)](https://gyazo.com/ff07375d99ae959cd667aa7376968c7d)
