@@ -19,8 +19,16 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <% end %>
+
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
   </body>
 </html>
+
+<% if user_signed_in? %>
+  <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+<% end %>
