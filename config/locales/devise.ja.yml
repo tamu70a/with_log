@@ -1,0 +1,13 @@
+ja:
+  devise:
+    sessions:
+      new:
+        sign_in: ログイン
+    registrations:
+      new:
+        sign_up: 新規登録
+    passwords:
+      new:
+        forgot_your_password: パスワードを忘れましたか？
+    failure:
+      invalid: メールアドレスまたはパスワードが違います
