@@ -1,13 +1,31 @@
 ja:
   devise:
-    sessions:
-      new:
-        sign_in: ログイン
     registrations:
       new:
         sign_up: 新規登録
+    sessions:
+      new:
+        sign_in: ログイン
+    shared:
+      links:
+        sign_up: 新規登録の方はこちら
+        forgot_your_password: パスワードを忘れた方はこちら
+        confirmation_instructions: 確認メールを受け取っていませんか？
     passwords:
       new:
-        forgot_your_password: パスワードを忘れましたか？
-    failure:
-      invalid: メールアドレスまたはパスワードが違います
+        title: パスワード再設定
+        submit: パスワード再設定メールを送信
+        back_to_login: ログイン画面に戻る場合はこちら
+      edit:
+        title: パスワードの変更
+        new_password: 新しいパスワード
+        password_confirmation: パスワード（確認用）
+        submit: パスワードを変更する
+        back_to_login: ログイン画面に戻る
+
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        remember_me: ログイン情報を保存
