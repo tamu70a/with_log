@@ -59,7 +59,7 @@ group :test do
   gem "minitest", "~> 5.25"
 end
 
-#gem "tailwindcss-rails"
-#gem "tailwindcss-ruby", "3.4.17"
+# gem "tailwindcss-rails"
+# gem "tailwindcss-ruby", "3.4.17"
 
 gem "cssbundling-rails", "~> 1.4"
