@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" data-theme="cupcake">
   <head>
     <title><%= content_for(:title) || "Myapp" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,7 +13,6 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
@@ -32,3 +31,6 @@
 <% if user_signed_in? %>
   <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
 <% end %>
+
+<button class="btn btn-primary">Cupcake Test</button>
+
