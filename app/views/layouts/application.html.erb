@@ -18,14 +18,16 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="bg-gray-100 min-h-screen flex flex-col justify-between">
+  <body class="bg-gray-100 min-h-screen flex flex-col">
     <% if user_signed_in? %>
       <div class="absolute top-2 right-2">
         <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline" %>
       </div>
     <% end %>
 
-    <main class="<%= devise_controller? && controller_name == 'sessions' && action_name == 'new' ? 'max-w-md mx-auto mt-16 p-6 bg-white shadow rounded-lg' : 'container mx-auto mt-28 px-5 flex-1' %>">
+    <main class="<%= devise_controller? && controller_name == 'sessions' && action_name == 'new' ?
+      'max-w-md mx-auto mt-16 p-6 bg-white shadow rounded-lg' : 
+      'container mx-auto mt-28 px-5 flex-1 pb-[calc(7rem+env(safe-area-inset-bottom))]' %>">
       <%= yield %>
     </main>
 
