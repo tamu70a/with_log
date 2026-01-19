@@ -1,0 +1,83 @@
+<div class="max-w-md mx-auto space-y-6 px-4 pb-32">
+
+  <!-- ヘッダー部（日時 / 天気 / 洗濯） -->
+  <div class="grid grid-cols-2 gap-4">
+    <div class="bg-base-200 rounded-lg p-4 text-center">
+      <p class="text-sm text-gray-500"><%= Time.current.strftime('%Y/%m/%d %H:%M') %></p>
+    </div>
+    <div class="space-y-2">
+      <div class="flex items-center justify-between bg-white rounded-lg p-2 shadow">
+        <%= image_tag "weather/sunny.png", alt: "weather", class: "w-6 h-6" %>
+        <div class="text-right text-sm">
+          <div class="text-pink-500">14℃ <span class="text-xs text-gray-500">+3</span></div>
+          <div class="text-blue-500">1℃ <span class="text-xs text-gray-500">+1</span></div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between bg-white rounded-lg p-2 shadow">
+        <%= image_tag "laundry/basic.png", alt: "laundry", class: "w-6 h-6" %>
+        <div class="text-sm font-medium">40%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- バディからのメッセージ -->
+  <div class="bg-pink-100 rounded-lg p-4 flex items-start gap-4 shadow-inner">
+    <%= image_tag "buddy/cat_tea.png", alt: "buddy", class: "w-16 h-16" %>
+    <div>
+      <p class="font-semibold">はじめまして！</p>
+      <p class="text-sm">今日のこと、ここで一緒に整えていきましょう！</p>
+    </div>
+  </div>
+
+  <!-- TODOリスト -->
+  <div class="bg-base-100 rounded-lg p-4 shadow space-y-2">
+    <h3 class="text-md font-bold">TODO</h3>
+    <div class="flex items-center justify-between border p-2 rounded">
+      <label class="flex items-center gap-2">
+        <input type="checkbox" class="checkbox checkbox-sm" />
+        <span class="text-sm">todo：チェックで完了。スワイプで保存</span>
+      </label>
+      <button class="btn btn-ghost btn-xs">
+        <i class="fas fa-pen"></i>
+      </button>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-circle btn-outline text-pink-400">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 習慣リスト -->
+  <div class="bg-base-200 rounded-lg p-4 shadow">
+    <h3 class="text-md font-bold">習慣</h3>
+    <p class="text-sm text-center text-gray-400 mt-4">データがありません。</p>
+  </div>
+
+  <!-- メモ -->
+  <div class="bg-base-100 rounded-lg p-4 shadow space-y-2">
+    <h3 class="text-md font-bold">ちょこっとメモ</h3>
+    <textarea class="textarea textarea-bordered w-full" placeholder="メモを入力..."></textarea>
+  </div>
+
+  <!-- 体重目標 -->
+  <div class="bg-base-100 rounded-lg p-4 shadow">
+    <h3 class="text-md font-bold">body</h3>
+    <div class="flex justify-between items-center mt-2 space-x-2">
+      <label class="input input-bordered flex items-center gap-2 w-1/2">
+        目標まで残り
+        <input type="text" class="grow text-right" placeholder="3" />
+        <span>日</span>
+      </label>
+      <label class="input input-bordered flex items-center gap-2 w-1/2">
+        <input type="text" class="grow text-right" placeholder="1.2" />
+        <span>kg</span>
+      </label>
+    </div>
+    <div class="mt-2 text-right">
+      <button class="btn btn-circle bg-pink-300 text-white shadow-md">
+        <i class="fas fa-pen"></i>
+      </button>
+    </div>
+  </div>
+</div>
