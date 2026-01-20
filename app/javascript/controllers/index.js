@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import InlineMemoController from "./inline_memo_controller"
+application.register("inline-memo", InlineMemoController)

@@ -55,10 +55,31 @@
   </div>
 
   <!-- メモ -->
-  <div class="bg-base-100 rounded-lg p-4 shadow space-y-2">
-    <h3 class="text-md font-bold">ちょこっとメモ</h3>
-    <textarea class="textarea textarea-bordered w-full" placeholder="メモを入力..."></textarea>
-  </div>
+<div
+  data-controller="inline-memo"
+  class="bg-base-100 rounded-lg p-4 shadow space-y-2"
+>
+  <h3 class="text-md font-bold">ちょこっとメモ</h3>
+
+  <!-- 表示用 -->
+  <p
+    data-inline-memo-target="display"
+    data-action="click->inline-memo#edit"
+    class="textarea textarea-bordered w-full min-h-[6rem]
+           text-sm text-gray-600 cursor-text whitespace-pre-wrap"
+>
+    <%= @home_note.content.presence || "タップしてメモを入力" %>
+  </p>
+
+  <!-- 編集用 -->
+  <textarea
+    data-inline-memo-target="input"
+    data-action="blur->inline-memo#save"
+    class="textarea textarea-bordered w-full hidden"
+    rows="4"
+  ><%= @home_note.content %></textarea>
+</div>
+
 
   <!-- 体重目標 -->
   <div class="bg-base-100 rounded-lg p-4 shadow">
