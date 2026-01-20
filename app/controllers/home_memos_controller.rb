@@ -1,5 +1,5 @@
-# app/controllers/home_notes_controller.rb
-class HomeNotesController < ApplicationController
+# app/controllers/home_memos_controller.rb
+class HomeMemosController < ApplicationController
   before_action :authenticate_user!
 
   def update
