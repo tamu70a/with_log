@@ -3,17 +3,12 @@ require "test_helper"
 class HomesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-
-    post user_session_path, params: {
-      user: {
-        email: @user.email,
-        password: "password"
-      }
-    }
+    @user.create_home_memo! unless @user.home_memo
+    sign_in @user  # Deviseのヘルパーメソッドを使用
   end
 
   test "should get index" do
-    get root_url
+    get homes_index_url
     assert_response :success
   end
 end
