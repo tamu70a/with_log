@@ -4,5 +4,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
   # app/models/user.rb
-  has_one :home_note, dependent: :destroy
+  has_one :home_memo, dependent: :destroy
 end

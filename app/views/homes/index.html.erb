@@ -68,7 +68,7 @@
     class="textarea textarea-bordered w-full min-h-[6rem]
            text-sm text-gray-600 cursor-text whitespace-pre-wrap"
 >
-    <%= @home_note.content.presence || "タップしてメモを入力" %>
+    <%= @home_memo.content.presence || "タップしてメモを入力" %>
   </p>
 
   <!-- 編集用 -->
@@ -77,7 +77,7 @@
     data-action="blur->inline-memo#save"
     class="textarea textarea-bordered w-full hidden"
     rows="4"
-  ><%= @home_note.content %></textarea>
+  ><%= @home_memo.content %></textarea>
 </div>
 
 

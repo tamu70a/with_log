@@ -13,14 +13,14 @@ export default class extends Controller {
   async save() {
     const content = this.inputTarget.value
 
-    await fetch("/home_note", {
+    await fetch("/home_memo", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content
       },
       body: JSON.stringify({
-        home_note: { content }
+        home_memo: { content }
       })
     })
 
