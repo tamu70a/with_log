@@ -63,4 +63,4 @@ end
 # gem "tailwindcss-ruby", "3.4.17"
 
 gem "cssbundling-rails", "~> 1.4"
-gem 'httparty'
+gem "httparty"
