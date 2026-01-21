@@ -1,29 +1,55 @@
 <div class="max-w-md mx-auto space-y-6 px-4 pb-32">
 
   <!-- ヘッダー部（日時 / 天気 / 洗濯） -->
-  <div class="grid grid-cols-2 gap-4">
-    <div class="bg-base-200 rounded-lg p-4 text-center">
-      <p class="text-sm text-gray-500"><%= Time.current.strftime('%Y/%m/%d %H:%M') %></p>
-    </div>
-    <div class="bg-base-200 rounded-lg p-4">
-  <p>天気：<%= @weather[:description] %></p>
-  <p>気温：<%= @weather[:temp] %> ℃</p>
-  <p>湿度：<%= @weather[:humidity] %> %</p>
-</div>
-    <div class="space-y-2">
-      <div class="flex items-center justify-between bg-white rounded-lg p-2 shadow">
-        <%= image_tag "weather/sunny.png", alt: "weather", class: "w-6 h-6" %>
-        <div class="text-right text-sm">
-          <div class="text-pink-500">14℃ <span class="text-xs text-gray-500">+3</span></div>
-          <div class="text-blue-500">1℃ <span class="text-xs text-gray-500">+1</span></div>
+<div class="grid grid-cols-2 gap-4">
+
+  <!-- 日時 -->
+  <div class="bg-base-200 rounded-lg p-4 text-center">
+    <p class="text-sm text-gray-500">
+      <%= l(Time.current, format: :short) %>
+    </p>
+  </div>
+
+  <!-- 天気 -->
+  <div class="bg-base-200 rounded-lg p-4">
+    <% if @weather.present? %>
+      <div class="flex items-center gap-4">
+        <img
+          src="https://openweathermap.org/img/wn/<%= @weather[:icon] %>@2x.png"
+          alt="天気アイコン"
+          class="w-14 h-14"
+        />
+        <div class="text-sm">
+          <p><%= @weather[:description] %></p>
+          <p class="font-semibold"><%= @weather[:temp] %> ℃</p>
         </div>
       </div>
-      <div class="flex items-center justify-between bg-white rounded-lg p-2 shadow">
-        <%= image_tag "laundry/basic.png", alt: "laundry", class: "w-6 h-6" %>
-        <div class="text-sm font-medium">40%</div>
+    <% else %>
+      <p class="text-gray-400 text-sm text-center">
+        天気情報を取得できませんでした
+      </p>
+    <% end %>
+  </div>
+
+  <!-- 洗濯・湿度 -->
+  <div class="col-span-2 space-y-2">
+    <div class="flex items-center justify-between bg-white rounded-lg p-2 shadow">
+      <%= image_tag "weather/sunny.png", class: "w-6 h-6" %>
+      <div class="text-right text-sm">
+        <div class="text-pink-500">14℃ <span class="text-xs text-gray-500">+3</span></div>
+        <div class="text-blue-500">1℃ <span class="text-xs text-gray-500">+1</span></div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between bg-white rounded-lg p-2 shadow">
+      <%= image_tag "laundry/basic.png", class: "w-6 h-6" %>
+      <div class="text-sm font-medium">
+        <%= @weather&.dig(:humidity) || "--" %>%
       </div>
     </div>
   </div>
+
+</div>
 
   <!-- バディからのメッセージ -->
   <div class="bg-pink-100 rounded-lg p-4 flex items-start gap-4 shadow-inner">
