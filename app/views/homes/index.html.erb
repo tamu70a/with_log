@@ -60,31 +60,26 @@
     </div>
   </div>
 
-  <!-- TODOリスト -->
+<!-- TODOリスト -->
 <div class="bg-base-100 rounded-lg p-4 shadow space-y-2">
   <h3 class="text-md font-bold">TODO</h3>
 
-  <% @tasks.each do |task| %>
-    <div class="flex items-center justify-between border p-2 rounded">
-      <label class="flex items-center gap-2">
-        <!-- 今は見た目だけ -->
-        <input type="checkbox" class="checkbox checkbox-sm" disabled />
-        <span class="text-sm"><%= task.title %></span>
-      </label>
-
-      <!-- 今は押せない飾り -->
-      <button class="btn btn-ghost btn-xs" disabled>
-        <i class="fas fa-pen"></i>
-      </button>
-    </div>
-  <% end %>
+  <div id='tasks'>
+    <%= render @tasks %>
+  </div>
 
   <% if @tasks.empty? %>
     <p class="text-sm text-gray-400 text-center">
       タスクはまだありません
     </p>
   <% end %>
+
+  <!-- ボタン -->
+  <div id="task_form">
+    <%= render "tasks/form" %>
+  </div>
 </div>
+
 
   <!-- 習慣リスト -->
   <div class="bg-base-200 rounded-lg p-4 shadow">

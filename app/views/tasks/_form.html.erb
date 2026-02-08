@@ -1,0 +1,9 @@
+<%# タスク新規作成フォーム %>
+<%= form_with model: Task.new, data: { turbo: true } do |f| %>
+
+  <%# タイトル入力欄 %>
+  <%= f.text_field :title, placeholder: "タスクを入力" %>
+
+  <%# 追加ボタン %>
+  <%= f.submit "追加" %>
+<% end %>
