@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
   # app/models/user.rb
   has_one :home_memo, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 end

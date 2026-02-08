@@ -14,7 +14,7 @@ class HomesController < ApplicationController
         humidity: res["main"]["humidity"]
       }
     end
-
+  @tasks = current_user.tasks.order(created_at: :desc)
   @home_memo = current_user.home_memo || current_user.create_home_memo!
 end
 end
