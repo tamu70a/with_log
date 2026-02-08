@@ -1,0 +1,16 @@
+<%# === 新規タスクを一覧の先頭に追加する === %>
+<%# "tasks" は homes/index.html.erb にある <div id="tasks"> %>
+<%# prepend = 一番上に差し込む（最新タスクを上に表示） %>
+<%= turbo_stream.prepend "tasks",
+      partial: "tasks/task",          # タスク1件分の見た目
+      locals: { task: @task }       # controllerで作った @task を渡す
+%>
+
+
+<%# === 新規作成フォームを空に戻す === %>
+<%# "task_form" は フォームを囲っている <div id="task_form"> %>
+<%# replace = フォーム全体を描き直す %>
+<%= turbo_stream.replace "task_form",
+      partial: "tasks/form"         # Task.new を使うので入力欄が初期化される
+%>
+

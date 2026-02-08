@@ -56,8 +56,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_133411) do
     t.string "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "temp_max"
-    t.float "temp_min"
   end
 
   add_foreign_key "home_memos", "users"
