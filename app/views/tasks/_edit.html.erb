@@ -4,27 +4,28 @@
 
 <%# 表示用と同じ id にすることで %>
 <%# turbo_stream.replace で入れ替え可能になる %>
-<div id="task_<%= task.id %>">
+<div id="task_<%= task.id %>"
+     class="flex items-center gap-2 rounded px-3 py-2">
 
-  <%# ---- 編集フォーム ---- %>
-  <%# model: task にすることで %>
-  <%# PATCH /tasks/:id が自動で呼ばれる %>
-  <%= form_with model: task do |f| %>
+  <%= form_with model: task,
+        class: "flex items-center gap-2 w-full" do |f| %>
 
-    <div class="flex gap-2">
+    <%# ---- タスク内容の編集欄 ---- %>
+    <%= f.text_field :title,
+          class: "input input-sm input-bordered flex-1" %>
 
-      <%# タスク内容の編集欄 %>
-      <%= f.text_field :title,
-            class: "input input-sm input-bordered flex-1" %>
+    <%# ---- 保存ボタン ---- %>
+    <%= f.submit "保存",
+          class: "btn btn-sm btn-primary" %>
 
-      <%# 保存ボタン %>
-      <%# 押すと update が呼ばれ、edit パラメータは無いので %>
-      <%# 「表示パーシャル」に戻る %>
-      <%= f.submit "保存",
-            class: "btn btn-sm btn-primary" %>
-
-    </div>
+    <%# ---- 削除ボタン（編集時のみ表示） ---- %>
+    <%= link_to "削除",
+      task_path(task),
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "削除しますか？"
+      },
+      class: "btn btn-sm btn-outline rounded-full" %>
 
   <% end %>
 </div>
-
