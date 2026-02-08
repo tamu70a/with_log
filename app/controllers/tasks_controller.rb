@@ -11,6 +11,25 @@ class TasksController < ApplicationController
     end
   end
 
+  def update
+  @task = current_user.tasks.find(params[:id])
+
+  # 編集
+  if params[:edit]
+    respond_to do |format|
+      format.turbo_stream
+    end
+    return
+  end
+
+  # 保存処理
+  if @task.update(task_params)
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+end
+
   private
 
   def task_params
