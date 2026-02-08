@@ -30,6 +30,16 @@ class TasksController < ApplicationController
   end
 end
 
+  def destroy
+    @task = current_user.tasks.find(params[:id])
+    @task.destroy
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to root_path }
+    end
+  end
+
   private
 
   def task_params
