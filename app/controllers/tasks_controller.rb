@@ -18,6 +18,9 @@ end
   def update
   @task = current_user.tasks.find(params[:id])
 
+  Rails.logger.debug "=== UPDATE PARAMS ==="
+  Rails.logger.debug params.inspect
+
   # 編集
   if params[:edit]
     respond_to do |format|
@@ -25,6 +28,18 @@ end
     end
     return
   end
+
+  # 完了チェック切り替え
+  if params.key?(:is_done)
+  @task.update(is_done: params[:is_done] == "1")
+
+  respond_to do |format|
+    format.turbo_stream
+  end
+  return
+end
+
+
 
   # 保存処理
   if @task.update(task_params)
@@ -47,6 +62,6 @@ end
   private
 
   def task_params
-    params.require(:task).permit(:title)
+    params.require(:task).permit(:title, :is_done)
   end
 end

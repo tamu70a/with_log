@@ -1,12 +1,33 @@
 <div id="task_<%= task.id %>"
-     class="flex items-center gap-2 p-2 rounded-lg shadow border-gray-100 ">
+     class="flex items-center gap-2 p-2 rounded-lg border border-gray-200">
 
-  <span class="flex-1 text-gray-700 h-9 flex items-center"><%= task.title %></span>
+  <!-- 完了チェック用フォーム -->
+  <%= form_with url: task_path(task),
+        method: :patch,
+        data: { turbo_stream: true },
+        class: "flex items-center" do %>
 
-  <%= button_to "編集", task_path(task),
+    <%= hidden_field_tag :is_done, "0" %>
+
+    <%= check_box_tag :is_done,
+          "1",
+          task.is_done,
+          onchange: "this.form.requestSubmit()",
+          class: "checkbox checkbox-sm" %>
+  <% end %>
+
+  <!-- タスク名 -->
+  <span class="flex-1
+               <%= "line-through text-gray-400" if task.is_done %>">
+    <%= task.title %>
+  </span>
+
+  <!-- 編集 -->
+  <%= button_to "編集",
+        task_path(task),
         method: :patch,
         params: { edit: true },
-        form: { data: { turbo_stream: true }, class: "flex items-center gap-1" },
-        class: "btn btn-sm btn-primary h-9" %>
+        form: { data: { turbo_stream: true } },
+        class: "btn btn-sm btn-primary" %>
 </div>
 

@@ -1,9 +1,12 @@
-<%# タスク新規作成フォーム %>
-<%= form_with model: Task.new, data: { turbo: true } do |f| %>
+<%= form_with model: task,
+      url: task_path(task),
+      method: :patch,
+      data: { turbo_stream: true },
+      class: "flex items-center" do |f| %>
 
-  <%# タイトル入力欄 %>
-  <%= f.text_field :title, placeholder: "タスクを入力" %>
+  <%= f.check_box :is_done,
+        class: "checkbox checkbox-sm",
+        onchange: "this.form.requestSubmit()" %>
 
-  <%# 追加ボタン %>
-  <%= f.submit "追加" %>
 <% end %>
+
