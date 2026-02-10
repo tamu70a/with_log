@@ -1,15 +1,19 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
 
-  def create
-    @task = current_user.tasks.new(task_params)
+# app/controllers/tasks_controller.rb
+def create
+  @task = current_user.tasks.new(title: "")  # 空タイトルでもOK
+  @task.editing = true  # ← 追加直後は編集状態
 
-    if @task.save
-      # Turbo用（あとで書く）
-    else
-      # バリデーションエラー用
+  if @task.save
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to root_path }
     end
   end
+end
+
 
   def update
   @task = current_user.tasks.find(params[:id])

@@ -76,9 +76,11 @@
 
   <!-- ボタン -->
   <div id="task_form">
-    <%= render "tasks/form" %>
+    <%= button_to "タスク追加", tasks_path,
+        method: :post,
+        form: { data: { turbo: true } },
+        class: "btn btn-primary w-full" %>
   </div>
-</div>
 
 
   <!-- 習慣リスト -->
