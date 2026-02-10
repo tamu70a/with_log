@@ -1,2 +1,39 @@
-<h1>Habits#index</h1>
-<p>Find me in app/views/habits/index.html.erb</p>
+<h1 class="text-xl font-bold mb-6">習慣一覧</h1>
+
+<% if @habits.any? %>
+  <div class="space-y-3 mb-10">
+    <% @habits.each do |habit| %>
+      <div class="p-4 rounded-lg bg-white shadow border">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-medium text-lg">
+              <%= habit.title %>
+            </div>
+
+            <div class="text-sm text-gray-500">
+              <%= habit.start_date %> 〜 <%= habit.end_date %>
+              （<%= habit.total_days %>日間）
+            </div>
+
+            <div class="text-sm text-gray-600 mt-1">
+              <%= habit.current_day %> / <%= habit.total_days %>
+            </div>
+          </div>
+
+          <%= link_to "編集",
+                edit_habit_path(habit),
+                class: "btn btn-sm btn-outline" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-gray-400 mb-10">まだ習慣が登録されていません</p>
+<% end %>
+
+<!-- 👇 ここが新規登録ボタン -->
+<div class="fixed bottom-20 left-0 right-0 px-4">
+  <%= link_to " 習慣を新しく登録",
+        new_habit_path,
+        class: "btn btn-primary btn-lg w-full shadow-lg" %>
+</div>
