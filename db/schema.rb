@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_10_134757) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_10_144429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "habits", force: :cascade do |t|
+    t.string "title", null: false
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_habits_on_user_id"
+  end
 
   create_table "home_memos", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -57,8 +67,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_10_134757) do
     t.string "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "temp_max"
+    t.float "temp_min"
   end
 
+  add_foreign_key "habits", "users"
   add_foreign_key "home_memos", "users"
   add_foreign_key "tasks", "users"
 end
