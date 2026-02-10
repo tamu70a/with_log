@@ -6,4 +6,5 @@ class User < ApplicationRecord
   # app/models/user.rb
   has_one :home_memo, dependent: :destroy
   has_many :tasks, dependent: :destroy
+  has_many :habits, dependent: :destroy
 end
