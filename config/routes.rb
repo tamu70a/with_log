@@ -22,5 +22,5 @@ Rails.application.routes.draw do
   root "homes#index"
   resource :home_memo, only: [ :update ]
   resources :tasks, only: [ :create, :update, :destroy ]
-  resources :habits, only: [ :new, :index, :create, :update, :destroy ]
+  resources :habits, only: [ :new, :index, :edit, :create, :update, :destroy ]
 end
