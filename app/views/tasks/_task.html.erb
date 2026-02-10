@@ -1,26 +1,12 @@
-<%# =============================== %>
-<%# タスク1件を「表示」するパーシャル %>
-<%# =============================== %>
-
-<%# Turbo Stream で差し替えるため、必ず一意な id をつける %>
-<%# update.turbo_stream.erb から replace される対象 %>
 <div id="task_<%= task.id %>"
-     class="input input-sm input-bordered w-full">
+     class="flex items-center gap-2 p-2 rounded-lg shadow border-gray-100 ">
 
-  <%# ---- タスクの内容表示 ---- %>
-  <span class="flex-1">
-    <%= task.title %>
-  </span>
+  <span class="flex-1 text-gray-700 h-9 flex items-center"><%= task.title %></span>
 
-  <%# ---- 編集ボタン ---- %>
-  <%# ・PATCH /tasks/:id に送る %>
-  <%# ・edit=true を渡して「編集モードにしたい」ことを controller に伝える %>
-  <%# ・data-turbo-stream を使うので画面遷移しない %>
-  <%= button_to "✏️",
-        task_path(task),
+  <%= button_to "編集", task_path(task),
         method: :patch,
         params: { edit: true },
-        form: { data: { turbo_stream: true } },
-        class: "btn btn-sm " %>
-
+        form: { data: { turbo_stream: true }, class: "flex items-center gap-1" },
+        class: "btn btn-sm btn-primary h-9" %>
 </div>
+
