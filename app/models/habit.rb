@@ -1,21 +1,27 @@
 class Habit < ApplicationRecord
-  belongs_to :user
+  has_many :habit_checks, dependent: :destroy
 
-  # 目標日数（例: 2/1〜2/10 → 10日）
+  def current_count
+    habit_checks.where("check_date <= ?", Date.current).count
+  rescue
+    0
+  end
+
   def total_days
-    return nil if start_date.blank? || end_date.blank?
+    return 0 unless start_date && end_date
     (end_date - start_date).to_i + 1
   end
 
-  # 今日が何日目か
-  def current_day
-  return nil if start_date.blank?
-  [ (Date.current - start_date).to_i + 1, total_days ].min
+  def toggle_today_check!
+    today_check = habit_checks.find_by(check_date: Date.current)
+    if today_check
+      today_check.destroy!
+    else
+      habit_checks.create!(check_date: Date.current)
+    end
   end
 
-# 残り日数
-def remaining_days
-  return nil if end_date.blank?
-  (end_date - Date.current).to_i
-end
+  def checked_today?
+    habit_checks.exists?(check_date: Date.current)
+  end
 end

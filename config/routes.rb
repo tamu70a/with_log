@@ -22,5 +22,7 @@ Rails.application.routes.draw do
   root "homes#index"
   resource :home_memo, only: [ :update ]
   resources :tasks, only: [ :create, :update, :destroy ]
-  resources :habits, only: [ :new, :index, :edit, :create, :update, :destroy ]
+  resources :habits, only: [ :new, :index, :edit, :create, :update, :destroy ] do
+    patch :toggle_check, on: :member
+  end
 end

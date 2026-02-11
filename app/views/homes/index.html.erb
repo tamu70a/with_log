@@ -82,12 +82,24 @@
         class: "btn btn-primary w-full" %>
   </div>
 
+<!-- 習慣リスト -->
+<div class="bg-base-200 rounded-lg p-4 shadow">
+  <h3 class="text-md font-bold">習慣</h3>
 
-  <!-- 習慣リスト -->
-  <div class="bg-base-200 rounded-lg p-4 shadow">
-    <h3 class="text-md font-bold">習慣</h3>
-    <p class="text-sm text-center text-gray-400 mt-4">データがありません。</p>
-  </div>
+  <% if @habits.any? %>
+    <div class="space-y-2 mt-4">
+      <% @habits.each do |habit| %>
+        <%# ★変更点：turbo_frame_tag をやめて、普通の div に ID を振る %>
+        <div id="habit_<%= habit.id %>">
+          <%= render "habits/habit_item", habit: habit %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-sm text-center text-gray-400 mt-4">まだ習慣がありません</p>
+  <% end %>
+</div>
+
 
   <!-- メモ -->
 <div

@@ -1,6 +1,7 @@
 class HabitsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_habit, only: [ :edit, :update, :destroy ]
+  before_action :set_habit, only: [ :edit, :update, :destroy, :toggle_check ]
+
   def index
     @habits = current_user.habits.order(created_at: :desc)
   end
@@ -11,7 +12,6 @@ class HabitsController < ApplicationController
 
   def create
     @habit = current_user.habits.new(habit_params)
-
     if @habit.save
       redirect_to habits_path, notice: "習慣を作成しました"
     else
@@ -19,11 +19,9 @@ class HabitsController < ApplicationController
     end
   end
 
-  # 編集ページ
   def edit
   end
 
-  # 更新処理
   def update
     if @habit.update(habit_params)
       redirect_to habits_path, notice: "習慣を更新しました"
@@ -33,9 +31,22 @@ class HabitsController < ApplicationController
   end
 
   def destroy
-  @habit.destroy
-  redirect_to habits_path, notice: "習慣を削除しました"
+    @habit.destroy
+    redirect_to habits_path, notice: "習慣を削除しました"
   end
+
+# チェックON/OFF
+# app/controllers/habits_controller.rb
+def toggle_check
+  @habit.toggle_today_check!
+  @habit.reload
+
+  respond_to do |format|
+    format.turbo_stream
+    format.html { redirect_to habits_path }
+  end
+end
+
 
   private
 
@@ -44,7 +55,6 @@ class HabitsController < ApplicationController
   end
 
   def set_habit
-    # current_user の習慣からIDで取得
     @habit = current_user.habits.find(params[:id])
   end
 end

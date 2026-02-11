@@ -16,8 +16,9 @@
             </div>
 
             <div class="text-sm text-gray-600 mt-1">
-              <%= habit.current_day %> / <%= habit.total_days %>
-            </div>
+  <%= habit.habit_checks.count %> / <%= habit.total_days %>
+</div>
+
           </div>
 
           <!-- 編集・削除ボタン -->

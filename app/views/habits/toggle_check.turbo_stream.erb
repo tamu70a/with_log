@@ -1,0 +1,6 @@
+<%# サーバーから「このIDの要素をこの中身で丸ごと差し替えろ」と指示を出す %>
+<%= turbo_stream.replace "habit_#{@habit.id}" do %>
+  <div id="habit_<%= @habit.id %>">
+    <%= render "habits/habit_item", habit: @habit %>
+  </div>
+<% end %>
