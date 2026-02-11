@@ -15,6 +15,12 @@ class HomesController < ApplicationController
       }
     end
   @tasks = current_user.tasks.order(created_at: :desc)
+  @habits = current_user.habits.order(created_at: :desc)
+@habits.each do |habit|
+  habit.start_date ||= Date.current
+  habit.end_date ||= Date.current
+end
+
   @home_memo = current_user.home_memo || current_user.create_home_memo!
 end
 end

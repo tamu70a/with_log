@@ -1,0 +1,16 @@
+<div class="flex items-center justify-between p-2 bg-white rounded-lg shadow">
+  <div class="flex-1">
+    <div class="font-medium"><%= habit.title %></div>
+    <div class="text-sm text-gray-500">
+      <%= habit.current_count %> / <%= habit.total_days %>
+    </div>
+  </div>
+
+  <%# ★変更点：form: { data: { turbo_frame: ... } } を削除 %>
+  <%= button_to(
+    habit.checked_today? ? "✅ チェック済み" : "□ チェック",
+    toggle_check_habit_path(habit),
+    method: :patch,
+    class: "btn btn-sm #{habit.checked_today? ? 'btn-primary' : 'btn-outline'} h-9"
+  ) %>
+</div>
