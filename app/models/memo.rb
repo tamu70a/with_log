@@ -5,4 +5,3 @@ class Memo < ApplicationRecord
 
   default_scope { order(memo_date: :desc) }
 end
-
