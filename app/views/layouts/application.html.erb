@@ -31,8 +31,11 @@
       <%= yield %>
     </main>
 
+    <turbo-frame id="modal"></turbo-frame>
+
     <% if user_signed_in? %>
       <%= render "devise/shared/footer" %>
     <% end %>
   </body>
+  
 </html>
