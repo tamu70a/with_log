@@ -1,10 +1,16 @@
 class MemosController < ApplicationController
   before_action :authenticate_user!
 
-    def index
-      @memos = current_user.memos.order(memo_date: :desc)
-      @memo = current_user.memos.new
-    end
+    def new
+  # memo_dateの初期値に今日の日付をセット
+  @memo = current_user.memos.new(memo_date: Time.zone.today)
+end
+
+def index
+  @memos = current_user.memos.order(memo_date: :desc)
+  # indexから直接作成する場合も初期値をセット
+  @memo = current_user.memos.new(memo_date: Time.zone.today)
+end
 
     def create
       @memo = current_user.memos.new(memo_params)
@@ -12,7 +18,7 @@ class MemosController < ApplicationController
         redirect_to memos_path, notice: "メモを作成しました。"
       else
         @memos = current_user.memos.order(memo_date: :desc)
-        render :index
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -25,7 +31,7 @@ class MemosController < ApplicationController
       if @memo.update(memo_params)
         redirect_to memos_path, notice: "メモを更新しました。"
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
