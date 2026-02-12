@@ -1,0 +1,46 @@
+<div class="max-w-md mx-auto px-4 pb-24">
+  <h1 class="text-xl font-bold text-center my-6">メモ一覧</h1>
+
+  <%# デザイン案に基づいたテーブル構造 %>
+  <div class="bg-white rounded-lg shadow-sm border overflow-hidden">
+    <table class="w-full text-left">
+      <thead>
+        <tr class="bg-gray-50 border-b text-sm">
+          <th class="p-3 font-semibold border-r w-24">記録日時</th>
+          <th class="p-3 font-semibold border-r">内容</th>
+          <th class="p-3 font-semibold w-20"></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y">
+        <% @memos.each do |memo| %>
+          <tr class="text-sm">
+            <td class="p-3 border-r">
+              <%= memo.memo_date.strftime("%m/%d") %>
+            </td>
+            <td class="p-3 border-r truncate max-w-[150px]">
+              <%= memo.content %>
+            </td>
+            <td class="p-3 text-center">
+              <%= link_to "編集", edit_memo_path(memo), 
+                  class: "bg-pink-400 text-white text-xs px-3 py-1 rounded-full shadow-sm active:bg-pink-500" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @memos.empty? %>
+    <p class="text-center text-gray-400 mt-10">まだメモがありません</p>
+  <% end %>
+</div>
+
+<%# ★右下の新規登録ボタン (Floating Action Button) %>
+<div class="fixed bottom-24 right-6 z-40">
+  <%= link_to new_memo_path, 
+      class: "flex items-center justify-center w-14 h-14 bg-pink-500 text-white rounded-full shadow-lg transition-transform active:scale-90" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg>
+  <% end %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_10_174645) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_11_151345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_10_174645) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_home_memos_on_user_id"
+  end
+
+  create_table "memos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "content"
+    t.date "memo_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_memos_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -82,5 +91,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_10_174645) do
   add_foreign_key "habit_checks", "habits"
   add_foreign_key "habits", "users"
   add_foreign_key "home_memos", "users"
+  add_foreign_key "memos", "users"
   add_foreign_key "tasks", "users"
 end

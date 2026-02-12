@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   resources :habits, only: [ :new, :index, :edit, :create, :update, :destroy ] do
     patch :toggle_check, on: :member
   end
+  resources :memos
 end
