@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_11_151345) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_13_033504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "body_records", force: :cascade do |t|
+    t.float "weight"
+    t.float "body_fat"
+    t.date "measured_on"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_body_records_on_user_id"
+  end
 
   create_table "habit_checks", force: :cascade do |t|
     t.bigint "habit_id", null: false
@@ -88,6 +98,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_11_151345) do
     t.float "temp_min"
   end
 
+  add_foreign_key "body_records", "users"
   add_foreign_key "habit_checks", "habits"
   add_foreign_key "habits", "users"
   add_foreign_key "home_memos", "users"

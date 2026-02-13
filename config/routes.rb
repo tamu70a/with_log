@@ -26,4 +26,5 @@ Rails.application.routes.draw do
     patch :toggle_check, on: :member
   end
   resources :memos
+  resources :body_records, only: [ :index, :create ]
 end

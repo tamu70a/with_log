@@ -8,4 +8,5 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :habits, dependent: :destroy
   has_many :memos, dependent: :destroy
+  has_many :body_records, dependent: :destroy
 end

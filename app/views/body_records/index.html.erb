@@ -1,0 +1,36 @@
+<!-- 入力フォーム -->
+<div class="fixed bottom-20 left-0 right-0 px-4">
+  <div class="bg-base-200 rounded-xl p-4 shadow-lg">
+
+    <%= form_with model: @body_record, url: body_records_path, local: true do |f| %>
+
+      <div class="flex gap-4 mb-4">
+        
+        <div class="flex-1">
+          <label class="text-sm">体重</label>
+          <div class="flex items-center gap-2">
+            <%= f.number_field :weight,
+                  step: 0.1,
+                  class: "input input-bordered w-full" %>
+            <span>kg</span>
+          </div>
+        </div>
+
+        <div class="flex-1">
+          <label class="text-sm">体脂肪</label>
+          <div class="flex items-center gap-2">
+            <%= f.number_field :body_fat,
+                  step: 0.1,
+                  class: "input input-bordered w-full" %>
+            <span>%</span>
+          </div>
+        </div>
+
+      </div>
+
+      <%= f.submit "入力",
+            class: "btn btn-primary w-full" %>
+
+    <% end %>
+  </div>
+</div>
