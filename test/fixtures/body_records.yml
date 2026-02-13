@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  weight: 1.5
+  body_fat: 1.5
+  measured_on: 2026-02-13
+  user: one
+
+two:
+  weight: 1.5
+  body_fat: 1.5
+  measured_on: 2026-02-13
+  user: two
