@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_13_033504) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_14_064956) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,10 +98,20 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_13_033504) do
     t.float "temp_min"
   end
 
+  create_table "weight_goals", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.float "target_weight"
+    t.date "target_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_weight_goals_on_user_id"
+  end
+
   add_foreign_key "body_records", "users"
   add_foreign_key "habit_checks", "habits"
   add_foreign_key "habits", "users"
   add_foreign_key "home_memos", "users"
   add_foreign_key "memos", "users"
   add_foreign_key "tasks", "users"
+  add_foreign_key "weight_goals", "users"
 end

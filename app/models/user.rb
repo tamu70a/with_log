@@ -9,4 +9,9 @@ class User < ApplicationRecord
   has_many :habits, dependent: :destroy
   has_many :memos, dependent: :destroy
   has_many :body_records, dependent: :destroy
+  has_many :weight_goals, dependent: :destroy
+
+  def current_goal
+    weight_goals.order(created_at: :desc).first
+  end
 end
