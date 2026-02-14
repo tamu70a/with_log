@@ -27,4 +27,9 @@ Rails.application.routes.draw do
   end
   resources :memos
   resources :body_records, only: [ :index, :create ]
+
+  namespace :settings do
+    resources :body_records, only: [ :index, :show, :edit, :update, :destroy ]
+    resource  :goal_weight, only: [ :show, :new, :create, :edit, :update, :destroy ]
+  end
 end
