@@ -22,10 +22,10 @@
 
       <div class="flex flex-col gap-2 mt-4">
         <%= f.submit "登録", class: "btn btn-primary w-full" %>
-        <%= button_to "削除", settings_body_record_path(@body_record),
+        <%= link_to "削除", settings_body_record_path(@body_record),
               method: :delete,
-              data: { confirm: "本当に削除しますか？" },
-              class: "btn btn-outline btn-error w-full" %>
+              data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+      class: "btn w-full h-10 text-sm border border-blue-300 text-blue-400 hover:bg-blue-50" %>
       </div>
 
     </div>
