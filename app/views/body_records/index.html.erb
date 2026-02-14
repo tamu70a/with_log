@@ -1,3 +1,23 @@
+<div class="max-w-md mx-auto px-4 mt-6">
+  <div class="bg-base-100 rounded-xl p-4 shadow">
+
+    <h2 class="text-lg font-bold mb-2">体重・体脂肪グラフ</h2>
+
+    <canvas id="weightChart"></canvas>
+
+    <!-- Rails → JS にデータ渡す -->
+    <script id="body-records-data" type="application/json">
+      {
+        "labels": <%= raw @body_records.pluck(:measured_on).map { |d| d.strftime("%m/%d") }.to_json %>,
+        "weights": <%= raw @body_records.pluck(:weight).to_json %>,
+        "body_fats": <%= raw @body_records.pluck(:body_fat).to_json %>
+      }
+    </script>
+
+  </div>
+</div>
+
+
 <!-- 入力フォーム -->
 <div class="fixed bottom-20 left-0 right-0 px-4">
   <div class="bg-base-200 rounded-xl p-4 shadow-lg">
