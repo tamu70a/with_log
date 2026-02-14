@@ -4,6 +4,8 @@ class BodyRecordsController < ApplicationController
 def index
   @body_records = current_user.body_records.order(measured_on: :asc)
   @body_record = current_user.body_records.new
+  @current_goal = current_user.current_goal
+  @latest_weight = current_user.body_records.order(measured_on: :desc).first
 end
 
 def create
