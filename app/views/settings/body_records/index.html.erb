@@ -24,10 +24,6 @@
             <td class="flex gap-2">
               <%= link_to "編集", edit_settings_body_record_path(record),
                           class: "btn btn-sm btn-outline btn-primary" %>
-              <%= link_to "削除", settings_body_record_path(record),
-                          method: :delete,
-                          data: { confirm: "本当に削除しますか？" },
-                          class: "btn btn-sm btn-outline btn-error" %>
             </td>
           </tr>
         <% end %>
