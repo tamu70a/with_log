@@ -4,7 +4,7 @@ class MemosController < ApplicationController
     def new
   # memo_dateの初期値に今日の日付をセット
   @memo = current_user.memos.new(memo_date: Time.zone.today)
-end
+    end
 
 def index
   @memos = current_user.memos.order(memo_date: :desc)

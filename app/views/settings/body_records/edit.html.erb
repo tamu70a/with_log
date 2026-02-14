@@ -1,0 +1,33 @@
+<div class="max-w-md mx-auto px-4 pb-32 space-y-6">
+
+  <h1 class="text-xl font-bold mb-4">体重記録の編集</h1>
+
+  <%= form_with model: @body_record, url: settings_body_record_path(@body_record), local: true do |f| %>
+    <div class="space-y-4 bg-base-100 p-4 rounded-lg shadow">
+
+      <div>
+        <label class="label">日付</label>
+        <%= f.date_field :measured_on, class: "input input-bordered w-full" %>
+      </div>
+
+      <div>
+        <label class="label">体重(kg)</label>
+        <%= f.number_field :weight, step: 0.1, class: "input input-bordered w-full" %>
+      </div>
+
+      <div>
+        <label class="label">体脂肪(%)</label>
+        <%= f.number_field :body_fat, step: 0.1, class: "input input-bordered w-full" %>
+      </div>
+
+      <div class="flex flex-col gap-2 mt-4">
+        <%= f.submit "登録", class: "btn btn-primary w-full" %>
+        <%= button_to "削除", settings_body_record_path(@body_record),
+              method: :delete,
+              data: { confirm: "本当に削除しますか？" },
+              class: "btn btn-outline btn-error w-full" %>
+      </div>
+
+    </div>
+  <% end %>
+</div>
