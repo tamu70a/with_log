@@ -22,5 +22,5 @@ class HomesController < ApplicationController
 end
 
   @home_memo = current_user.home_memo || current_user.create_home_memo!
-end
+  end
 end
