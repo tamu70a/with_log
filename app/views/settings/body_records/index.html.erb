@@ -1,0 +1,38 @@
+<div class="max-w-full mx-auto space-y-6 px-4 pb-32">
+
+  <!-- ページタイトル -->
+  <h1 class="text-2xl font-bold text-center mb-4">体重記録一覧</h1>
+
+
+  <!-- 体重一覧テーブル -->
+  <div class="overflow-x-auto bg-base-100 rounded-lg shadow-lg p-4">
+    <table class="table w-full table-zebra">
+      <thead>
+        <tr class="bg-base-200">
+          <th class="text-left">日付</th>
+          <th class="text-left">体重(kg)</th>
+          <th class="text-left">体脂肪(%)</th>
+          <th class="text-left">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @body_records.each do |record| %>
+          <tr>
+            <td><%= record.measured_on.strftime("%Y/%m/%d") %></td>
+            <td><%= record.weight %></td>
+            <td><%= record.body_fat || "-" %></td>
+            <td class="flex gap-2">
+              <%= link_to "編集", edit_settings_body_record_path(record),
+                          class: "btn btn-sm btn-outline btn-primary" %>
+              <%= link_to "削除", settings_body_record_path(record),
+                          method: :delete,
+                          data: { confirm: "本当に削除しますか？" },
+                          class: "btn btn-sm btn-outline btn-error" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>

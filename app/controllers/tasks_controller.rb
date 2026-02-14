@@ -47,7 +47,7 @@ end
       format.turbo_stream
     end
   end
-end
+  end
 
   def destroy
     @task = current_user.tasks.find(params[:id])
