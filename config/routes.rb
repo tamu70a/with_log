@@ -29,7 +29,14 @@ Rails.application.routes.draw do
   resources :body_records, only: [ :index, :create ]
 
   namespace :settings do
+    root "dashboards#show"
     resources :body_records, only: [ :index, :show, :edit, :update, :destroy ]
-    resources :weight_goals, only: [ :show, :new, :create, :edit, :update, :destroy ]
+    resources :weight_goals, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
+    resource :growth_setting, only: [ :show, :update ]
+    resources :children
+    resource :theme_setting
+    resource :account_setting
   end
+  get "terms", to: "static#terms"
+  get "privacy", to: "static#privacy"
 end
