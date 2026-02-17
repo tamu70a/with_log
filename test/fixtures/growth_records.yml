@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  child: one
+  month_age: 1
+  body_height: 1.5
+  body_weight: 1.5
+  content: MyText
+
+two:
+  child: two
+  month_age: 1
+  body_height: 1.5
+  body_weight: 1.5
+  content: MyText

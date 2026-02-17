@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_02_14_064956) do
+ActiveRecord::Schema[7.2].define(version: 2026_02_17_130317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,26 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_14_064956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_body_records_on_user_id"
+  end
+
+  create_table "children", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.date "birthday"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_children_on_user_id"
+  end
+
+  create_table "growth_records", force: :cascade do |t|
+    t.bigint "child_id", null: false
+    t.integer "month_age"
+    t.float "body_height"
+    t.float "body_weight"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_growth_records_on_child_id"
   end
 
   create_table "habit_checks", force: :cascade do |t|
@@ -94,6 +114,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_14_064956) do
     t.string "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "temp_max"
+    t.float "temp_min"
   end
 
   create_table "weight_goals", force: :cascade do |t|
@@ -106,6 +128,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_02_14_064956) do
   end
 
   add_foreign_key "body_records", "users"
+  add_foreign_key "children", "users"
+  add_foreign_key "growth_records", "children"
   add_foreign_key "habit_checks", "habits"
   add_foreign_key "habits", "users"
   add_foreign_key "home_memos", "users"
