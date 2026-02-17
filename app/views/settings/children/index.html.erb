@@ -1,0 +1,54 @@
+<div class="max-w-md mx-auto px-4 pt-8 pb-20">
+  <%# ヘッダー %>
+  <h1 class="text-xl font-bold text-center mb-8">成長記録設定</h1>
+  
+  <div class="bg-base-100 rounded-3xl p-6 shadow-sm border border-base-200">
+    <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+      <span class="w-1 h-6 bg-primary rounded-full"></span>
+      お子さま一覧
+    </h2>
+    
+    <div class="space-y-3">
+      <% if @children.any? %>
+        <% @children.each do |child| %>
+          <%# 各お子さまのカード %>
+          <%= link_to edit_settings_child_path(child), 
+                class: "flex justify-between items-center p-4 bg-base-50 hover:bg-base-200 border border-base-200 rounded-2xl transition-all active:scale-95" do %>
+            <div>
+              <p class="font-bold text-gray-700"><%= child.name %></p>
+              <p class="text-xs text-gray-400 mt-1">
+                🎂 <%= child.birthday.presence || "生年月日未登録" %>
+              </p>
+            </div>
+            <div class="text-gray-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%# 登録がない時の表示 %>
+        <div class="text-center py-10">
+          <p class="text-sm text-gray-400">まだ登録されている<br>お子さまがいません</p>
+        </div>
+      <% end %>
+    </div>
+
+    <%# お子さま追加ボタン %>
+    <div class="mt-10">
+      <%= link_to new_settings_child_path, 
+            class: "btn btn-primary w-full rounded-full text-white shadow-lg gap-2" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        お子さまを追加する
+      <% end %>
+    </div>
+  </div>
+
+  <%# 設定トップへ戻る %>
+  <div class="mt-8 text-center">
+    <%= link_to "設定に戻る", settings_root_path, class: "text-sm text-gray-400 underline underline-offset-4" %>
+  </div>
+</div>
