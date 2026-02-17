@@ -19,11 +19,23 @@
   </head>
 
   <body class="bg-gray-100 min-h-screen flex flex-col">
-    <% if user_signed_in? %>
-      <div class="absolute top-2 right-2">
-        <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline" %>
+    <body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <% if notice.present? %>
+    <div class="toast toast-top toast-center z-50 mt-20">
+      <div class="alert alert-success shadow-lg">
+        <span><%= notice %></span>
       </div>
-    <% end %>
+    </div>
+  <% end %>
+
+  <% if alert.present? %>
+    <div class="toast toast-top toast-center z-50 mt-20">
+      <div class="alert alert-error shadow-lg">
+        <span><%= alert %></span>
+      </div>
+    </div>
+  <% end %>
 
     <main class="<%= devise_controller? && controller_name == 'sessions' && action_name == 'new' ?
       'max-w-md mx-auto mt-16 p-6 bg-white shadow rounded-lg' : 
