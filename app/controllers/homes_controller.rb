@@ -28,5 +28,7 @@ class HomesController < ApplicationController
 
     # ホームメモの取得または作成
     @home_memo = current_user.home_memo || current_user.create_home_memo!
-  end
+    @latest_goal = current_user.weight_goals.latest_first.first
+    @latest_body_record = current_user.body_records.latest_first.first
+end
 end
