@@ -1,0 +1,37 @@
+<div class="max-w-md mx-auto px-4 pb-32 space-y-6">
+
+<body>
+
+  <h1 class="text-xl font-bold mb-4">
+    <%= @weight_goal.persisted? ? "目標体重の編集" : "目標体重の設定" %>
+  </h1>
+
+  <%# --- 修正箇所：modelに配列を渡し、url指定を削除（Railsに自動判別させるのが一番安全です） --- %>
+  <%= form_with model: [:settings, @weight_goal], local: true do |f| %>
+
+    <div class="space-y-4 bg-base-100 p-4 rounded-lg shadow">
+
+      <div>
+        <label class="label">目標体重(kg)</label>
+        <%= f.number_field :target_weight, step: 0.1, class: "input input-bordered w-full" %>
+      </div>
+
+      <div>
+        <label class="label">目標日</label>
+        <%= f.date_field :target_date, class: "input input-bordered w-full" %>
+      </div>
+
+      <div class="flex flex-col gap-2 mt-4">
+        <%= f.submit @weight_goal.persisted? ? "更新" : "登録", class: "btn btn-primary w-full h-10 text-base" %>
+
+        <% if @weight_goal.persisted? %>
+          <%# --- 修正箇所：ここも ( @weight_goal ) を忘れずに --- %>
+          <%= link_to "削除", settings_weight_goal_path(@weight_goal),
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                class: "btn w-full h-10 text-sm border border-blue-300 text-blue-400 hover:bg-blue-50" %>
+        <% end %>
+      </div>
+
+    </div>
+  <% end %>
+</div>
