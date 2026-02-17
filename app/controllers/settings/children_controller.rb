@@ -1,6 +1,6 @@
 class Settings::ChildrenController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_child, only: [:edit, :update, :destroy]
+  before_action :set_child, only: [ :edit, :update, :destroy ]
 
   def index
     @children = current_user.children
