@@ -1,0 +1,52 @@
+<div class="max-w-md mx-auto px-4 pb-32 space-y-6">
+
+  <h1 class="text-xl font-bold mb-4">
+    目標体重の設定
+  </h1>
+
+  <!-- 現在の目標表示 -->
+  <div class="bg-base-100 p-4 rounded-lg shadow">
+    <p class="text-sm text-gray-500 mb-1">現在の目標</p>
+
+    <% latest_goal = current_user.weight_goals.latest_first.first %>
+
+    <% if latest_goal.present? %>
+      <p class="text-lg font-semibold">
+        <%= latest_goal.target_weight %> kg
+      </p>
+      <p class="text-sm text-gray-500">
+        期限：<%= latest_goal.target_date %>
+      </p>
+    <% else %>
+      <p class="text-lg font-semibold text-gray-400">
+        ーー
+      </p>
+    <% end %>
+  </div>
+
+  <%= form_with model: [:settings, @weight_goal], local: true do |f| %>
+
+    <div class="space-y-4 bg-base-100 p-4 rounded-lg shadow">
+
+      <div>
+        <label class="label">目標体重(kg)</label>
+        <%= f.number_field :target_weight,
+              step: 0.1,
+              class: "input input-bordered w-full" %>
+      </div>
+
+      <div>
+        <label class="label">目標日</label>
+        <%= f.date_field :target_date,
+              class: "input input-bordered w-full" %>
+      </div>
+
+      <div class="flex flex-col gap-2 mt-4">
+        <%= f.submit "保存",
+              class: "btn btn-primary w-full h-10 text-base" %>
+      </div>
+
+    </div>
+  <% end %>
+
+</div>
