@@ -128,45 +128,24 @@
 </div>
 
 
- <!-- 体重目標 -->
-<div class="bg-base-100 rounded-lg p-4 shadow">
-  <h3 class="text-md font-bold">body</h3>
-
-  <div class="flex justify-between items-center mt-2 space-x-2">
-
-    <!-- 残り日数 -->
-    <div class="input input-bordered flex items-center gap-2 w-1/2">
-      目標まで残り
-      <span class="grow text-right font-semibold">
-        <% if @latest_goal.present? %>
-          <%= @latest_goal.days_remaining %>
-        <% else %>
-          --
-        <% end %>
-      </span>
-      <span>日</span>
+  <!-- 体重目標 -->
+  <div class="bg-base-100 rounded-lg p-4 shadow">
+    <h3 class="text-md font-bold">body</h3>
+    <div class="flex justify-between items-center mt-2 space-x-2">
+      <label class="input input-bordered flex items-center gap-2 w-1/2">
+        目標まで残り
+        <input type="text" class="grow text-right" placeholder="3" />
+        <span>日</span>
+      </label>
+      <label class="input input-bordered flex items-center gap-2 w-1/2">
+        <input type="text" class="grow text-right" placeholder="1.2" />
+        <span>kg</span>
+      </label>
     </div>
-
-    <!-- 残り体重 -->
-    <div class="input input-bordered flex items-center gap-2 w-1/2">
-      <span class="grow text-right font-semibold">
-        <% if @latest_goal.present? && @latest_body_record.present? %>
-          <%= @latest_goal.remaining_weight(@latest_body_record.weight) %>
-        <% else %>
-          --
-        <% end %>
-      </span>
-      <span>kg</span>
+    <div class="mt-2 text-right">
+      <button class="btn btn-circle bg-pink-300 text-white shadow-md">
+        <i class="fas fa-pen"></i>
+      </button>
     </div>
-
   </div>
-
-  <!-- ボタン -->
-  <div class="mt-2 text-right">
-    <%= link_to body_records_path,
-        class: "btn btn-circle bg-pink-300 text-white shadow-md" do %>
-      ✏️
-    <% end %>
-  </div>
-</div>
 </div>

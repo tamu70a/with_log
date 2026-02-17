@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   namespace :settings do
     root "dashboards#show"
     resources :body_records, only: [ :index, :show, :edit, :update, :destroy ]
-    resources :weight_goals, only: [ :index, :create ]
+    resources :weight_goals, only: [ :index, :show, :new, :create, :edit, :update, :destroy ]
     resource :growth_setting, only: [ :show, :update ]
     resources :children
     resource :theme_setting
