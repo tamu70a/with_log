@@ -30,6 +30,6 @@ Rails.application.routes.draw do
 
   namespace :settings do
     resources :body_records, only: [ :index, :show, :edit, :update, :destroy ]
-    resource  :goal_weight, only: [ :show, :new, :create, :edit, :update, :destroy ]
+    resources :weight_goals, only: [ :show, :new, :create, :edit, :update, :destroy ]
   end
 end
