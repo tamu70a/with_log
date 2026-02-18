@@ -1,29 +1,48 @@
-<!-- app/views/shared/_footer.html.erb -->
 <footer class="fixed bottom-0 w-full bg-pink-100 text-gray-700 shadow-inner z-50">
-  <div class="grid grid-cols-6 text-center text-xs">
-    <a href="<%= root_path %>" class="flex flex-col items-center p-2 hover:text-pink-500">
+  <div class="grid grid-cols-6 text-center text-[10px]">
+    
+    <%# ホーム %>
+    <%= link_to root_path, class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
       <%= image_tag "home.png", alt: "home", class: "w-6 h-6 mb-1" %>
       home
-    </a>
-    <a href="/habits" class="flex flex-col items-center p-2 hover:text-pink-500">
+    <% end %>
+
+    <%# 習慣 %>
+    <%= link_to habits_path, class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
       <%= image_tag "habit.png", alt: "habit", class: "w-6 h-6 mb-1" %>
       habit
-    </a>
-    <a href="/memos" class="flex flex-col items-center p-2 hover:text-pink-500">
+    <% end %>
+
+    <%# メモ %>
+    <%= link_to memos_path, class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
       <%= image_tag "memo.png", alt: "memo", class: "w-6 h-6 mb-1" %>
       memo
-    </a>
-    <a href="/body_records" class="flex flex-col items-center p-2 hover:text-pink-500">
+    <% end %>
+
+    <%# 体重記録 %>
+    <%= link_to body_records_path, class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
       <%= image_tag "weight.png", alt: "weight", class: "w-6 h-6 mb-1" %>
       weight
-    </a>
-    <a href="/growth_records" class="flex flex-col items-center p-2 hover:text-pink-500">
-      <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
-      growth_record
-    </a>
-    <a href="/settings" class="flex flex-col items-center p-2 hover:text-pink-500">
+    <% end %>
+
+    <%# 成長記録（ここがお子さまIDが必要な場所） %>
+    <% if current_user.children.any? %>
+      <%= link_to child_growth_records_path(current_user.children.first), class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
+        <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
+        growth
+      <% end %>
+    <% else %>
+      <%= link_to settings_children_path, class: "flex flex-col items-center p-2 opacity-50" do %>
+        <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
+        growth
+      <% end %>
+    <% end %>
+
+    <%# 設定（先ほどのルーティングに合わせて settings_root_path を使用） %>
+    <%= link_to settings_root_path, class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
       <%= image_tag "setting.png", alt: "setting", class: "w-6 h-6 mb-1" %>
       setting
-    </a>
+    <% end %>
+
   </div>
 </footer>
