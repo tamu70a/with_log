@@ -1,9 +1,19 @@
-<div class="py-8">
-  <div class="text-center mb-10">
-    <h1 class="text-xl font-bold">成長記録設定</h1>
-    <p class="text-sm opacity-60">お子さま情報編集</p>
+<div class="max-w-md mx-auto px-4 pt-8 pb-20">
+  <%# 共通ヘッダー：お子さま一覧に戻る %>
+  <div class="flex items-center mb-6">
+    <%= render 'shared/back_button', path: settings_children_path %>
+    <h1 class="text-xl font-bold flex-1 text-center mr-10 text-gray-700">
+      お子さま情報の編集
+    </h1>
   </div>
 
-  <%# 共通のフォーム部品を呼び出し %>
-  <%= render 'form', child: @child %>
+  <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-base-200">
+    <div class="flex items-center gap-2 mb-8">
+      <span class="w-1 h-6 bg-primary rounded-full"></span>
+      <h2 class="font-bold text-gray-700 text-lg">情報の入力</h2>
+    </div>
+
+    <%# フォーム本体を呼び出し %>
+    <%= render 'form', child: @child %>
+  </div>
 </div>

@@ -1,0 +1,40 @@
+<div class="max-w-md mx-auto mt-8 px-4 pb-20">
+  
+  <%# ヘッダーエリア %>
+  <div class="flex items-center mb-8">
+    <%= render "shared/back_button", path: settings_growth_setting_path %>
+    <h1 class="text-xl font-bold flex-1 text-center mr-10 text-gray-700">成長記録表示設定</h1>
+  </div>
+
+  <%# 設定カード %>
+  <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-base-200">
+    <div class="flex flex-col items-center text-center space-y-6">
+      
+      <%# アイコン表示 %>
+
+      <div class="space-y-2">
+        <h2 class="text-lg font-bold text-gray-700">成長記録機能</h2>
+        <p class="text-sm text-gray-400 leading-relaxed">
+          「成長記録」を表示するかどうかを選択できます。
+        </p>
+      </div>
+
+      <%# 設定フォーム %>
+      <%= form_with model: @user, url: settings_growth_setting_path, method: :patch, local: true, class: "w-full" do |f| %>
+  <div class="form-control">
+    <label class="label cursor-pointer p-5 bg-base-50 rounded-2xl border border-base-200">
+      <span class="label-text font-bold text-gray-600">メニューに表示する</span>
+      <%= f.check_box :is_growth_record_enabled, 
+            class: "toggle toggle-primary toggle-lg", 
+            onchange: "this.form.requestSubmit();" %>
+    </label>
+  </div>
+<% end %>
+
+      <p class="text-[10px] text-gray-400">
+        ※オフにしても過去の記録が消えることはありません。<br>
+        いつでも再度オンに戻せます。
+      </p>
+    </div>
+  </div>
+</div>

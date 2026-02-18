@@ -25,16 +25,16 @@
       <% end %>
 
       <%= link_to settings_growth_setting_path,
-            class: "btn btn-outline w-full justify-between" do %>
-        <span>成長記録表示設定</span>
-        <span>›</span>
-      <% end %>
-
-      <%= link_to settings_children_path,
-            class: "btn btn-outline w-full justify-between" do %>
-        <span>お子さま管理</span>
-        <span>›</span>
-      <% end %>
+      class: "btn btn-outline w-full justify-between" do %>
+  <span>成長記録設定</span>
+  <div class="flex items-center gap-2">
+    <%# 現在の状態がパッとわかるようにバッジを添えると親切です %>
+    <span class="badge badge-sm <%= current_user.is_growth_record_enabled? ? 'badge-primary' : 'badge-ghost' %>">
+      <%= current_user.is_growth_record_enabled? ? "ON" : "OFF" %>
+    </span>
+    <span>›</span>
+  </div>
+<% end %>
 
       <%= link_to edit_user_registration_path,
             class: "btn btn-outline w-full justify-between" do %>

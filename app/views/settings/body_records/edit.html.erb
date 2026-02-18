@@ -1,33 +1,62 @@
-<div class="max-w-md mx-auto px-4 pb-32 space-y-6">
+<div class="max-w-md mx-auto px-4 pt-8 pb-20">
+  <%# 共通ヘッダー：一覧に戻る %>
+  <div class="flex items-center mb-6">
+    <%= render 'shared/back_button', path: settings_body_records_path %>
+    <h1 class="text-xl font-bold flex-1 text-center mr-10 text-gray-700">
+      体重記録の編集
+    </h1>
+  </div>
 
-  <h1 class="text-xl font-bold mb-4">体重記録の編集</h1>
+  <div class="space-y-6">
+    <%= form_with model: @body_record, url: settings_body_record_path(@body_record), local: true do |f| %>
+      <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-base-200 space-y-5">
+        
+        <%# 入力セクション %>
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text font-bold text-gray-600">記録日</span>
+          </label>
+          <%= f.date_field :measured_on, 
+                class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all" %>
+        </div>
 
-  <%= form_with model: @body_record, url: settings_body_record_path(@body_record), local: true do |f| %>
-    <div class="space-y-4 bg-base-100 p-4 rounded-lg shadow">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-bold text-gray-600">体重 (kg)</span>
+            </label>
+            <%= f.number_field :weight, step: 0.1, 
+                  class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all" %>
+          </div>
 
-      <div>
-        <label class="label">日付</label>
-        <%= f.date_field :measured_on, class: "input input-bordered w-full" %>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-bold text-gray-600">体脂肪 (%)</span>
+            </label>
+            <%= f.number_field :body_fat, step: 0.1, 
+                  class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all" %>
+          </div>
+        </div>
+
+        <%# 保存ボタン %>
+        <div class="pt-4">
+          <%= f.submit "更新する", 
+                class: "btn btn-primary w-full rounded-full text-white shadow-md hover:shadow-lg transition-all h-12" %>
+        </div>
       </div>
+    <% end %>
 
-      <div>
-        <label class="label">体重(kg)</label>
-        <%= f.number_field :weight, step: 0.1, class: "input input-bordered w-full" %>
-      </div>
-
-      <div>
-        <label class="label">体脂肪(%)</label>
-        <%= f.number_field :body_fat, step: 0.1, class: "input input-bordered w-full" %>
-      </div>
-
-      <div class="flex flex-col gap-2 mt-4">
-        <%= f.submit "登録", class: "btn btn-primary w-full" %>
-        <%= link_to "削除", settings_body_record_path(@body_record),
-              method: :delete,
-              data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
-      class: "btn w-full h-10 text-sm border border-blue-300 text-blue-400 hover:bg-blue-50" %>
-      </div>
-
+    <%# 削除セクション（少し離して配置し、注意を促す） %>
+    <div class="px-4">
+      <div class="divider text-xs text-gray-300">Danger Zone</div>
+      <%= link_to settings_body_record_path(@body_record),
+            data: { turbo_method: :delete, turbo_confirm: "この記録を削除してもよろしいですか？" },
+            class: "btn btn-ghost btn-sm w-full text-error/60 hover:text-error hover:bg-error/10 rounded-xl transition-all" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+        この記録を削除する
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
