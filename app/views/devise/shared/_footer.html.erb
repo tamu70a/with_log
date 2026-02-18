@@ -26,15 +26,17 @@
     <% end %>
 
     <%# 成長記録（ここがお子さまIDが必要な場所） %>
-    <% if current_user.children.any? %>
-      <%= link_to child_growth_records_path(current_user.children.first), class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
-        <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
-        growth
-      <% end %>
-    <% else %>
-      <%= link_to settings_children_path, class: "flex flex-col items-center p-2 opacity-50" do %>
-        <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
-        growth
+    <% if current_user.is_growth_record_enabled? %>
+      <% if current_user.children.any? %>
+        <%= link_to child_growth_records_path(current_user.children.first), class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
+          <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
+          growth
+        <% end %>
+      <% else %>
+        <%= link_to settings_children_path, class: "flex flex-col items-center p-2 opacity-50" do %>
+          <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
+          growth
+        <% end %>
       <% end %>
     <% end %>
 

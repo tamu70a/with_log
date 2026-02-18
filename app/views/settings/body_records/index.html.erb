@@ -1,34 +1,89 @@
-<div class="max-w-full mx-auto space-y-6 px-4 pb-32">
-
-  <!-- ページタイトル -->
-  <h1 class="text-2xl font-bold text-center mb-4">体重記録一覧</h1>
-
-
-  <!-- 体重一覧テーブル -->
-  <div class="overflow-x-auto bg-base-100 rounded-lg shadow-lg p-4">
-    <table class="table w-full table-zebra">
-      <thead>
-        <tr class="bg-base-200">
-          <th class="text-left">日付</th>
-          <th class="text-left">体重(kg)</th>
-          <th class="text-left">体脂肪(%)</th>
-          <th class="text-left">操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @body_records.each do |record| %>
-          <tr>
-            <td><%= record.measured_on.strftime("%Y/%m/%d") %></td>
-            <td><%= record.weight %></td>
-            <td><%= record.body_fat || "-" %></td>
-            <td class="flex gap-2">
-              <%= link_to "編集", edit_settings_body_record_path(record),
-                          class: "btn btn-sm btn-outline btn-primary" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+<div class="max-w-md mx-auto px-4 pt-8 pb-20">
+  <%# 1. ヘッダーエリア %>
+  <div class="flex items-center mb-6">
+    <%= render 'shared/back_button', path: settings_root_path %>
+    <h1 class="text-xl font-bold flex-1 text-center mr-10 text-gray-700">
+      体重記録管理
+    </h1>
   </div>
 
+  <div class="space-y-6">
+    <%# 2. メインカード %>
+    <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-base-200">
+      
+      <%# カード内の見出し %>
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-2">
+          <span class="w-1 h-6 bg-primary rounded-full"></span>
+          <h2 class="font-bold text-gray-700 text-lg">過去の記録</h2>
+        </div>
+        <span class="badge badge-ghost font-mono text-xs"><%= @body_records.count %> 件</span>
+      </div>
+
+      <%# 3. 記録リスト部分 %>
+      <div class="space-y-4">
+        <% if @body_records.any? %>
+          <% @body_records.each do |record| %>
+            <div class="p-4 bg-base-50 border border-base-100 rounded-2xl">
+              
+              <%# 日付ラベル（区切り線付き） %>
+              <div class="text-[10px] font-bold text-gray-400 mb-3 flex items-center gap-2">
+                <span class="bg-white px-2 py-0.5 rounded-md border border-base-200">
+                  <%= record.measured_on.strftime("%Y/%m/%d") %>
+                </span>
+                <div class="h-px flex-1 bg-gray-200"></div>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <%# 数値表示エリア（幅を固定して縦のラインを揃える） %>
+                <div class="flex items-center">
+                  
+                  <%# 体重カラム %>
+                  <div class="w-24 flex flex-col">
+                    <span class="text-[10px] font-bold text-gray-400 mb-0.5">体重</span>
+                    <div class="flex items-baseline gap-0.5">
+                      <span class="text-xl font-black text-gray-700">
+                        <%= record.weight %>
+                      </span>
+                      <span class="text-[10px] font-bold text-gray-500">kg</span>
+                    </div>
+                  </div>
+
+                  <%# 体脂肪カラム（境界線付き） %>
+                  <div class="w-24 flex flex-col border-l border-gray-200 pl-4">
+                    <span class="text-[10px] font-bold text-gray-400 mb-0.5">体脂肪</span>
+                    <div class="flex items-baseline gap-0.5">
+                      <% if record.body_fat.present? %>
+                        <span class="text-xl font-black text-gray-700">
+                          <%= record.body_fat %>
+                        </span>
+                        <span class="text-[10px] font-bold text-gray-500">%</span>
+                      <% else %>
+                        <span class="text-xl font-black text-gray-200">--</span>
+                        <span class="text-[10px] font-bold text-gray-300">%</span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+
+                <%# 操作ボタン %>
+                <%= link_to edit_settings_body_record_path(record), 
+                      class: "btn btn-ghost btn-circle btn-sm text-primary hover:bg-primary/10 transition-colors" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <%# 記録がない場合の表示 %>
+          <div class="text-center py-12 bg-base-50 rounded-2xl border border-dashed border-base-300">
+            <p class="text-sm text-gray-400 italic">まだ記録がありません</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
 </div>

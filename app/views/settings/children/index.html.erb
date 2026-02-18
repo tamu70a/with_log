@@ -1,9 +1,12 @@
 <div class="max-w-md mx-auto px-4 pt-8 pb-20">
-  <%# ヘッダー %>
-  <h1 class="text-xl font-bold text-center mb-8">成長記録設定</h1>
+  <%# ヘッダー（戻るボタンを追加） %>
+  <div class="flex items-center mb-6">
+    <%= render 'shared/back_button', title: 'お子さま管理', path: settings_growth_setting_path %>
+    <h1 class="text-xl font-bold flex-1 text-center mr-10 text-gray-700">お子さま管理</h1>
+  </div>
   
   <div class="bg-base-100 rounded-3xl p-6 shadow-sm border border-base-200">
-    <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+    <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-gray-700">
       <span class="w-1 h-6 bg-primary rounded-full"></span>
       お子さま一覧
     </h2>
@@ -28,7 +31,6 @@
           <% end %>
         <% end %>
       <% else %>
-        <%# 登録がない時の表示 %>
         <div class="text-center py-10">
           <p class="text-sm text-gray-400">まだ登録されている<br>お子さまがいません</p>
         </div>
@@ -38,7 +40,7 @@
     <%# お子さま追加ボタン %>
     <div class="mt-10">
       <%= link_to new_settings_child_path, 
-            class: "btn btn-primary w-full rounded-full text-white shadow-lg gap-2" do %>
+            class: "btn btn-primary shadow-xl brightness-95 hover:brightness-90 w-full rounded-full text-white shadow-lg gap-2" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
@@ -47,8 +49,4 @@
     </div>
   </div>
 
-  <%# 設定トップへ戻る %>
-  <div class="mt-8 text-center">
-    <%= link_to "設定に戻る", settings_root_path, class: "text-sm text-gray-400 underline underline-offset-4" %>
-  </div>
 </div>

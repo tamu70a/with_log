@@ -34,7 +34,9 @@ Rails.application.routes.draw do
     root "dashboards#show"
     resources :body_records, only: [ :index, :show, :edit, :update, :destroy ]
     resources :weight_goals, only: [ :index, :create ]
-    resource :growth_setting, only: [ :show, :update ]
+    resource :growth_setting, only: [ :show, :update ] do
+      resource :display, only: [ :show, :update ], module: :growth_settings
+    end
     resources :children
     resource :theme_setting
     resource :account_setting

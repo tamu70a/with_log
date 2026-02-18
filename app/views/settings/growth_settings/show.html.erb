@@ -1,0 +1,37 @@
+<div class="max-w-md mx-auto mt-8 px-4">
+  <div class="flex items-center mb-6">
+    <%# 戻り先は設定のトップ %>
+    <%= render 'shared/back_button', path: settings_root_path %>
+    <h1 class="text-2xl font-bold flex-1 text-center mr-10">
+      成長記録設定
+    </h1>
+  </div>
+
+  <div class="card bg-base-100 shadow-md">
+    <div class="card-body p-4 space-y-3">
+
+      <%# 子要素1：表示設定ページへ %>
+      <%= link_to settings_growth_setting_display_path,
+            class: "btn btn-outline w-full justify-between" do %>
+        <span>成長記録表示設定</span>
+        <span>›</span>
+      <% end %>
+
+      <%# 子要素2：お子さま管理ページへ %>
+      <%= link_to settings_children_path,
+            class: "btn btn-outline w-full justify-between" do %>
+        <span>お子さま管理</span>
+        <span>›</span>
+      <% end %>
+
+    </div>
+  </div>
+
+  <div class="mt-8 px-4">
+    <p class="text-xs text-gray-400 text-center leading-relaxed">
+      成長記録機能のON/OFFや、<br>
+      記録対象のお子さま情報の編集ができます。
+    </p>
+  </div>
+</div>
+
