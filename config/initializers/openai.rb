@@ -1,4 +1,4 @@
-require 'openai'
+require "openai"
 
 OpenAI.configure do |config|
   # &. を使うことで、キーがなくてもエラー（nil）で止まらないようにします
