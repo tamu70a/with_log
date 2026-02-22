@@ -1,13 +1,49 @@
 ja:
-  activerecord:
-    models:
-      user: ユーザー
-    attributes:
-      user:
-        email: メールアドレス
-        password: パスワード
-        password_confirmation: パスワード（確認）
-
+  # --- 1. 時刻と日付のルール ---
   time:
     formats:
-      short: "%Y/%m/%d %H:%M"
+      default: "%Y/%m/%d %H:%M:%S"
+      short: "%m/%d %H:%M"
+      long: "%Y年%m月%d日 %H時%M分"
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      short: "%m/%d"
+      long: "%Y年%m月%d日"
+    abbr_day_names: [日, 月, 火, 水, 木, 金, 土]
+    day_names: [日曜日, 月曜日, 火曜日, 水曜日, 木曜日, 金曜日, 土曜日]
+
+  # --- 2. Rails標準のエラーメッセージ ---
+  errors:
+    format: "%{attribute}%{message}"
+    messages:
+      blank: "を入力してください"
+      not_saved:
+        one: "エラーが発生したため %{resource} は保存されませんでした。"
+        other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
+
+  # --- 3. モデル・属性の日本語名 ---
+  activerecord:
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        nickname: "ニックネーム"
+        email: "メールアドレス"
+        password: "パスワード"
+        childcare_mode: "子育てモード"
+
+  # --- 4. Deviseのメッセージ ---
+  devise:
+    confirmations:
+      confirmed: "メールアドレスの確認が完了しました。"
+    registrations:
+      signed_up: "ようこそ！アカウント登録が完了しました。"
+      updated: "アカウント情報を更新しました。"
+      destroyed: "退会しました。またのご利用をお待ちしております。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+    passwords:
+      updated: "パスワードが変更されました。ログインしています。"
+      send_instructions: "パスワード再設定の案内をメールで送信しました。"

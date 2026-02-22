@@ -1,64 +1,62 @@
-<div class="max-w-md mx-auto mt-8 px-4">
-  <h1 class="text-2xl font-bold text-center mb-6">
+<div class="max-w-md mx-auto mt-8 px-4 pb-10">
+  <h1 class="text-2xl font-bold text-center mb-6 text-gray-700">
     設定
   </h1>
 
   <div class="card bg-base-100 shadow-md">
     <div class="card-body p-4 space-y-3">
 
-      <%= link_to settings_theme_setting_path,
-            class: "btn btn-outline w-full justify-between" do %>
+      <%= link_to settings_theme_setting_path, class: "btn btn-outline w-full justify-between" do %>
         <span>テーマカラー設定</span>
         <span>›</span>
       <% end %>
 
-      <%= link_to settings_weight_goals_path,
-            class: "btn btn-outline w-full justify-between" do %>
+      <%= link_to settings_weight_goals_path, class: "btn btn-outline w-full justify-between" do %>
         <span>体重目標設定</span>
         <span>›</span>
       <% end %>
 
-      <%= link_to settings_body_records_path,
-            class: "btn btn-outline w-full justify-between" do %>
+      <%= link_to settings_body_records_path, class: "btn btn-outline w-full justify-between" do %>
         <span>体重記録管理</span>
         <span>›</span>
       <% end %>
 
-      <%= link_to settings_growth_setting_path,
-      class: "btn btn-outline w-full justify-between" do %>
-  <span>成長記録設定</span>
-  <div class="flex items-center gap-2">
-    <%# 現在の状態がパッとわかるようにバッジを添えると親切です %>
-    <span class="badge badge-sm <%= current_user.is_growth_record_enabled? ? 'badge-primary' : 'badge-ghost' %>">
-      <%= current_user.is_growth_record_enabled? ? "ON" : "OFF" %>
-    </span>
-    <span>›</span>
-  </div>
-<% end %>
+      <%# --- ここを修正しました --- %>
+      <%= link_to settings_growth_setting_path, class: "btn btn-outline w-full justify-between" do %>
+        <span>成長記録設定</span>
+        <span>›</span>
+      <% end %>
 
-      <%= link_to edit_user_registration_path,
-            class: "btn btn-outline w-full justify-between" do %>
+      <%= link_to settings_buddy_setting_path, class: "btn btn-outline w-full justify-between" do %>
+        <span>バディ詳細設定</span>
+        <span>›</span>
+      <% end %>
+
+      <%= link_to edit_user_registration_path, class: "btn btn-outline w-full justify-between" do %>
         <span>アカウント設定</span>
         <span>›</span>
       <% end %>
 
-      <%= link_to terms_path,
-            class: "btn btn-outline w-full justify-between" do %>
+      <div class="divider my-2"></div> <%# 少し区切りを入れると見やすくなります %>
+
+      <%= link_to terms_path, class: "btn btn-outline btn-sm w-full justify-between border-gray-300 font-normal text-gray-500" do %>
         <span>利用規約</span>
         <span>›</span>
       <% end %>
 
-      <%= link_to privacy_path,
-            class: "btn btn-outline w-full justify-between" do %>
+      <%= link_to privacy_path, class: "btn btn-outline btn-sm w-full justify-between border-gray-300 font-normal text-gray-500" do %>
         <span>プライバシーポリシー</span>
         <span>›</span>
       <% end %>
 
-      <%= button_to destroy_user_session_path,
-            method: :delete,
-            class: "btn btn-error btn-outline w-full" do %>
-        ログアウト
-      <% end %>
+      <div class="pt-4">
+        <%= button_to destroy_user_session_path,
+              method: :delete,
+              class: "btn btn-error btn-outline w-full",
+              data: { turbo: false } do %>
+          ログアウト
+        <% end %>
+      </div>
 
     </div>
   </div>
