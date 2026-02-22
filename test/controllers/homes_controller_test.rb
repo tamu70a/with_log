@@ -23,10 +23,6 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  teardown do
-    # fetch を元に戻す
-    WeatherService.define_singleton_method(:fetch, @original_fetch)
-  end
 
   test "should get index" do
     get root_path
