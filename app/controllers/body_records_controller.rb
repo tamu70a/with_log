@@ -13,9 +13,12 @@ def create
   @body_record.measured_on ||= Date.today
 
   if @body_record.save
-    redirect_to body_records_path, notice: "登録しました"
+    # root_path から body_records_path に変更！
+    redirect_to body_records_path, notice: "記録しました"
   else
     @body_records = current_user.body_records.order(measured_on: :asc)
+    @current_goal = current_user.current_goal
+    @latest_weight = current_user.body_records.order(measured_on: :desc).first
     render :index, status: :unprocessable_entity
   end
 end

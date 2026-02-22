@@ -7,10 +7,9 @@
 <% end %>
 
 <!-- 目標表示 -->
-<% if @current_goal && @latest_weight %>
+<% if @current_goal %>
   <div class="max-w-md mx-auto px-4 mt-6">
     <div class="bg-primary text-primary-content rounded-xl p-4 shadow">
-
       <div class="flex justify-between items-center">
         <div>
           <p class="text-sm opacity-80">目標体重</p>
@@ -19,18 +18,23 @@
         </div>
 
         <div class="text-right">
-          <p class="text-sm opacity-80">あと</p>
-          <p class="text-xl font-semibold"><%= @current_goal.remaining_weight(@latest_weight.weight) %> kg</p>
+          <% if @latest_weight %>
+            <p class="text-sm opacity-80">あと</p>
+            <p class="text-xl font-semibold"><%= @current_goal.remaining_weight(@latest_weight.weight) %> kg</p>
+          <% else %>
+            <p class="text-xl font-semibold">-- kg</p>
+          <% end %>
           <p class="text-sm"><%= @current_goal.days_remaining %> 日</p>
         </div>
       </div>
-
     </div>
   </div>
 <% else %>
+  <%# 目標自体がない場合 %>
   <div class="max-w-md mx-auto px-4 mt-6">
     <div class="bg-base-200 rounded-xl p-4 shadow text-center">
       <p class="mb-2">目標がまだ設定されていません</p>
+      <%= link_to "目標を設定する", settings_weight_goals_path, class: "text-primary text-sm underline" %>
     </div>
   </div>
 <% end %>
