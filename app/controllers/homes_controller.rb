@@ -3,7 +3,6 @@ class HomesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-
     # タスクと習慣の取得
     @tasks = current_user.tasks.order(created_at: :desc)
     @habits = current_user.habits.order(created_at: :desc)
