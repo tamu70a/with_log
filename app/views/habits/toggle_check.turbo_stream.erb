@@ -1,6 +1,11 @@
-<%# サーバーから「このIDの要素をこの中身で丸ごと差し替えろ」と指示を出す %>
+<%# app/views/habits/toggle_check.turbo_stream.erb %>
+
+<%# 1. 習慣アイテムの更新 %>
 <%= turbo_stream.replace "habit_#{@habit.id}" do %>
   <div id="habit_<%= @habit.id %>">
     <%= render "habits/habit_item", habit: @habit %>
   </div>
 <% end %>
+
+<%# 2. 更新（命令パーツを呼び出す） %>
+<%= render "homes/update_buddy" %>

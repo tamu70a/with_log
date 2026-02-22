@@ -17,20 +17,33 @@ class User < ApplicationRecord
     weight_goals.order(created_at: :desc).first
   end
 
-  # バディのメッセージを生成するルール
-  def buddy_message
-  # 「今日」の制限を外して、未完了のタスクが残っているかチェック
-  # (まだ終わっていないタスクが一つもなければ all_done)
-  incomplete_tasks = tasks.where(is_done: false)
+# バディのメッセージを生成するルール
+# app/models/user.rb
 
-  # タスクが1つ以上あって、かつ未完了が0個なら「全部完了！」
-  all_done = tasks.present? && incomplete_tasks.empty?
-  if all_done
-    "#{nickname}さん、すごいです！今日のTODOが全部終わってますね！そんなに頑張るなんて、感動しちゃいました。今夜はゆっくり自分を甘やかしてくださいね✨"
-  elsif childcare_mode
-    "#{nickname}さん、今日もお子さんのこと、一生懸命でしたね。本当にお疲れ様。無理だけはしないでくださいね。"
+# app/models/user.rb
+
+# app/models/user.rb
+
+def buddy_message
+  # DBから最新の数を直接取得
+  incomplete_count = tasks.where(is_done: false).count
+  done_habits_count = habits.joins(:habit_checks).where(habit_checks: { check_date: Date.current }).count
+  total_habits_count = habits.count
+
+  all_todos_done = tasks.exists? && incomplete_count == 0
+  all_habits_done = total_habits_count > 0 && (done_habits_count == total_habits_count)
+
+  # 判定ロジック
+  if all_todos_done && all_habits_done
+    "#{nickname}さん、完璧すぎて眩しいです…！TODOも習慣も全部クリア！今日はもう自分を甘やかして✨"
+  elsif all_habits_done
+    "今日の習慣はコンプリートですね！さすがです。残りのTODO（あと#{incomplete_count}個）も応援してます！"
+  elsif done_habits_count > 0
+    "お、習慣を #{done_habits_count} つクリアしましたね！#{nickname}さんの努力、ちゃんと見てますよ。"
+  elsif all_todos_done
+    "TODO完了、お見事です！あとは習慣のチェックだけ。スッキリ終わらせちゃいましょう！"
   else
-    "#{nickname}さん、自分のペースで大丈夫ですよ。今日はどんな一日でしたか？一歩ずつ進んでいきましょう。"
+    "自分のペースで大丈夫ですよ。今はTODOが#{incomplete_count}個残っていますね。"
   end
 end
 end

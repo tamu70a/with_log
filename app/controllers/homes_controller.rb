@@ -2,22 +2,24 @@
 class HomesController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-    # タスクと習慣の取得
-    @tasks = current_user.tasks.order(created_at: :desc)
-    @habits = current_user.habits.order(created_at: :desc)
+# app/controllers/homes_controller.rb
+def index
+  # 先にデータを全部ロードする
+  @tasks = current_user.tasks.order(created_at: :desc)
+  @habits = current_user.habits.order(created_at: :desc)
 
-    # 習慣の日付補完
-    @habits.each do |habit|
-      habit.start_date ||= Date.current
-      habit.end_date ||= Date.current
-    end
+  # (日付補完などの処理...)
+  @habits.each do |habit|
+    habit.start_date ||= Date.current
+    habit.end_date ||= Date.current
+  end
 
-    # ホームメモの取得または作成
-    @home_memo = current_user.home_memo || current_user.create_home_memo!
-    @latest_goal = current_user.weight_goals.latest_first.first
-    @latest_body_record = current_user.body_records.latest_first.first
+  @home_memo = current_user.home_memo || current_user.create_home_memo!
+  @latest_goal = current_user.weight_goals.order(created_at: :desc).first
+  @latest_body_record = current_user.body_records.order(created_at: :desc).first
 
-    @message = current_user.buddy_message
+  # ★重要：データの準備がすべて終わった「後」にメッセージを作る
+  # さらに .reload をつけて最新のDB状態を強制的に読み込ませる
+  @message = current_user.reload.buddy_message
 end
 end

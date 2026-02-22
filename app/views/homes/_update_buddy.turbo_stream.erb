@@ -1,0 +1,3 @@
+<%= turbo_stream.update "buddy_message_area" do %>
+  <%= render "homes/buddy_message", message: current_user.reload.buddy_message %>
+<% end %>
