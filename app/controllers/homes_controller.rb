@@ -3,18 +3,6 @@ class HomesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # 天気情報の取得
-    res = WeatherService.fetch(city: "tokyo")
-
-    @weather =
-      if res&.dig("weather", 0)
-        {
-          icon: res["weather"][0]["icon"],
-          description: res["weather"][0]["description"],
-          temp: (res["main"]["temp"] - 273.15).round(1),
-          humidity: res["main"]["humidity"]
-        }
-      end
 
     # タスクと習慣の取得
     @tasks = current_user.tasks.order(created_at: :desc)

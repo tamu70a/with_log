@@ -1,55 +1,38 @@
 <div class="max-w-md mx-auto space-y-6 px-4 pb-32">
 
-  <!-- ヘッダー部（日時 / 天気 / 洗濯） -->
-<div class="grid grid-cols-2 gap-4">
-
   <!-- 日時 -->
-  <div class="bg-base-200 rounded-lg p-4 text-center">
-    <p class="text-sm text-gray-500">
-      <%= l(Time.current, format: :short) %>
+  <div class="w-full mb-6 text-center">
+  <div class="bg-base-200 rounded-3xl p-5 shadow-sm border border-white/50 inline-block px-10">
+    <p class="text-[14px] text-gray-500 font-bold mb-1 tracking-widest">
+      <%= l(Date.current, format: "%m/%d") %> (<%= l(Date.current, format: "%a") %>)
+    </p>
+    
+    <p id="realtime-clock" class="text-5xl font-black text-gray-800 tracking-tighter leading-none">
+      <%= Time.current.strftime("%H:%M") %>
     </p>
   </div>
-
-  <!-- 天気 -->
-  <div class="bg-base-200 rounded-lg p-4">
-    <% if @weather.present? %>
-      <div class="flex items-center gap-4">
-        <img
-          src="https://openweathermap.org/img/wn/<%= @weather[:icon] %>@2x.png"
-          alt="天気アイコン"
-          class="w-14 h-14"
-        />
-        <div class="text-sm">
-          <p><%= @weather[:description] %></p>
-          <p class="font-semibold"><%= @weather[:temp] %> ℃</p>
-        </div>
-      </div>
-    <% else %>
-      <p class="text-gray-400 text-sm text-center">
-        天気情報を取得できませんでした
-      </p>
-    <% end %>
-  </div>
-
-  <!-- 洗濯・湿度 -->
-  <div class="col-span-2 space-y-2">
-    <div class="flex items-center justify-between bg-white rounded-lg p-2 shadow">
-      <%= image_tag "weather/sunny.png", class: "w-6 h-6" %>
-      <div class="text-right text-sm">
-        <div class="text-pink-500">14℃ <span class="text-xs text-gray-500">+3</span></div>
-        <div class="text-blue-500">1℃ <span class="text-xs text-gray-500">+1</span></div>
-      </div>
-    </div>
-
-    <div class="flex items-center justify-between bg-white rounded-lg p-2 shadow">
-      <%= image_tag "laundry/basic.png", class: "w-6 h-6" %>
-      <div class="text-sm font-medium">
-        <%= @weather&.dig(:humidity) || "--" %>%
-      </div>
-    </div>
-  </div>
-
 </div>
+
+<script>
+  // 時計を更新する関数
+  function updateClock() {
+    const clockElement = document.getElementById('realtime-clock');
+    if (!clockElement) return; // エレメントがない場合は何もしない
+
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    
+    // 画面の数字を書き換える
+    clockElement.textContent = hours + ':' + minutes;
+  }
+
+  // 1秒(1000ミリ秒)ごとに実行
+  setInterval(updateClock, 1000);
+  
+  // ページ読み込み時にも一度実行してズレをなくす
+  updateClock();
+</script>
 
   <!-- バディからのメッセージ -->
   <div id="buddy_message_area"> <div class="flex items-start gap-3 mb-2">
