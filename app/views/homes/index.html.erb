@@ -52,13 +52,24 @@
 </div>
 
   <!-- バディからのメッセージ -->
-  <div class="bg-pink-100 rounded-lg p-4 flex items-start gap-4 shadow-inner">
-    <%= image_tag "buddy/cat_tea.png", alt: "buddy", class: "w-16 h-16" %>
-    <div>
-      <p class="font-semibold">はじめまして！</p>
-      <p class="text-sm">今日のこと、ここで一緒に整えていきましょう！</p>
+  <div id="buddy_message_area"> <div class="flex items-start gap-3 mb-2">
+    <div class="avatar">
+      <div class="w-14 h-14 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2 bg-pink-50 flex items-center justify-center shadow-sm overflow-hidden">
+        <%= image_tag "buddy/cat_tea.png", class: "w-full h-full object-cover" %>
+      </div>
+    </div>
+
+    <div class="relative bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-pink-100 flex-1">
+      <div class="absolute -left-2 top-0 w-0 h-0 border-t-[12px] border-t-white border-l-[12px] border-l-transparent"></div>
+      
+      <div class="space-y-1">
+        <p class="text-sm text-gray-700 leading-relaxed">
+          <%= @message %>
+        </p>
+      </div>
     </div>
   </div>
+</div>
 
 <!-- TODOリスト -->
 <div class="bg-base-100 rounded-lg p-4 shadow space-y-2">

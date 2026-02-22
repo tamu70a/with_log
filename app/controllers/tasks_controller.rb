@@ -1,52 +1,52 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
 
-# app/controllers/tasks_controller.rb
-def create
-  @task = current_user.tasks.new(title: "")  # 空タイトルでもOK
-  @task.editing = true  # ← 追加直後は編集状態
+  def create
+    @task = current_user.tasks.new(title: "")
+    @task.editing = true
 
-  if @task.save
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to root_path }
+    if @task.save
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to root_path }
+      end
     end
   end
-end
-
 
   def update
-  @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
 
-  Rails.logger.debug "=== UPDATE PARAMS ==="
-  Rails.logger.debug params.inspect
-
-  # 編集
-  if params[:edit]
-    respond_to do |format|
-      format.turbo_stream
+    # 1. 編集モードへの切り替え
+    if params[:edit]
+      respond_to do |format|
+        format.turbo_stream
+      end
+      return
     end
-    return
-  end
 
-  # 完了チェック切り替え
-  if params.key?(:is_done)
-  @task.update(is_done: params[:is_done] == "1")
+    # 2. 完了チェックの切り替え（★ここで未来さんのメッセージも一緒に送る！）
+    if params.key?(:is_done)
+      @task.update(is_done: params[:is_done] == "1")
 
-  respond_to do |format|
-    format.turbo_stream
-  end
-  return
-  end
-
-
-
-  # 保存処理
-  if @task.update(task_params)
-    respond_to do |format|
-      format.turbo_stream
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.replace(@task), # タスクのチェック状態を更新
+            turbo_stream.update("buddy_message_area",
+                                partial: "homes/buddy_message",
+                                locals: { message: current_user.buddy_message }) # 未来さんのメッセージを更新
+          ]
+        end
+      end
+      return
     end
-  end
+
+    # 3. タイトルなどの保存処理
+    if @task.update(task_params)
+      respond_to do |format|
+        format.turbo_stream
+      end
+    end
   end
 
   def destroy

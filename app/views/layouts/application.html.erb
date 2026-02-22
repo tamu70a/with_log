@@ -19,23 +19,28 @@
   </head>
 
   <body class="bg-gray-100 min-h-screen flex flex-col">
-    <body class="bg-gray-100 min-h-screen flex flex-col">
 
   <% if notice.present? %>
-    <div class="toast toast-top toast-center z-50 mt-20">
-      <div class="alert alert-success shadow-lg">
+  <div class="toast toast-top toast-center z-50 mt-20" onclick="this.remove();">
+    <div class="alert alert-success shadow-lg cursor-pointer hover:scale-105 transition-all duration-200 group">
+      <div class="flex items-center justify-between w-full gap-2">
         <span><%= notice %></span>
+        <span class="text-xs opacity-50 group-hover:opacity-100 font-bold">✕</span>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <% if alert.present? %>
-    <div class="toast toast-top toast-center z-50 mt-20">
-      <div class="alert alert-error shadow-lg">
+<% if alert.present? %>
+  <div class="toast toast-top toast-center z-50 mt-20" onclick="this.remove();">
+    <div class="alert alert-error shadow-lg cursor-pointer hover:scale-105 transition-all duration-200 group">
+      <div class="flex items-center justify-between w-full gap-2">
         <span><%= alert %></span>
+        <span class="text-xs opacity-50 group-hover:opacity-100 font-bold">✕</span>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
     <main class="<%= devise_controller? && controller_name == 'sessions' && action_name == 'new' ?
       'max-w-md mx-auto mt-16 p-6 bg-white shadow rounded-lg' : 

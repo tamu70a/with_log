@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :children
     resource :theme_setting
     resource :account_setting
+    resource :buddy_setting, only: [ :show, :edit, :update ]
   end
   get "terms", to: "static#terms"
   get "privacy", to: "static#privacy"

@@ -1,0 +1,39 @@
+<%# app/views/settings/buddy_settings/show.html.erb %>
+<div class="max-w-md mx-auto mt-8 px-4 pb-20">
+  
+  <%# ヘッダーエリア %>
+  <div class="flex items-center mb-8">
+    <%= render "shared/back_button", path: settings_root_path %>
+    <h1 class="text-xl font-bold flex-1 text-center mr-10 text-gray-700">バディ詳細設定</h1>
+  </div>
+
+  <%# 設定カード %>
+  <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-base-200">
+    <div class="flex flex-col items-center text-center space-y-6">
+      
+      <div class="space-y-2">
+        <h2 class="text-lg font-bold text-gray-700">子育てメッセージ</h2>
+        <p class="text-sm text-gray-400 leading-relaxed px-2">
+          ONにすると、バディとの会話に子育てに関するメッセージが追加されます。
+        </p>
+      </div>
+
+      <%# 設定フォーム（トグルを動かすと自動でupdateが走る） %>
+      <%= form_with model: @user, url: settings_buddy_setting_path, method: :patch, local: true, class: "w-full" do |f| %>
+        <div class="form-control">
+          <label class="label cursor-pointer p-5 bg-base-50 rounded-2xl border border-base-200">
+            <span class="label-text font-bold text-gray-600">子育てメッセージをONにする</span>
+            <%= f.check_box :childcare_mode, 
+                  class: "toggle toggle-primary toggle-lg", 
+                  onchange: "this.form.requestSubmit();" %>
+          </label>
+        </div>
+      <% end %>
+
+      <p class="text-[10px] text-gray-400">
+        ※いつでも自由にON/OFFを切り替えられます。<br>
+        バディはいつでもあなたを応援しています。
+      </p>
+    </div>
+  </div>
+</div>

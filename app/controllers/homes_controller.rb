@@ -30,5 +30,7 @@ class HomesController < ApplicationController
     @home_memo = current_user.home_memo || current_user.create_home_memo!
     @latest_goal = current_user.weight_goals.latest_first.first
     @latest_body_record = current_user.body_records.latest_first.first
+
+    @message = current_user.buddy_message
 end
 end
