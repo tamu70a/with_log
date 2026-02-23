@@ -13,7 +13,4 @@
   #   rake "some:great:rake:task"
   # end
   #
-  every 1.hour do
-    runner "WeatherService.record_current_weather"
-  end
 # Learn more: http://github.com/javan/whenever
