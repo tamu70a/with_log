@@ -196,4 +196,4 @@ Figma：https://www.figma.com/design/zkOnceZfvWUp5qzNUCZtS5/WithLog-?node-id=0-1
 
 ### ER図
 
-[![Image from Gyazo](https://i.gyazo.com/ff07375d99ae959cd667aa7376968c7d.png)](https://gyazo.com/ff07375d99ae959cd667aa7376968c7d)
+[![Image from Gyazo](https://i.gyazo.com/675920f533f3be3f0084226b1a21952d.png)](https://gyazo.com/675920f533f3be3f0084226b1a21952d)
