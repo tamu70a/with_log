@@ -11,23 +11,29 @@ class Settings::ChildrenController < ApplicationController
   end
 
   def create
-    @child = current_user.children.build(child_params)
-    if @child.save
-      redirect_to settings_children_path, notice: "お子さまを登録しました"
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
+  @child = current_user.children.build(child_params)
+if @child.save
+    redirect_to child_growth_records_path(@child), notice: "お子さま情報を登録しました"
+else
+    flash.now[:alert] = @child.errors.full_messages.join("、")
+
+    render :new, status: :unprocessable_entity
+end
+end
+
 
   def edit; end
 
   def update
-    if @child.update(child_params)
-      redirect_to settings_children_path, notice: "お子さま情報を更新しました"
+    if @child.save
+    redirect_to child_growth_records_path(@child), notice: "お子さま情報を登録しました"
     else
-      render :edit, status: :unprocessable_entity
+    flash.now[:alert] = @child.errors.full_messages.join("、")
+
+    render :new, status: :unprocessable_entity
     end
   end
+
 
   def destroy
     @child.destroy

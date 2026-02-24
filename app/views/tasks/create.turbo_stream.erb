@@ -1,10 +1,6 @@
-<%# === 新規タスクを一覧の先頭に追加する === %>
-<%# "tasks" は homes/index.html.erb にある <div id="tasks"> %>
-<%# prepend = 一番上に差し込む（最新タスクを上に表示） %>
-<%# append = 一番下に差し込む（最新タスクを下に表示） %>
 <%= turbo_stream.append "tasks",
-      partial: "tasks/edit",          # 編集用のパーシャルを使うことで編集モードで表示
-      locals: { task: @task }       # controllerで作った @task を渡す
+      partial: "tasks/edit",
+      locals: { task: @task }
 %>
 <%= render "homes/update_buddy" %>
 

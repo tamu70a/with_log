@@ -1,7 +1,7 @@
 class Settings::GrowthSettingsController < ApplicationController
   before_action :authenticate_user! # ログインしていない人は見れないようにする
 
-  # 表示設定画面（スイッチがあるページ）
+  # 表示設定画面
   def show
     @user = current_user
   end
@@ -13,14 +13,13 @@ class Settings::GrowthSettingsController < ApplicationController
       # 保存に成功したら、メッセージと一緒に設定画面に戻る
       redirect_to settings_growth_setting_path, notice: "表示設定を更新しました"
     else
-      # 失敗した場合は画面を再表示（基本は失敗しませんが、Railsのルールとして）
+      # 失敗した場合は画面を再表示
       render :show, status: :unprocessable_entity
     end
   end
 
   private
 
-  # 悪意のあるデータが入り込まないように、特定の項目だけ許可する（Strong Parameters）
   def user_params
     params.require(:user).permit(:is_growth_record_enabled)
   end

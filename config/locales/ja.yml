@@ -26,12 +26,21 @@ ja:
   activerecord:
     models:
       user: "ユーザー"
+      memo: "メモ"
+      child: "お子さま"
+
     attributes:
       user:
         nickname: "ニックネーム"
         email: "メールアドレス"
         password: "パスワード"
         childcare_mode: "子育てモード"
+      memo:
+        content: "メモ内容"
+        memo_date: "日付"
+      child:
+        name: "お子さまの名前"
+        birthday: "生年月日"
 
   # --- 4. Deviseのメッセージ ---
   devise:

@@ -4,8 +4,16 @@ module Settings
     before_action :set_body_record, only: [ :show, :edit, :update, :destroy ]
 
     def index
-      @body_records = current_user.body_records.order(measured_on: :desc)
-    end
+  # 全データ（一覧表示用）
+  @body_records = current_user.body_records.order(measured_on: :asc)
+
+  # グラフ用：体重が nil でも 0 でもないデータだけを抽出
+  @valid_records_for_chart = @body_records.where("weight > ?", 0)
+
+  @body_record = current_user.body_records.new
+  @current_goal = current_user.current_goal
+  @latest_weight = current_user.body_records.order(measured_on: :desc).first
+end
 
     def show
     end

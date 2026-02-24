@@ -3,7 +3,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
-    # ★ここが超重要
     resource.skip_confirmation!
 
     resource.save

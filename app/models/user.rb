@@ -50,7 +50,7 @@ class User < ApplicationRecord
       messages << "習慣を #{done_habits_count} つクリア！着実ですね。"
     end
 
-    # 3. OpenAI（ぽぽねこ）の癒やしメッセージを取得
+    # 3. OpenAIの癒やしメッセージを取得
     ai_message = OpenaiService.fetch_buddy_message(self)
 
     # 4. 組み立て

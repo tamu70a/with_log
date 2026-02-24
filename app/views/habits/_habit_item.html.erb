@@ -6,7 +6,6 @@
     </div>
   </div>
 
-  <%# ★変更点：form: { data: { turbo_frame: ... } } を削除 %>
   <%= button_to(
     habit.checked_today? ? "✅ チェック済み" : "□ チェック",
     toggle_check_habit_path(habit),

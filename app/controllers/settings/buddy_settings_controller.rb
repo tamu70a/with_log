@@ -13,8 +13,7 @@ class Settings::BuddySettingsController < ApplicationController
   def update
     @user = current_user
     if @user.update(buddy_params)
-      # 成功したら表示画面(show)へ。通知メッセージは「WithLog+」らしく。
-      redirect_to settings_buddy_setting_path, notice: "バディの設定を保存しました。これからもよろしくね！"
+      redirect_to settings_buddy_setting_path, notice: "バディの設定を保存しました。これからもよろしくお願いします。"
     else
       render :edit, status: :unprocessable_entity
     end

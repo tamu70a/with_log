@@ -1,5 +1,6 @@
 class Habit < ApplicationRecord
   has_many :habit_checks, dependent: :destroy
+  validates :title, presence: { message: "を入力してください" }, length: { maximum: 255 }
 
   def current_count
     habit_checks.where("check_date <= ?", Date.current).count

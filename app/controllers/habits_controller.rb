@@ -15,6 +15,7 @@ class HabitsController < ApplicationController
     if @habit.save
       redirect_to habits_path, notice: "習慣を作成しました"
     else
+      flash.now[:alert] = "習慣タイトルを入力してください"
       render :new, status: :unprocessable_entity
     end
   end
@@ -26,6 +27,7 @@ class HabitsController < ApplicationController
     if @habit.update(habit_params)
       redirect_to habits_path, notice: "習慣を更新しました"
     else
+      flash.now[:alert] = "習慣タイトルを入力してください"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -35,8 +37,6 @@ class HabitsController < ApplicationController
     redirect_to habits_path, notice: "習慣を削除しました"
   end
 
-# チェックON/OFF
-# app/controllers/habits_controller.rb
 def toggle_check
   @habit.toggle_today_check!
   @habit.reload

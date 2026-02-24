@@ -25,22 +25,23 @@
       weight
     <% end %>
 
-    <%# 成長記録（ここがお子さまIDが必要な場所） %>
+    <%# 成長記録 %>
     <% if current_user.is_growth_record_enabled? %>
-      <% if current_user.children.any? %>
-        <%= link_to child_growth_records_path(current_user.children.first), class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
-          <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
-          growth
-        <% end %>
-      <% else %>
-        <%= link_to settings_children_path, class: "flex flex-col items-center p-2 opacity-50" do %>
-          <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
-          growth
-        <% end %>
-      <% end %>
+  <% if current_user.children.exists? %>
+    <%= link_to child_growth_records_path(current_user.children.first), class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
+      <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1" %>
+      growth
     <% end %>
+  <% else %>
+    <%# 未登録時の誘導用 %>
+    <%= link_to new_settings_child_path, class: "flex flex-col items-center p-2 text-gray-400 hover:text-pink-400", title: "まずはお子様情報を登録してください" do %>
+      <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-1 grayscale opacity-50" %>
+      <span class="text-[10px]">未登録</span>
+    <% end %>
+  <% end %>
+<% end %>
 
-    <%# 設定（先ほどのルーティングに合わせて settings_root_path を使用） %>
+    <%# 設定 %>
     <%= link_to settings_root_path, class: "flex flex-col items-center p-2 hover:text-pink-500" do %>
       <%= image_tag "setting.png", alt: "setting", class: "w-6 h-6 mb-1" %>
       setting
