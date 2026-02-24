@@ -30,7 +30,7 @@ TODO管理、日記、体重管理などのアプリは数多く存在します�
 そんなシンプルなアプリがあればいいのに、  
 と感じたことが、本サービスを企画したきっかけです。
 
-WithLog+では、天気や洗濯の目安、今日のTODO、ちょっとしたメモや日記、  
+WithLog+では、今日のTODO、ちょっとしたメモや日記、  
 習慣記録や体重管理といった“1日を過ごすために必要な情報”を<br>
 **一箇所にまとめて管理** できることを大切にしました。
 
@@ -63,7 +63,6 @@ WithLog+ は、
 ## サービスの利用イメージ
 ユーザーは、朝やスキマ時間にアプリを開くことで、
 
-- 今日の日付・天気・洗濯指数を確認  
 - 今日のTODOや習慣をチェック  
 - メモや日記を簡単に記録  
 - 目標体重までの残りの日数と体重を確認
@@ -117,7 +116,6 @@ WithLog+ では、
 - ユーザー登録 / ログイン機能  
 - ホーム画面  
   - 日付表示  
-  - 天気・洗濯指数表示  
   - バディキャラクターとメッセージ表示  
 - TODO管理機能  
   - 今日のTODOの追加・編集・完了  
@@ -152,40 +150,29 @@ WithLog+ では、
 ## 使用する技術スタック
 
 ### 開発環境
-- Docker  
+- Docker
 
 ### バックエンド
-- Ruby 3.3.6  
-- Ruby on Rails 7.2.3  
+- Ruby 3.3.6
+- Ruby on Rails 7.2.1
+- ライブラリ: Devise (認証), HTTParty (API通信), ruby-openai (AI連携)
 
 ### フロントエンド
-- ERB  
-- JavaScript（必要に応じて）  
-- Tailwind CSS  
-- Hotwire（Turbo）  
+- ERB
+- Tailwind CSS 4.0 / daisyUI 5.0
+- Hotwire (Turbo 8 / Stimulus)
+- esbuild
+- Chart.js
 
 ### データベース
-- PostgreSQL  
-
-### 認証
-- Devise  
+- PostgreSQL
 
 ### インフラ / デプロイ
-- Render  
+- Render (Web Service / PostgreSQL)
 
-### その他使用予定
-- GitHub（バージョン管理）  
-- GitHub Actions（CI / テスト自動化）  
-- Chart.js（体重グラフ表示）  
-- 外部API（天気情報取得）  
-- OpenAI API（バディ機能のメッセージ生成への活用を検討）
-
-
-### CRUD以外の実装イメージ
-- 天気情報は外部APIから取得し、当日分を表示  
-- 体重管理は日付ごとのデータを保存し、グラフとして可視化  
-- バディ機能はユーザーの行動結果や状態に応じて
-  あらかじめ用意したメッセージを表示する形で実装予定
+### ツール
+- GitHub / GitHub Actions
+- Letter Opener Web (開発環境メール確認)
 
 ---
 
