@@ -6,10 +6,10 @@
   <div class="card bg-base-100 shadow-md">
     <div class="card-body p-4 space-y-3">
 
-      <%= link_to settings_theme_setting_path, class: "btn btn-outline w-full justify-between" do %>
-        <span>テーマカラー設定</span>
-        <span>›</span>
-      <% end %>
+      <%# 1. テーマカラー設定（工事中） %>
+<button class="btn btn-outline w-full justify-between opacity-50 cursor-not-allowed" disabled>
+  <span>テーマカラー設定（準備中）</span>
+</button>
 
       <%= link_to settings_weight_goals_path, class: "btn btn-outline w-full justify-between" do %>
         <span>体重目標設定</span>
@@ -21,7 +21,6 @@
         <span>›</span>
       <% end %>
 
-      <%# --- ここを修正しました --- %>
       <%= link_to settings_growth_setting_path, class: "btn btn-outline w-full justify-between" do %>
         <span>成長記録設定</span>
         <span>›</span>
@@ -37,17 +36,17 @@
         <span>›</span>
       <% end %>
 
-      <div class="divider my-2"></div> <%# 少し区切りを入れると見やすくなります %>
+      <div class="divider my-2"></div>
 
-      <%= link_to terms_path, class: "btn btn-outline btn-sm w-full justify-between border-gray-300 font-normal text-gray-500" do %>
-        <span>利用規約</span>
-        <span>›</span>
-      <% end %>
+      <%# 2. 利用規約（工事中） %>
+<button class="btn btn-outline btn-sm w-full justify-between border-gray-300 font-normal text-gray-400 cursor-not-allowed" disabled>
+  <span>利用規約（準備中）</span>
+</button>
 
-      <%= link_to privacy_path, class: "btn btn-outline btn-sm w-full justify-between border-gray-300 font-normal text-gray-500" do %>
-        <span>プライバシーポリシー</span>
-        <span>›</span>
-      <% end %>
+<%# 3. プライバシーポリシー（工事中） %>
+<button class="btn btn-outline btn-sm w-full justify-between border-gray-300 font-normal text-gray-400 cursor-not-allowed" disabled>
+  <span>プライバシーポリシー（準備中）</span>
+</button>
 
       <div class="pt-4">
         <%= button_to destroy_user_session_path,

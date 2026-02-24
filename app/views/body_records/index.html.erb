@@ -1,4 +1,3 @@
-<!-- フラッシュメッセージ -->
 <% flash.each do |key, message| %>
   <div class="max-w-md mx-auto px-4 mt-4 p-3 rounded shadow
               <%= key == 'notice' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
@@ -6,7 +5,6 @@
   </div>
 <% end %>
 
-<!-- 目標表示 -->
 <% if @current_goal %>
   <div class="max-w-md mx-auto px-4 mt-6">
     <div class="bg-primary text-primary-content rounded-xl p-4 shadow">
@@ -30,7 +28,6 @@
     </div>
   </div>
 <% else %>
-  <%# 目標自体がない場合 %>
   <div class="max-w-md mx-auto px-4 mt-6">
     <div class="bg-base-200 rounded-xl p-4 shadow text-center">
       <p class="mb-2">目標がまだ設定されていません</p>
@@ -39,7 +36,6 @@
   </div>
 <% end %>
 
-<!-- 体重・体脂肪グラフ -->
 <div class="max-w-md mx-auto px-4 mt-6">
   <div class="bg-base-100 rounded-xl p-4 shadow">
     <h2 class="text-lg font-bold mb-2">体重・体脂肪グラフ</h2>
@@ -47,38 +43,47 @@
 
     <script id="body-records-data" type="application/json">
       {
-        "labels": <%= raw @body_records.pluck(:measured_on).map { |d| d.strftime("%m/%d") }.to_json %>,
-        "weights": <%= raw @body_records.pluck(:weight).to_json %>,
-        "body_fats": <%= raw @body_records.pluck(:body_fat).to_json %>
+        "labels": <%= raw (@valid_records_for_chart || []).pluck(:measured_on).map { |d| d.strftime("%m/%d") }.to_json %>,
+        "weights": <%= raw (@valid_records_for_chart || []).pluck(:weight).to_json %>,
+        "body_fats": <%= raw (@valid_records_for_chart || []).pluck(:body_fat).to_json %>
       }
     </script>
   </div>
 </div>
 
-<!-- 入力フォーム（固定せず通常レイアウト） -->
 <div class="max-w-md mx-auto px-4 mt-6 mb-12">
   <div class="bg-base-200 rounded-xl p-4 shadow">
     <%= form_with model: @body_record, url: body_records_path, local: true do |f| %>
 
       <div class="flex gap-4 mb-4">
+        <%# 体重入力 %>
         <div class="flex-1">
-          <label class="text-sm">体重</label>
+          <label class="text-sm font-bold">体重</label>
           <div class="flex items-center gap-2">
-            <%= f.number_field :weight, step: 0.1, class: "input input-bordered w-full" %>
-            <span>kg</span>
+            <%= f.number_field :weight, 
+                  step: 0.1, 
+                  min: 0.1, 
+                  required: true, 
+                  class: "input input-bordered w-full",
+                  placeholder: "0.0" %>
+            <span class="text-sm">kg</span>
           </div>
         </div>
 
+        <%# 体脂肪入力 %>
         <div class="flex-1">
-          <label class="text-sm">体脂肪</label>
+          <label class="text-sm font-bold">体脂肪</label>
           <div class="flex items-center gap-2">
-            <%= f.number_field :body_fat, step: 0.1, class: "input input-bordered w-full" %>
-            <span>%</span>
+            <%= f.number_field :body_fat, 
+                  step: 0.1, 
+                  class: "input input-bordered w-full",
+                  placeholder: "任意" %>
+            <span class="text-sm">%</span>
           </div>
         </div>
       </div>
 
-      <%= f.submit "入力", class: "btn btn-primary w-full" %>
+      <%= f.submit "入力を完了する", class: "btn btn-primary w-full shadow-md" %>
 
     <% end %>
   </div>

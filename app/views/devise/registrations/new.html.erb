@@ -6,7 +6,7 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-5" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
-    <%# --- ニックネーム項目を追加 --- %>
+    <%# ニックネーム %>
     <div>
       <label class="label">
         <span class="label-text font-semibold">ニックネーム</span>
@@ -15,6 +15,7 @@
       <p class="text-[10px] text-gray-500 mt-1">※バディがこの名前であなたを呼びます</p>
     </div>
 
+    <%# メールアドレス %>
     <div>
       <label class="label">
         <span class="label-text font-semibold"><%= t('activerecord.attributes.user.email') %></span>
@@ -22,6 +23,7 @@
       <%= f.email_field :email, autocomplete: "email", class: "input input-bordered w-full bg-base-200" %>
     </div>
 
+    <%# パスワード %>
     <div>
       <label class="label">
         <span class="label-text font-semibold"><%= t('activerecord.attributes.user.password') %></span>
@@ -32,6 +34,7 @@
       <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full bg-base-200" %>
     </div>
 
+    <%# パスワード確認 %>
     <div>
       <label class="label">
         <span class="label-text font-semibold"><%= t('activerecord.attributes.user.password_confirmation') %></span>
@@ -39,27 +42,26 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full bg-base-200" %>
     </div>
 
-    <%# --- 子育てメッセージON/OFF --- %>
-<div class="form-control bg-base-100 border border-base-300 rounded-lg p-3">
-  <label class="label cursor-pointer justify-between pb-0.5">
-    <span class="label-text font-semibold text-gray-700 text-[11px]">子育てメッセージ</span>
-    <%= f.check_box :childcare_mode, class: "toggle toggle-primary toggle-sm" %> <%# toggle-smで少し小さく %>
-  </label>
-  
-  <div class="px-1">
-    <p class="text-[11px] leading-tight text-gray-400">
-      ONにすると、バディとの会話に育児に関するメッセージが追加されます。
-    </p>
-  </div>
-</div>
-</div>
+    <%# 子育てメッセージON/OFF %>
+    <div class="form-control bg-base-100 border border-base-300 rounded-lg p-3">
+      <label class="label cursor-pointer justify-between pb-1">
+        <span class="label-text font-semibold text-gray-700 text-[11px]">子育てメッセージ</span>
+        <%= f.check_box :childcare_mode, class: "toggle toggle-primary toggle-sm" %>
+      </label>
+      <div class="px-1">
+        <p class="text-[11px] leading-tight text-gray-400">
+          ONにすると、バディとの会話に育児に関するメッセージが追加されます。
+        </p>
+      </div>
+    </div>
 
-    <div class="pt-2">
-      <%= f.submit t('devise.registrations.new.sign_up'), class: "btn btn-primary btn-block" %>
+    <%# ボタン %>
+    <div class="pt-4">
+      <%= f.submit t('devise.registrations.new.sign_up'), class: "btn btn-primary btn-block text-lg" %>
     </div>
   <% end %>
 
-  <div class="text-center text-sm text-gray-600">
+  <div class="text-center text-sm text-gray-600 pt-2">
     <%= link_to "ログインはこちら", new_session_path(resource_name), class: "link link-hover text-blue-600" %>
   </div>
 </div>

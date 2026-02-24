@@ -3,7 +3,7 @@
 
   <%= form_with model: task, class: "flex-1 flex items-center gap-2" do |f| %>
 
-    <%# タイトル入力欄：枠なし、背景白、親divの薄い枠に統一 %>
+    <%# タイトル入力欄 %>
     <%= f.text_field :title,
           class: "flex-1 h-9 px-2 rounded bg-white border-none focus:ring-0 focus:border-none placeholder-gray-400",
           placeholder: "タスクを入力" %>

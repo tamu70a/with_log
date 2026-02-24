@@ -1,0 +1,32 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認用）"
+        remember_me: "ログイン状態を保持する"
+  devise:
+    failure:
+      unauthenticated: "ログインまたは登録が必要です。"
+      already_authenticated: "すでにログインしています。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "ログアウトしました。"
+      new:
+        sign_in: "ログイン"
+    registrations:
+      new:
+        sign_up: "新規登録"
+        title: "新規登録"
+    passwords:
+      new:
+        title: "パスワードの再設定"
+        submit: "再設定メールを送信"
+        back_to_login: "ログイン画面に戻る"
+    shared:
+      links:
+        forgot_your_password: "パスワードを忘れた方はこちら"
+        sign_up: "新規登録はこちら"
+        sign_in: "ログインはこちら"

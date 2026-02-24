@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <%# --- 月齢タブ（選択中をはっきり色付け） --- %>
+  <%# --- 月齢タブ --- %>
   <div class="flex overflow-x-auto whitespace-nowrap bg-white border-b border-base-200 no-scrollbar">
     <% (0..@child.current_month_age).reverse_each do |age| %>
       <% label = age < 12 ? "#{age}ヶ月" : "#{age / 12}歳#{age % 12}ヶ月" %>
@@ -63,14 +63,13 @@
   <%# --- 記録エリア --- %>
   <div class="px-6">
     <div class="bg-white rounded-[2rem] p-8 shadow-md border border-base-200">
-      <%= form_with model: @growth_record, url: child_growth_records_path(@child), local: true do |f| %>
+<%= form_with model: @growth_record, url: child_growth_records_path(@child), method: :post, local: true do |f| %>
         <%= f.hidden_field :month_age, value: @month_age %>
         
         <div class="space-y-6">
           <div class="grid grid-cols-2 gap-4">
             <div class="form-control">
               <label class="label"><span class="label-text font-bold text-gray-600">身長 (cm)</span></label>
-              <%# 枠線を復活させ、背景を少し変えて「入力できる感」を出しました %>
               <%= f.number_field :body_height, step: 0.1, class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
             </div>
             <div class="form-control">
@@ -84,7 +83,6 @@
               <span class="label-text font-bold text-gray-600">成長のメモ</span>
             </label>
             <% default_text = "【食事】\n\n【好きな遊び】\n\n【言葉】\n\n【睡眠】\n\n【その他】" %>
-            <%# textareaにも枠線をしっかり追加 %>
             <%= f.text_area :content, 
                   value: f.object.content.presence || default_text,
                   class: "textarea textarea-bordered border-base-300 bg-white w-full h-80 rounded-2xl resize-none focus:border-primary leading-relaxed text-gray-700", 

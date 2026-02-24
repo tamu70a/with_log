@@ -1,43 +1,39 @@
-<h1 class="text-xl font-bold mb-6">メモ新規作成</h1>
+<div class="max-w-md mx-auto px-4 pb-10">
+  <h1 class="text-xl font-bold text-center my-6">メモ新規作成</h1>
 
-<%= form_with model: @memo, class: "space-y-4" do |f| %>
+  <%= form_with model: @memo, class: "space-y-4" do |f| %>
 
-  <% if @memo.errors.any? %>
-    <div class="alert alert-error mb-4 shadow-lg p-4 bg-red-100 text-red-800 rounded-lg">
-      <ul>
-        <% @memo.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+    <% if @memo.errors.any? %>
+      <div class="alert alert-error mb-4 shadow-lg p-4 bg-red-100 text-red-800 rounded-lg font-bold">
+        <ul class="list-disc list-inside">
+          <% @memo.errors.each do |error| %>
+            <li>
+              <% if error.attribute == :content %>
+                メモ内容を入力してください
+              <% elsif error.attribute == :memo_date %>
+                記録日を入力してください
+              <% else %>
+                <%= error.full_message %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="bg-base-100 rounded-lg p-4 shadow">
+      <%= f.label :content, "メモ内容", class: "label font-bold" %>
+      <%= f.text_area :content, rows: 8, class: "textarea textarea-bordered w-full", placeholder: "自由にメモを書いてください" %>
+    </div>
+
+    <div class="bg-base-100 rounded-lg p-4 shadow">
+      <%= f.label :memo_date, "記録日", class: "label font-bold" %>
+      <%= f.date_field :memo_date, class: "input input-bordered w-full" %>
+    </div>
+
+    <div class="flex gap-4 pt-4">
+      <%= link_to "キャンセル", memos_path, class: "btn btn-outline w-1/2" %>
+      <%= f.submit "完了", class: "btn btn-primary w-1/2" %>
     </div>
   <% end %>
-
-  <div class="card bg-base-100 shadow">
-    <div class="card-body">
-      <%= f.label :content, "メモ内容", class: "label" %>
-      <%= f.text_area :content,
-            rows: 8,
-            class: "textarea textarea-bordered w-full",
-            placeholder: "自由にメモを書いてください" %>
-    </div>
-  </div>
-
-  <div class="card bg-base-100 shadow mb-4">
-    <div class="card-body">
-      <%= f.label :memo_date, "記録日", class: "label font-bold" %>
-      <%= f.date_field :memo_date, 
-            class: "input input-bordered w-full",
-            required: true %>
-    </div>
-  </div>
-
-  <div class="flex gap-4 pt-4">
-    <%= link_to "キャンセル",
-          memos_path,
-          class: "btn btn-outline w-1/2" %>
-
-    <%= f.submit "完了",
-          class: "btn btn-primary w-1/2" %>
-  </div>
-
-<% end %>
+</div>

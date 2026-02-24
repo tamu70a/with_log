@@ -10,7 +10,7 @@ class HabitChecksController < ApplicationController
   end
 
   def destroy
-    # 今日のチェックを削除（チェック外す場合）
+    # 今日のチェックを削除
     check = @habit.habit_checks.find_by(check_date: Date.current)
     check&.destroy
     redirect_to root_path

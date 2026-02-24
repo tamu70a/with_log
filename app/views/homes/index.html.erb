@@ -27,10 +27,9 @@
     clockElement.textContent = hours + ':' + minutes;
   }
 
-  // 1秒(1000ミリ秒)ごとに実行
+  // 1秒ごとに実行
   setInterval(updateClock, 1000);
   
-  // ページ読み込み時にも一度実行してズレをなくす
   updateClock();
 </script>
 
@@ -125,7 +124,6 @@
  <!-- 体重目標 -->
 <div class="bg-base-100 rounded-lg p-4 shadow">
   <h3 class="text-md font-bold">body</h3>
-
   <div class="flex justify-between items-center mt-2 space-x-2">
 
     <!-- 残り日数 -->
@@ -158,8 +156,8 @@
   <!-- ボタン -->
   <div class="mt-2 text-right">
     <%= link_to body_records_path,
-        class: "btn btn-circle bg-pink-300 text-white shadow-md" do %>
-      ✏️
+        class: "btn btn-circle bg-secondary text-white shadow-md" do %>
+      <%= image_tag "pen.png", class: "w-5 h-5" %>
     <% end %>
   </div>
 </div>
