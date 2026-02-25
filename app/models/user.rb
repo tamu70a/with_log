@@ -19,7 +19,28 @@ class User < ApplicationRecord
   end
 
   # --- バディのメッセージ生成ロジック ---
-  def buddy_message
+  def buddy_message(fetch_ai: true)
+    rails_text = generate_rails_status_messages
+
+    ai_message = if fetch_ai
+                   # ここでOpenaiServiceを呼ぶ（6時間判定などはService側がやってくれる）
+                   OpenaiService.fetch_buddy_message(self)
+    else
+                   # タスク完了時などは、DBに保存されている最新のメッセージを出すだけ
+                   self.buddy_memo || "静かにそばにいますね。"
+    end
+
+    if rails_text.present?
+      "#{nickname}さん、#{rails_text} #{ai_message}"
+    else
+      "#{nickname}さん、#{ai_message}"
+    end
+  end
+
+  private
+
+  # Rails側でのメッセージ判定
+  def generate_rails_status_messages
     status = weight_status
     incomplete_count = tasks.where(is_done: false).count
     done_habits_count = habits.joins(:habit_checks).where(habit_checks: { check_date: Date.current }).count
@@ -29,19 +50,16 @@ class User < ApplicationRecord
     all_habits_done = total_habits_count > 0 && (done_habits_count == total_habits_count)
 
     messages = []
-
-    # 1. 体重セクション
     if status
       if status[:goal_achieved]
-        messages << "目標体重クリアですよ！🎉"
-      elsif status[:is_continuous]
-        messages << "昨日も今日も記録したんですね！継続の天才✨"
+        messages << "目標体重クリアおめでとうございます！🎉ここまで頑張った自分をたくさん褒めてあげましょう！"
+      elsif status[:latest_measured_today]
+        messages << "今日も記録、素晴らしいです✨"
       elsif status[:diff_yesterday] && status[:diff_yesterday] < 0
         messages << "昨日より #{status[:diff_yesterday].abs}kg 減ってますよ！"
       end
     end
 
-    # 2. 習慣・TODOセクション
     if all_todos_done && all_habits_done
       messages << "TODOも習慣も全部クリア！完璧すぎて眩しいです…！"
     elsif all_habits_done
@@ -50,17 +68,7 @@ class User < ApplicationRecord
       messages << "習慣を #{done_habits_count} つクリア！着実ですね。"
     end
 
-    # 3. OpenAIの癒やしメッセージを取得
-    ai_message = OpenaiService.fetch_buddy_message(self)
-
-    # 4. 組み立て
-    rails_text = messages.any? ? messages.join(" ") : ""
-
-    if rails_text.present?
-      "#{nickname}さん、#{rails_text} #{ai_message}"
-    else
-      "#{nickname}さん、#{ai_message}"
-    end
+    messages.join(" ")
   end
 
   # --- 判定ロジック ---
