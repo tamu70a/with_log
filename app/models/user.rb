@@ -23,18 +23,15 @@ class User < ApplicationRecord
     rails_text = generate_rails_status_messages
 
     ai_message = if fetch_ai
-                   # ここでOpenaiServiceを呼ぶ（6時間判定などはService側がやってくれる）
                    OpenaiService.fetch_buddy_message(self)
     else
-                   # タスク完了時などは、DBに保存されている最新のメッセージを出すだけ
                    self.buddy_memo || "静かにそばにいますね。"
     end
 
-    if rails_text.present?
-      "#{nickname}さん、#{rails_text} #{ai_message}"
-    else
-      "#{nickname}さん、#{ai_message}"
-    end
+    # 名前が2回出ないよう、ここで一括して「〇〇さん、」を付与する
+    combined_body = [ rails_text, ai_message ].select(&:present?).join(" ")
+
+    "#{nickname}さん、#{combined_body}"
   end
 
   private
@@ -50,16 +47,19 @@ class User < ApplicationRecord
     all_habits_done = total_habits_count > 0 && (done_habits_count == total_habits_count)
 
     messages = []
-    if status
+
+    # 1. 体重に関するメッセージ（今日入力済みの場合のみ）
+    if status && status[:latest_measured_today]
       if status[:goal_achieved]
-        messages << "目標体重クリアおめでとうございます！🎉ここまで頑張った自分をたくさん褒めてあげましょう！"
-      elsif status[:latest_measured_today]
-        messages << "今日も記録、素晴らしいです✨"
+        messages << "目標体重クリアおめでとうございます！🎉"
       elsif status[:diff_yesterday] && status[:diff_yesterday] < 0
         messages << "昨日より #{status[:diff_yesterday].abs}kg 減ってますよ！"
+      else
+        messages << "今日も記録、素晴らしいです✨"
       end
     end
 
+    # 2. タスク・習慣に関するメッセージ
     if all_todos_done && all_habits_done
       messages << "TODOも習慣も全部クリア！完璧すぎて眩しいです…！"
     elsif all_habits_done
@@ -80,6 +80,7 @@ class User < ApplicationRecord
     return nil unless latest
 
     {
+      latest_measured_today: latest.measured_on == Date.current,
       latest_weight: latest.weight,
       is_continuous: (latest.measured_on == Date.current && previous&.measured_on == Date.yesterday),
       diff_yesterday: previous ? (latest.weight - previous.weight).round(1) : nil,

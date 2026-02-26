@@ -1,20 +1,25 @@
 <div id="task_<%= task.id %>"
-     class="flex items-center gap-2 p-2 rounded-lg shadow border-gray-100">
+     class="flex flex-wrap sm:flex-nowrap items-center gap-2 p-2 rounded-lg shadow-sm border border-gray-100 bg-white">
 
-  <%= form_with model: task, class: "flex-1 flex items-center gap-2" do |f| %>
+  <%= form_with model: task, class: "flex-1 flex items-center gap-2 w-full" do |f| %>
 
     <%# タイトル入力欄 %>
     <%= f.text_field :title,
-          class: "flex-1 h-9 px-2 rounded bg-white border-none focus:ring-0 focus:border-none placeholder-gray-400",
+          class: "flex-1 min-w-0 h-9 px-2 rounded bg-gray-50 border-none focus:ring-1 focus:ring-primary placeholder-gray-400 text-sm",
           placeholder: "タスクを入力" %>
 
-    <%# 保存ボタン %>
-    <%= f.submit "保存", class: "btn btn-sm btn-primary h-9" %>
+    <%# ボタン群 %>
+    <div class="flex items-center gap-1 shrink-0">
+      <%# 保存ボタン %>
+      <%= f.submit "保存", class: "btn btn-xs btn-primary h-8 px-3" %>
 
-    <%# 削除ボタン %>
-    <%= link_to "削除", task_path(task),
-          data: { turbo_method: :delete },
-          class: "btn btn-sm btn-outline h-9" %>
+      <%# 削除ボタン %>
+      <%= link_to task_path(task),
+            data: { turbo_method: :delete },
+            class: "btn btn-xs btn-outline btn-error h-8 px-2" do %>
+        削除
+      <% end %>
+    </div>
 
   <% end %>
 </div>
