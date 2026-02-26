@@ -25,12 +25,10 @@ end
   def edit; end
 
   def update
-    if @child.save
-    redirect_to child_growth_records_path(@child), notice: "お子さま情報を登録しました"
+    if @child.update(child_params)
+      redirect_to settings_children_path, notice: "お子さま情報を更新しました"
     else
-    flash.now[:alert] = @child.errors.full_messages.join("、")
-
-    render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 

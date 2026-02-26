@@ -26,19 +26,26 @@ class TasksController < ApplicationController
 
     # 2. 完了チェックの切り替え
     if params.key?(:is_done)
-  @task.update(is_done: params[:is_done] == "1")
+      @task.update(is_done: params[:is_done] == "1")
 
-  respond_to do |format|
-    format.turbo_stream do
-      render turbo_stream: [
-        turbo_stream.replace(@task),
-        turbo_stream.update("buddy_message_area",
-                            partial: "homes/buddy_message",
-                            locals: { message: current_user.buddy_message(fetch_ai: false) })
-      ]
-    end
-  end
-  return
+      # 未完了タスクがあるかチェック
+      incomplete_tasks_exist = current_user.tasks.where(is_done: false).exists?
+
+      respond_to do |format|
+        format.turbo_stream do
+          streams = [ turbo_stream.replace(@task) ]
+
+          # 全部完了した時、または全部完了から1つ戻した時だけ、メッセージを更新する
+          if !incomplete_tasks_exist || params[:is_done] == "0"
+            streams << turbo_stream.update("buddy_message_area",
+                                         partial: "homes/buddy_message",
+                                         locals: { message: current_user.buddy_message(fetch_ai: false) })
+          end
+
+          render turbo_stream: streams
+        end
+      end
+      return
     end
 
     # 3. タイトルの保存処理

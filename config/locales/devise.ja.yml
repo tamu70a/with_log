@@ -20,6 +20,7 @@ ja:
         password_confirmation: "パスワード（確認用）"
         remember_me: "ログイン状態を保持する"
         nickname: "ニックネーム"
+        current_password: "現在のパスワード"
   devise:
     failure:
       invalid: "メールアドレスまたはパスワードが違います。"

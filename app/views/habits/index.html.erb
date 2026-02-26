@@ -10,9 +10,9 @@
               <%= habit.title %>
             </div>
 
-            <div class="text-sm text-gray-500">
-              <%= habit.start_date %> 〜 <%= habit.end_date %>
-              （<%= habit.total_days %>日間）
+            <div class="text-xs text-gray-500 space-y-0.5 mt-1">
+            <div><%= habit.start_date %> 〜 <%= habit.end_date %></div>
+            <div class="font-medium text-gray-400">（<%= habit.total_days %>日間）</div>
             </div>
 
             <div class="text-sm text-gray-600 mt-1">
