@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   namespace :settings do
     root "dashboards#show"
     resources :body_records, only: [ :index, :show, :edit, :update, :destroy ]
-    resources :weight_goals, only: [ :index, :create ]
+    resources :weight_goals, only: [ :index, :create  ]
     resource :growth_setting, only: [ :show, :update ] do
       resource :display, only: [ :show, :update ], module: :growth_settings
     end
