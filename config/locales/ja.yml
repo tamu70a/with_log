@@ -18,9 +18,22 @@ ja:
     format: "%{attribute}%{message}"
     messages:
       blank: "を入力してください"
+      not_a_number: "は数値で入力してください"
+      greater_than: "は%{count}より大きい値にしてください"
       not_saved:
         one: "エラーが発生したため %{resource} は保存されませんでした。"
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
+    models:
+      user: "ユーザー"
+      memo: "メモ"
+      child: "お子さま"
+      weight_goal:
+        attributes:
+            target_weight:
+              blank: "を入力してください"
+              not_a_number: "は数値で入力してください"
+              greater_than: "は%{count}より大きい値にしてください"
+
 
   # --- 3. モデル・属性の日本語名 ---
   activerecord:
@@ -28,6 +41,7 @@ ja:
       user: "ユーザー"
       memo: "メモ"
       child: "お子さま"
+      weight_goal: "目標"
 
     attributes:
       user:
@@ -41,6 +55,9 @@ ja:
       child:
         name: "お子さまの名前"
         birthday: "生年月日"
+      weight_goal:
+        target_weight: 目標体重
+        target_date: 期限
 
   # --- 4. Deviseのメッセージ ---
   devise:

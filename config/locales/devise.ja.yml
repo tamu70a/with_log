@@ -8,6 +8,11 @@ ja:
   # バリデーションエラーの共通設定
   activerecord:
     errors:
+      models:
+        user:
+          attributes:
+            current_password:
+              invalid: "は正しくありません"
       messages:
         taken: "はすでに存在します"
         blank: "を入力してください"
