@@ -1,51 +1,51 @@
-<footer class="fixed bottom-0 w-full bg-pink-100 text-gray-700 shadow-inner z-50 pb-8"> 
-  <div class="grid grid-cols-6 text-center px-4 text-[10px] items-end">
+<footer class="fixed bottom-0 w-full bg-pink-100 text-gray-700 shadow-inner z-50 pb-[env(safe-area-inset-bottom,16px)]"> 
+  <div class="grid grid-cols-6 text-center px-1 text-[10px] items-end">
     
     <%# ホーム %>
-    <%= link_to root_path, class: "flex flex-col items-center p-4 hover:text-pink-500" do %>
+    <%= link_to root_path, class: "flex flex-col items-center py-4 px-0 hover:text-pink-500" do %>
       <%= image_tag "home.png", alt: "home", class: "w-6 h-6 mb-2" %>
-      home
+      <span class="w-full truncate">home</span>
     <% end %>
 
     <%# 習慣 %>
-    <%= link_to habits_path, class: "flex flex-col items-center p-4 hover:text-pink-500" do %>
+    <%= link_to habits_path, class: "flex flex-col items-center py-4 px-0 hover:text-pink-500" do %>
       <%= image_tag "habit.png", alt: "habit", class: "w-6 h-6 mb-2" %>
-      habit
+      <span class="w-full truncate">habit</span>
     <% end %>
 
     <%# メモ %>
-    <%= link_to memos_path, class: "flex flex-col items-center p-4 hover:text-pink-500" do %>
+    <%= link_to memos_path, class: "flex flex-col items-center py-4 px-0 hover:text-pink-500" do %>
       <%= image_tag "memo.png", alt: "memo", class: "w-6 h-6 mb-2" %>
-      memo
+      <span class="w-full truncate">memo</span>
     <% end %>
 
     <%# 体重記録 %>
-    <%= link_to body_records_path, class: "flex flex-col items-center p-4 hover:text-pink-500" do %>
+    <%= link_to body_records_path, class: "flex flex-col items-center py-4 px-0 hover:text-pink-500" do %>
       <%= image_tag "weight.png", alt: "weight", class: "w-6 h-6 mb-2" %>
-      weight
+      <span class="w-full truncate">weight</span>
     <% end %>
 
     <%# 成長記録 %>
     <% if current_user.is_growth_record_enabled? %>
-  <% if current_user.children.exists? %>
-    <%= link_to child_growth_records_path(current_user.children.first), class: "flex flex-col items-center p-4 hover:text-pink-500" do %>
-      <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-2" %>
-      growth
+      <% if current_user.children.exists? %>
+        <%= link_to child_growth_records_path(current_user.children.first), class: "flex flex-col items-center py-4 px-0 hover:text-pink-500" do %>
+          <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-2" %>
+          <span class="w-full truncate">growth</span>
+        <% end %>
+      <% else %>
+        <%# 未登録時の誘導用 %>
+        <%= link_to new_settings_child_path, class: "flex flex-col items-center py-4 px-0 text-gray-400 hover:text-pink-400", title: "まずはお子様情報を登録してください" do %>
+          <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-2 grayscale opacity-50" %>
+          <span class="w-full truncate">未登録</span>
+        <% end %>
+      <% end %>
     <% end %>
-  <% else %>
-    <%# 未登録時の誘導用 %>
-    <%= link_to new_settings_child_path, class: "flex flex-col items-center p-4 text-gray-400 hover:text-pink-400", title: "まずはお子様情報を登録してください" do %>
-      <%= image_tag "growth_record.png", alt: "growth_record", class: "w-6 h-6 mb-2 grayscale opacity-50" %>
-      <span class="text-[10px]">未登録</span>
-    <% end %>
-  <% end %>
-<% end %>
 
     <%# 設定 %>
-    <%= link_to settings_root_path, class: "flex flex-col items-center p-4 hover:text-pink-500" do %>
+    <%= link_to settings_root_path, class: "flex flex-col items-center py-4 px-0 hover:text-pink-500" do %>
       <%= image_tag "setting.png", alt: "setting", class: "w-6 h-6 mb-2" %>
-      setting
-      <% end %>
+      <span class="w-full truncate">setting</span>
+    <% end %>
 
   </div>
 </footer>
