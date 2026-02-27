@@ -24,17 +24,13 @@
         </label>
         
         <ul tabindex="0" class="dropdown-content z-[50] menu p-2 shadow-2xl bg-base-100 rounded-2xl w-52 mt-2 border border-base-200">
-  <%# 1. 「お子さまを選択」の文字サイズを少し上げ、折り返しを禁止 %>
   <li class="menu-title text-xs px-2 py-2 whitespace-nowrap text-gray-400">
     お子さまを選択
   </li>
 
   <% current_user.children.each do |child| %>
     <li>
-      <%# 2. link_to の中に flex を指定して、アイコンと名前を横並びに固定 %>
       <%= link_to child_growth_records_path(child), class: "rounded-xl py-3 px-4 flex items-center gap-3" do %>
-        
-        <%# 3. whitespace-nowrap で名前が縦にならないように強制 %>
         <span class="font-bold text-sm text-gray-700 whitespace-nowrap">
           <%= child.name %>
         </span>
