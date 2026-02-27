@@ -1,5 +1,6 @@
 <div class="max-w-md mx-auto px-4 pt-8 pb-20">
-  <%# 1. 共通ヘッダー：設定トップへ戻る %>
+
+  <!-- 共通ヘッダー -->
   <div class="flex items-center mb-6">
     <%= render 'shared/back_button', path: settings_root_path %>
     <h1 class="text-xl font-bold flex-1 text-center mr-10 text-gray-700">
@@ -7,31 +8,49 @@
     </h1>
   </div>
 
-  <%# 2. メインカード %>
+  <!-- メインカード -->
   <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-base-200">
+
     <div class="flex items-center gap-2 mb-8">
       <span class="w-1 h-6 bg-primary rounded-full"></span>
       <h2 class="font-bold text-gray-700 text-lg">登録情報の編集</h2>
     </div>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "space-y-6" }) do |f| %>
+    <%= form_for(resource,
+          as: resource_name,
+          url: registration_path(resource_name),
+          html: { method: :put, class: "space-y-6" }) do |f| %>
+
       <%= render "devise/shared/error_messages", resource: resource %>
-      <%# --- ニックネーム --- %>
-<div class="form-control mb-4">
-  <label class="label">
-    <span class="label-text font-bold text-gray-600">ニックネーム</span>
-  </label>
-  <%= f.text_field :nickname, autofocus: true, 
-        class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all h-12",
-        placeholder: "バディに呼んでほしい名前" %>
-  <p class="text-[10px] text-gray-400 mt-1 px-1">バディがあなたを呼ぶときに使います</p>
-</div>
-      <%# メールアドレス %>
+
+      <!-- ニックネーム -->
       <div class="form-control">
-        <label class="label">
-          <span class="label-text font-bold text-gray-600">メールアドレス</span>
-        </label>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", 
+        <%= f.label :nickname, class: "label" do %>
+          <span class="label-text font-bold text-gray-600">
+            ニックネーム
+          </span>
+        <% end %>
+
+        <%= f.text_field :nickname,
+              autofocus: true,
+              class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all h-12",
+              placeholder: "バディに呼んでほしい名前" %>
+
+        <p class="text-[10px] text-gray-400 mt-1 px-1">
+          バディがあなたを呼ぶときに使います
+        </p>
+      </div>
+
+      <!-- メールアドレス -->
+      <div class="form-control">
+        <%= f.label :email, class: "label" do %>
+          <span class="label-text font-bold text-gray-600">
+            メールアドレス
+          </span>
+        <% end %>
+
+        <%= f.email_field :email,
+              autocomplete: "email",
               class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all h-12" %>
       </div>
 
@@ -41,59 +60,78 @@
         </div>
       <% end %>
 
-      <div class="divider text-[10px] text-gray-300">パスワード変更</div>
+      <div class="divider text-[10px] text-gray-300">
+        パスワード変更
+      </div>
 
-      <%# 新しいパスワード %>
+      <!-- 新しいパスワード -->
       <div class="form-control">
-        <label class="label">
-          <span class="label-text font-bold text-gray-600">新しいパスワード</span>
-          <% if @minimum_password_length %>
-            <span class="label-text-alt text-gray-400"><%= @minimum_password_length %>文字以上</span>
-          <% end %>
-        </label>
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "変更する場合のみ入力",
+        <%= f.label :password, class: "label" do %>
+          <span class="label-text font-bold text-gray-600">
+            新しいパスワード
+          </span>
+        <% end %>
+
+        <%= f.password_field :password,
+              autocomplete: "new-password",
+              placeholder: "変更する場合のみ入力",
               class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all h-12" %>
       </div>
 
-      <%# 確認用パスワード %>
+      <!-- パスワード確認 -->
       <div class="form-control">
-        <label class="label">
-          <span class="label-text font-bold text-gray-600">パスワード再入力</span>
-        </label>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password",
+        <%= f.label :password_confirmation, class: "label" do %>
+          <span class="label-text font-bold text-gray-600">
+            パスワード再入力
+          </span>
+        <% end %>
+
+        <%= f.password_field :password_confirmation,
+              autocomplete: "new-password",
               class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all h-12" %>
       </div>
 
-      <div class="divider text-[10px] text-gray-400 bg-primary/5 py-1 rounded-lg font-bold">保存には現在のパスワードが必要です</div>
+      <div class="divider text-[10px] text-gray-400 bg-primary/5 py-1 rounded-lg font-bold">
+        保存には現在のパスワードが必要です
+      </div>
 
-      <%# 現在のパスワード %>
+      <!-- 現在のパスワード -->
       <div class="form-control">
-        <label class="label">
-          <span class="label-text font-bold text-primary">現在のパスワード</span>
-        </label>
-        <%= f.password_field :current_password, autocomplete: "current-password",
+        <%= f.label :current_password, class: "label" do %>
+          <span class="label-text font-bold text-primary">
+            現在のパスワード
+          </span>
+        <% end %>
+
+        <%= f.password_field :current_password,
+              autocomplete: "current-password",
               class: "input input-bordered border-primary/30 w-full rounded-2xl bg-primary/5 focus:bg-white transition-all h-12" %>
       </div>
 
-      <%# 更新ボタン %>
+      <!-- 更新ボタン -->
       <div class="pt-4">
-        <%= f.submit "設定を更新する", 
+        <%= f.submit "設定を更新する",
               class: "btn btn-primary w-full rounded-full text-white shadow-md hover:shadow-lg transition-all h-12 no-animation" %>
       </div>
+
     <% end %>
   </div>
 
-  <%# 3. アカウント削除の案内 %>
+  <!-- アカウント削除 -->
   <div class="mt-12 px-4">
     <div class="divider text-xs text-gray-300">退会について</div>
+
     <p class="text-[10px] text-gray-400 text-center mb-4 leading-relaxed">
-      退会すると、これまでの記録はすべて削除され、<br>復元することはできません。
+      退会すると、これまでの記録はすべて削除され、<br>
+      復元することはできません。
     </p>
-    <%= button_to registration_path(resource_name), 
-          method: :delete, 
+
+    <%= button_to registration_path(resource_name),
+          method: :delete,
           data: { confirm: "本当に退会しますか？", turbo_confirm: "本当に退会しますか？" },
           class: "btn btn-ghost btn-sm w-full text-error/50 hover:text-error hover:bg-error/10 transition-all" do %>
       アカウントを削除して退会する
     <% end %>
   </div>
+
 </div>

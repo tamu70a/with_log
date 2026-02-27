@@ -1,52 +1,55 @@
 <div class="max-w-md mx-auto min-h-screen bg-base-100 pb-24">
-  
-<%# --- ヘッダー --- %>
+
+  <!-- ヘッダー -->
   <div class="px-4 h-14 flex items-center justify-center bg-white border-b border-base-200 relative">
-    
-    <%# タイトル %>
     <h1 class="text-s font-bold text-gray-700 tracking-wider">
       成長のきろく
     </h1>
 
-    <%# お子さま切り替え %>
     <div class="absolute right-4 inset-y-0 flex items-center">
       <div class="dropdown dropdown-end">
-        <label tabindex="0" class="flex items-center gap-1.5 cursor-pointer bg-gray-50 px-2 py-1 rounded-full border border-gray-100 shadow-sm active:scale-95 transition-all">
+
+        <!-- dropdownトリガー -->
+        <div tabindex="0"
+             class="flex items-center gap-1.5 cursor-pointer bg-gray-50 px-2 py-1 rounded-full border border-gray-100 shadow-sm active:scale-95 transition-all">
           <div class="avatar">
             <div class="w-5 h-5 rounded-full bg-white flex items-center justify-center">
               <span class="text-[10px]">🎨</span>
             </div>
           </div>
           <span class="text-[10px] font-black text-gray-500 truncate max-w-[80px] whitespace-nowrap">
-        <%= @child.name %>
-      </span>
-    
-        </label>
-        
-        <ul tabindex="0" class="dropdown-content z-[50] menu p-2 shadow-2xl bg-base-100 rounded-2xl w-52 mt-2 border border-base-200">
-  <li class="menu-title text-xs px-2 py-2 whitespace-nowrap text-gray-400">
-    お子さまを選択
-  </li>
+            <%= @child.name %>
+          </span>
+        </div>
 
-  <% current_user.children.each do |child| %>
-    <li>
-      <%= link_to child_growth_records_path(child), class: "rounded-xl py-3 px-4 flex items-center gap-3" do %>
-        <span class="font-bold text-sm text-gray-700 whitespace-nowrap">
-          <%= child.name %>
-        </span>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+        <!-- dropdownメニュー -->
+        <ul tabindex="0"
+            class="dropdown-content z-[50] menu p-2 shadow-2xl bg-base-100 rounded-2xl w-52 mt-2 border border-base-200">
+          <li class="menu-title text-xs px-2 py-2 whitespace-nowrap text-gray-400">
+            お子さまを選択
+          </li>
+
+          <% current_user.children.each do |child| %>
+            <li>
+              <%= link_to child_growth_records_path(child),
+                    class: "rounded-xl py-3 px-4 flex items-center gap-3" do %>
+                <span class="font-bold text-sm text-gray-700 whitespace-nowrap">
+                  <%= child.name %>
+                </span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+
       </div>
     </div>
   </div>
 
-  <%# --- 月齢タブ --- %>
+  <!-- 月齢タブ -->
   <div class="flex overflow-x-auto whitespace-nowrap bg-white border-b border-base-200 no-scrollbar">
     <% (0..@child.current_month_age).reverse_each do |age| %>
       <% label = age < 12 ? "#{age}ヶ月" : "#{age / 12}歳#{age % 12}ヶ月" %>
-      <%= link_to child_growth_records_path(@child, month_age: age), 
+      <%= link_to child_growth_records_path(@child, month_age: age),
           class: "inline-block px-4 py-0.5 transition-all #{ @month_age == age ? 'bg-primary text-primary-content font-bold' : 'text-gray-400 hover:bg-base-100' }" do %>
         <div class="text-center">
           <div class="text-sm"><%= label %></div>
@@ -56,55 +59,57 @@
     <% end %>
   </div>
 
-  <%# --- 選択中インジケーター --- %>
-  <div class="px-4 py-0.5 flex justify-between items-center">
-    <div class="flex items-baseline gap-2">
-      <h2 class="text-sm font-black text-gray-800">
-        <%= @month_age < 12 ? "#{@month_age}ヶ月" : "#{@month_age / 12}歳#{@month_age % 12}ヶ月" %>
-      </h2>
-      <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Selected</span>
-    </div>
-    <div class="badge badge-primary badge-outline font-bold text-[10px]">
-      <%= @child.date_range_for(@month_age) %>
-    </div>
-  </div>
-
-  <%# --- 記録エリア --- %>
+  <!-- 記録エリア -->
   <div class="px-2">
     <div class="bg-white rounded-[2rem] p-4 shadow-md border border-base-200">
-<%= form_with model: @growth_record, url: child_growth_records_path(@child), method: :post, local: true do |f| %>
-        <%= f.hidden_field :month_age, value: @month_age %>
-        
-<div class="space-y-3">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="form-control">
-            <label class="label"><span class="label-text font-bold text-gray-600">身長 (cm)</span></label>
-            <%= f.number_field :body_height, step: 0.1, class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
-          </div>
-          <div class="form-control">
-            <label class="label"><span class="label-text font-bold text-gray-600">体重 (kg)</span></label>
-            <%= f.number_field :body_weight, step: 0.1, class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
-          </div>
-        </div>
 
+      <%= form_with model: @growth_record, url: child_growth_records_path(@child), local: true do |f| %>
+        <%= f.hidden_field :month_age, value: @month_age %>
+
+        <div class="space-y-3">
+
+          <!-- 身長・体重 -->
+          <div class="grid grid-cols-2 gap-4">
+
+            <div class="form-control">
+              <%= f.label :body_height, "身長 (cm)", class: "label-text font-bold text-gray-600" %>
+              <%= f.number_field :body_height,
+                    step: 0.1,
+                    class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
+            </div>
+
+            <div class="form-control">
+              <%= f.label :body_weight, "体重 (kg)", class: "label-text font-bold text-gray-600" %>
+              <%= f.number_field :body_weight,
+                    step: 0.1,
+                    class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
+            </div>
+
+          </div>
+
+          <!-- メモ -->
           <div class="form-control">
-            <label class="label">
-              <span class="label-text font-bold text-gray-600">成長のメモ</span>
-            </label>
+            <%= f.label :content, "成長のメモ", class: "label-text font-bold text-gray-600" %>
+
             <% default_text = "【食事】\n\n【好きな遊び】\n\n【言葉】\n\n【睡眠】\n\n【その他】" %>
-            <%= f.text_area :content, 
+
+            <%= f.text_area :content,
                   value: f.object.content.presence || default_text,
                   style: "height: 240px;",
-                  class: "textarea textarea-bordered border-base-300 bg-white w-full rounded-2xl resize-none focus:border-primary leading-relaxed text-gray-700", 
+                  class: "textarea textarea-bordered border-base-300 bg-white w-full rounded-2xl resize-none focus:border-primary leading-relaxed text-gray-700",
                   placeholder: "日常の記録をここに。" %>
           </div>
+
         </div>
 
         <div class="mt-4">
-          <%= f.submit "この内容で記録する", 
-    class: "btn btn-primary btn-lg btn-block shadow-lg rounded-2xl font-bold text-lg" %>
+          <%= f.submit "この内容で記録する",
+                class: "btn btn-primary btn-lg btn-block shadow-lg rounded-2xl font-bold text-lg" %>
         </div>
+
       <% end %>
+
     </div>
   </div>
+
 </div>

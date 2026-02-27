@@ -114,12 +114,13 @@
 
   <!-- 編集用 -->
   <textarea
-    data-inline-memo-target="input"
-    data-action="blur->inline-memo#save"
-    class="textarea textarea-bordered w-full hidden"
-    rows="4"
+  id="home_memo_input"
+  name="home_memo_content"
+  data-inline-memo-target="input"
+  data-action="blur->inline-memo#save"
+  class="textarea textarea-bordered w-full hidden"
+  rows="4"
   ><%= @home_memo.content %></textarea>
-</div>
 
 
  <!-- 体重目標 -->
