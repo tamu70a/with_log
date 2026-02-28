@@ -65,3 +65,4 @@ end
 gem "cssbundling-rails", "~> 1.4"
 gem "httparty"
 gem "ruby-openai"
+gem "sendgrid-actionmailer"
