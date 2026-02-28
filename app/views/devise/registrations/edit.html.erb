@@ -98,7 +98,7 @@
       <!-- 現在のパスワード -->
       <div class="form-control">
         <%= f.label :current_password, class: "label" do %>
-          <span class="label-text font-bold text-primary">
+          <span class="label-text font-bold text-gray-900">
             現在のパスワード
           </span>
         <% end %>
@@ -110,9 +110,9 @@
 
       <!-- 更新ボタン -->
       <div class="pt-4">
-        <%= f.submit "設定を更新する",
-              class: "btn btn-primary w-full rounded-full text-white shadow-md hover:shadow-lg transition-all h-12 no-animation" %>
-      </div>
+  <%= f.submit "設定を更新する",
+        class: "btn btn-primary btn-lg w-full shadow-lg" %>
+</div>
 
     <% end %>
   </div>
