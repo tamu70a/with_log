@@ -51,7 +51,8 @@
       <div class="flex gap-4 mb-4">
         <%# 体重入力 %>
         <div class="flex-1">
-          <label class="text-sm font-bold">体重</label>
+          <%= f.label :weight, "体重",
+      class: "text-sm font-bold" %>
           <div class="flex items-center gap-2">
             <%= f.number_field :weight, 
                   step: 0.1, 
@@ -65,7 +66,8 @@
 
         <%# 体脂肪入力 %>
         <div class="flex-1">
-          <label class="text-sm font-bold">体脂肪</label>
+          <%= f.label :body_fat, "体脂肪",
+      class: "text-sm font-bold" %>
           <div class="flex items-center gap-2">
             <%= f.number_field :body_fat, 
                   step: 0.1, 

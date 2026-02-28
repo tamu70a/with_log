@@ -1,45 +1,50 @@
 <div class="max-w-md mx-auto px-4 space-y-8">
 
-  <%# フォーム本体：名前空間 settings に対応 %>
   <%= form_with model: [:settings, child], local: true do |f| %>
-    
-    <%# 入力エリア：カード風のデザイン %>
+
     <div class="space-y-6 bg-base-100 p-6 rounded-2xl border border-base-200 shadow-sm">
-      
-      <%# 名前入力 %>
+
+      <!-- 名前入力 -->
       <div class="form-control w-full">
-        <label class="label">
-          <span class="label-text font-bold text-gray-600">お子さまのお名前</span>
-        </label>
-        <%= f.text_field :name, 
-              class: "input input-bordered w-full focus:input-primary bg-base-100", 
+        <%= f.label :name, class: "label" do %>
+          <span class="label-text font-bold text-gray-600">
+            お子さまのお名前
+          </span>
+        <% end %>
+
+        <%= f.text_field :name,
+              class: "input input-bordered w-full focus:input-primary bg-base-100",
               placeholder: "例：はなちゃん" %>
       </div>
 
-      <%# 生年月日入力 %>
+      <!-- 生年月日入力 -->
       <div class="form-control w-full">
-        <label class="label">
-          <span class="label-text font-bold text-gray-600">お子さまの生年月日</span>
-        </label>
-        <%= f.date_field :birthday, 
+        <%= f.label :birthday, class: "label" do %>
+          <span class="label-text font-bold text-gray-600">
+            お子さまの生年月日
+          </span>
+        <% end %>
+
+        <%= f.date_field :birthday,
               class: "input input-bordered w-full focus:input-primary bg-base-100" %>
       </div>
 
-      <%# アクションボタン群 %>
+      <!-- アクションボタン群 -->
       <div class="flex flex-col gap-4 mt-8">
-        <%# 登録・更新ボタン：ピンク系の丸いボタン %>
-        <%= f.submit child.new_record? ? "登録" : "更新", 
+
+        <%= f.submit child.new_record? ? "登録" : "更新",
               class: "btn btn-primary w-full rounded-full text-white shadow-md" %>
 
-        <%# 編集時のみ削除ボタンを表示 %>
         <% if child.persisted? %>
           <%= link_to "お子さまの情報を削除", settings_child_path(child),
                 data: { turbo_method: :delete, turbo_confirm: "このお子さまの情報を削除します。よろしいですか？" },
                 class: "btn btn-ghost btn-sm text-error underline decoration-1 underline-offset-4" %>
         <% end %>
+
       </div>
 
     </div>
+
   <% end %>
 
 </div>

@@ -1,5 +1,6 @@
 <div class="max-w-md mx-auto px-4 pt-8 pb-20">
-  <%# 共通ヘッダー：設定トップに戻る %>
+
+  <!-- ヘッダー -->
   <div class="flex items-center mb-6">
     <%= render 'shared/back_button', path: settings_root_path %>
     <h1 class="text-xl font-bold flex-1 text-center mr-10 text-gray-700">
@@ -8,6 +9,8 @@
   </div>
 
   <div class="space-y-6">
+
+    <!-- 現在の目標 -->
     <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-base-200">
       <div class="flex items-center gap-2 mb-4">
         <span class="w-1 h-6 bg-secondary rounded-full"></span>
@@ -19,57 +22,75 @@
       <div class="flex flex-col items-center py-2">
         <% if latest_goal.present? %>
           <div class="flex items-baseline gap-1">
-            <span class="text-4xl font-black text-secondary"><%= latest_goal.target_weight %></span>
+            <span class="text-4xl font-black text-secondary">
+              <%= latest_goal.target_weight %>
+            </span>
             <span class="text-sm font-bold text-gray-500">kg</span>
           </div>
+
           <p class="text-xs text-gray-400 mt-2 bg-base-100 px-3 py-1 rounded-full">
             期限：<%= latest_goal.target_date %>
           </p>
         <% else %>
-          <p class="text-lg font-bold text-gray-300 py-4">未設定</p>
+          <p class="text-lg font-bold text-gray-300 py-4">
+            未設定
+          </p>
         <% end %>
       </div>
     </div>
 
+    <!-- 新規目標フォーム -->
     <%= form_with model: [:settings, @weight_goal], local: true do |f| %>
-      <% if @weight_goal.errors.any? %>
-  <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-4">
-    <ul class="text-sm space-y-1">
-      <% @weight_goal.errors.full_messages.each do |message| %>
-        <li>• <%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %><div class="bg-white p-6 rounded-[2rem] shadow-sm border border-base-200 space-y-5">
+
+      <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-base-200 space-y-5">
+
         <div class="flex items-center gap-2 mb-2">
           <span class="w-1 h-6 bg-primary rounded-full"></span>
           <h2 class="font-bold text-gray-700">新しい目標を入力</h2>
         </div>
 
+        <!-- エラー表示 -->
+        <% if @weight_goal.errors.any? %>
+          <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl">
+            <ul class="text-sm space-y-1">
+              <% @weight_goal.errors.full_messages.each do |message| %>
+                <li>• <%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <!-- 目標体重 -->
         <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text font-bold text-gray-600">目標体重 (kg)</span>
-          </label>
+          <%= f.label :target_weight,
+                "目標体重 (kg)",
+                class: "label-text font-bold text-gray-600" %>
+
           <%= f.number_field :target_weight,
                 step: 0.1,
                 placeholder: "50.0",
                 class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all" %>
         </div>
 
+        <!-- 期限 -->
         <div class="form-control w-full">
-          <label class="label">
-            <span class="label-text font-bold text-gray-600">いつまでに？</span>
-          </label>
+          <%= f.label :target_date,
+                "いつまでに？",
+                class: "label-text font-bold text-gray-600" %>
+
           <%= f.date_field :target_date,
                 class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all" %>
         </div>
 
+        <!-- 送信ボタン -->
         <div class="pt-4">
           <%= f.submit "目標を保存する",
                 class: "btn btn-primary w-full rounded-full text-white shadow-md hover:shadow-lg transition-all" %>
         </div>
+
       </div>
+
     <% end %>
+
   </div>
 </div>
-
