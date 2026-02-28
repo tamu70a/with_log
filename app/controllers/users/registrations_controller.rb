@@ -17,4 +17,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
+  protected
+
+  def after_update_path_for(resource)
+    # プロフィール編集画面（今の画面）に戻る
+    edit_user_registration_path
+  end
 end

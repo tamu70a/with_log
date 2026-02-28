@@ -54,12 +54,6 @@
               class: "input input-bordered w-full rounded-2xl bg-base-50 focus:bg-white transition-all h-12" %>
       </div>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div class="alert alert-info shadow-sm text-xs rounded-xl">
-          確認待ち: <%= resource.unconfirmed_email %>
-        </div>
-      <% end %>
-
       <div class="divider text-[10px] text-gray-300">
         パスワード変更
       </div>
