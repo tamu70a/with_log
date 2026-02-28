@@ -43,6 +43,8 @@ ja:
       new:
         sign_up: "新規登録"
         title: "新規登録"
+      user:
+        update_needs_confirmation: "確認メールを送信しました。メール内のリンクをクリックして変更を完了してください。"
     passwords:
       new:
         title: "パスワードの再設定"
