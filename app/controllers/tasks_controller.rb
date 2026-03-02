@@ -2,16 +2,16 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @task = current_user.tasks.new(title: "")
-    @task.editing = true
+  @task = current_user.tasks.new(title: "")
+  @task.editing = true
 
-    if @task.save
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to root_path }
-      end
+  if @task.save(validate: false)
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to root_path }
     end
   end
+end
 
   def update
     @task = current_user.tasks.find(params[:id])
@@ -50,12 +50,21 @@ class TasksController < ApplicationController
 
     # 3. タイトルの保存処理
     if @task.update(task_params)
-      respond_to do |format|
-        format.turbo_stream
+  respond_to do |format|
+    format.turbo_stream
+  end
+    else
+ respond_to do |format|
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace(
+            "task_#{@task.id}", # 置換対象のIDを明示
+            partial: "tasks/edit",
+            locals: { task: @task }
+          )
+        }
       end
     end
   end
-
   def destroy
     @task = current_user.tasks.find(params[:id])
     @task.destroy

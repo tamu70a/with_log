@@ -5,6 +5,7 @@
 
     <%# タイトル入力欄 %>
     <%= f.text_field :title,
+          required: true,
           class: "flex-1 min-w-0 h-9 px-2 rounded bg-gray-50 border-none focus:ring-1 focus:ring-primary placeholder-gray-400 text-sm",
           placeholder: "タスクを入力" %>
 
@@ -14,10 +15,13 @@
       <%= f.submit "保存", class: "btn btn-xs btn-primary h-8 px-3" %>
 
       <%# 削除ボタン %>
-      <%= link_to task_path(task),
-            data: { turbo_method: :delete },
-            class: "btn btn-xs btn-outline btn-error h-8 px-2" do %>
-        削除
+      <% if task.persisted? %>
+        <%# 削除ボタン：保存済みのときだけ表示 %>
+        <%= link_to task_path(task),
+              data: { turbo_method: :delete },
+              class: "btn btn-xs btn-outline btn-error h-8 px-2" do %>
+          削除
+        <% end %>
       <% end %>
     </div>
 

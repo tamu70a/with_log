@@ -1,7 +1,7 @@
 class Habit < ApplicationRecord
   has_many :habit_checks, dependent: :destroy
   validates :title, presence: { message: "を入力してください" }, length: { maximum: 255 }
-
+  validate :end_date_after_start_date
   def current_count
     habit_checks.where("check_date <= ?", Date.current).count
   rescue
@@ -41,5 +41,16 @@ class Habit < ApplicationRecord
       date = date.yesterday
     end
     count
+  end
+
+private
+
+  def end_date_after_start_date
+    # 両方の日付が存在する場合のみチェック
+    return if start_date.blank? || end_date.blank?
+
+    if end_date < start_date
+      errors.add(:end_date, "は開始日より後の日付を選択してください")
+    end
   end
 end

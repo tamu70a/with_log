@@ -58,6 +58,10 @@ ja:
       weight_goal:
         target_weight: 目標体重
         target_date: 期限
+      habit:
+        title: "タイトル"
+        start_date: "開始日"
+        end_date: "終了日"
 
   # --- 4. Deviseのメッセージ ---
   devise:
