@@ -11,26 +11,24 @@ class HabitsController < ApplicationController
   end
 
   def create
-    @habit = current_user.habits.new(habit_params)
-    if @habit.save
-      redirect_to habits_path, notice: "習慣を作成しました"
-    else
-      flash.now[:alert] = "習慣タイトルを入力してください"
-      render :new, status: :unprocessable_entity
-    end
+  @habit = current_user.habits.new(habit_params)
+  if @habit.save
+    redirect_to habits_path, notice: "習慣を作成しました"
+  else
+    render :new, status: :unprocessable_entity
   end
+end
 
   def edit
   end
 
-  def update
-    if @habit.update(habit_params)
-      redirect_to habits_path, notice: "習慣を更新しました"
-    else
-      flash.now[:alert] = "習慣タイトルを入力してください"
-      render :edit, status: :unprocessable_entity
-    end
+ def update
+  if @habit.update(habit_params)
+    redirect_to habits_path, notice: "習慣を更新しました"
+  else
+    render :edit, status: :unprocessable_entity
   end
+end
 
   def destroy
     @habit.destroy

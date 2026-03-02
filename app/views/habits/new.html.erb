@@ -1,5 +1,13 @@
 <h1 class="text-xl font-bold mb-6">習慣新規登録</h1>
-
+<% if @habit.errors.any? %>
+  <div class="alert alert-error shadow-sm mb-4 py-2 flex flex-col items-start gap-1">
+    <% @habit.errors.full_messages.each do |message| %>
+      <div class="text-sm font-bold flex items-center gap-2">
+        <span>・<%= message %></span>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 <%= form_with model: @habit, class: "space-y-4" do |f| %>
 
   <div>
