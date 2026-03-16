@@ -1,0 +1,41 @@
+<div class="max-w-md mx-auto px-4 pb-32">
+
+  <h1 class="text-xl font-bold text-center my-6">
+    メモ
+  </h1>
+
+  <div class="bg-white rounded-2xl p-5 shadow border border-base-200">
+
+    <!-- 日付 -->
+    <p class="text-xs text-gray-400 mb-3">
+      <%= l(@memo.memo_date, format: "%Y/%m/%d") %>
+    </p>
+
+    <!-- 本文 -->
+    <p class="text-sm text-gray-700 whitespace-pre-line leading-relaxed">
+      <%= @memo.content %>
+    </p>
+
+  </div>
+
+  <!-- ボタン -->
+  <div class="flex gap-3 pt-6">
+
+    <%= link_to "編集",
+        edit_memo_path(@memo),
+        class: "btn btn-primary w-1/2" %>
+
+    <%= link_to "削除",
+        memo_path(@memo),
+        data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+        class: "btn btn-outline btn-error w-1/2" %>
+
+  </div>
+
+  <div class="pt-4">
+    <%= link_to "一覧に戻る",
+        memos_path,
+        class: "btn btn-ghost w-full" %>
+  </div>
+
+</div>

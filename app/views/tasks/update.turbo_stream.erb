@@ -1,10 +1,15 @@
-<% if params[:edit] %>
+<% if params[:edit] == "true" %>
+
   <%= turbo_stream.replace "task_#{@task.id}",
         partial: "tasks/edit",
         locals: { task: @task } %>
+
 <% else %>
+
   <%= turbo_stream.replace "task_#{@task.id}",
         partial: "tasks/task",
         locals: { task: @task } %>
+
 <% end %>
+
 <%= render "homes/update_buddy" %>
