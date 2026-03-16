@@ -1,15 +1,13 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
 
-  def create
-  @task = current_user.tasks.new(title: "")
+def create
+  @task = current_user.tasks.new
   @task.editing = true
 
-  if @task.save(validate: false)
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to root_path }
-    end
+  respond_to do |format|
+    format.turbo_stream
+    format.html { redirect_to root_path }
   end
 end
 

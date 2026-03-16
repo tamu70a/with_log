@@ -1,21 +1,38 @@
 <%# app/views/homes/_buddy_message.html.erb %>
-<div class="flex items-start gap-3 mb-2">
-  <%# アイコン部分 %>
-  <div class="avatar">
-    <div class="w-14 h-14 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2 bg-pink-50 flex items-center justify-center shadow-sm overflow-hidden">
-      <%= image_tag "buddy/cat_tea.png", class: "w-full h-full object-cover" %>
-    </div>
-  </div>
 
-  <%# 吹き出しデザイン %>
-  <div class="relative bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-pink-100 flex-1">
-    <div class="absolute -left-2 top-0 w-0 h-0 border-t-[12px] border-t-white border-l-[12px] border-l-transparent"></div>
-    
-    <div class="space-y-1">
+<div id="buddy_message_area">
+  <div class="flex items-start gap-4 mb-3">
+
+    <!-- バディ -->
+    <div class="avatar flex-shrink-0">
+      <div class="w-28 h-28 md:w-36 md:h-36
+                  rounded-full
+                  ring ring-pink-200
+                  ring-offset-base-100
+                  ring-offset-2
+                  bg-pink-50
+                  flex items-center justify-center
+                  shadow-md
+                  overflow-hidden">
+
+        <%= image_tag buddy_image_path(current_user), class: "w-full h-full object-cover" %>
+
+      </div>
+    </div>
+
+    <!-- メッセージ -->
+    <div class="relative bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-pink-100 flex-1">
+
+      <!-- 吹き出し -->
+      <div class="absolute -left-2 top-4 w-0 h-0
+                  border-t-[12px] border-t-white
+                  border-l-[12px] border-l-transparent"></div>
+
       <p class="text-sm text-gray-700 leading-relaxed">
-        <%# コントローラーから渡されたセリフを表示 %>
         <%= message %>
       </p>
+
     </div>
+
   </div>
 </div>

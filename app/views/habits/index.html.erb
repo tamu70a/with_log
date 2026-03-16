@@ -1,48 +1,69 @@
-<h1 class="text-xl font-bold mb-6">習慣一覧</h1>
+<h1 class="text-xl font-bold text-center my-6">習慣一覧</h1>
 
 <% if @habits.any? %>
-  <div class="space-y-3 mb-10">
+  <div class="space-y-4 mb-10">
     <% @habits.each do |habit| %>
-      <div class="p-4 rounded-lg bg-white shadow border">
-        <div class="flex items-center justify-between">
+
+      <div class="bg-white rounded-[2rem] px-4 py-3 shadow hover:shadow-md transition border border-base-200">
+
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+
           <div>
             <div class="font-medium text-lg">
               <%= habit.title %>
             </div>
 
             <div class="text-xs text-gray-500 space-y-0.5 mt-1">
-            <div><%= habit.start_date %> 〜 <%= habit.end_date %></div>
-            <div class="font-medium text-gray-400">（<%= habit.total_days %>日間）</div>
+
+              <% if habit.start_date.present? && habit.end_date.present? %>
+                <div>
+                  <%= l(habit.start_date, format: "%Y/%m/%d") %>
+                  〜
+                  <%= l(habit.end_date, format: "%Y/%m/%d") %>
+                </div>
+              <% end %>
+
+              <div class="font-medium text-gray-400">
+                （<%= habit.total_days %>日間）
+              </div>
+
             </div>
 
             <div class="text-sm text-gray-600 mt-1">
               <%= habit.habit_checks.count %> / <%= habit.total_days %>
             </div>
+          </div>
 
-        </div>
-
-          <!-- 編集・削除ボタン -->
+          <!-- 編集・削除 -->
           <div class="flex gap-2">
-  <%= link_to "編集",
-        edit_habit_path(habit),
-        class: "btn btn-sm btn-primary h-9" %>
 
-  <%= link_to "削除",
-      habit_path(habit),
-      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
-      class: "btn btn-sm btn-outline h-9" %>
+            <%= link_to "編集",
+                edit_habit_path(habit),
+                class: "btn btn-sm btn-primary rounded-lg px-4" %>
+
+            <%= link_to "削除",
+                habit_path(habit),
+                data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                class: "btn btn-sm btn-outline btn-error rounded-lg px-4" %>
+
+          </div>
+
         </div>
-        </div>
+
       </div>
+
     <% end %>
   </div>
+
 <% else %>
-  <p class="text-gray-400 mb-10">まだ習慣が登録されていません</p>
+  <div class="text-center py-20 text-gray-400 text-sm">
+    まだ習慣が登録されていません
+  </div>
 <% end %>
 
-<!-- 新規登録ボタン -->
-<div class="fixed bottom-20 left-0 right-0 px-4">
-  <%= link_to " 習慣を新しく登録",
-        new_habit_path,
-        class: "btn btn-primary btn-lg w-full shadow-lg" %>
+<!-- 新規登録 -->
+<div class="fixed bottom-20 left-0 right-0 px-4 flex justify-center">
+  <%= link_to "習慣を新しく登録",
+      new_habit_path,
+      class: "btn btn-primary btn-lg w-full max-w-md shadow-lg font-bold" %>
 </div>
