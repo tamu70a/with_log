@@ -1,38 +1,40 @@
-<% if @current_goal %>
-  <div class="max-w-md mx-auto px-4 mt-6">
-    <div class="bg-primary text-primary-content rounded-xl p-4 shadow">
-      <div class="flex justify-between items-center">
+<div class="max-w-md md:max-w-2xl mx-auto px-3 pb-32">
+
+  <!-- 目標体重 -->
+  <% if @current_goal %>
+    <div class="bg-primary text-primary-content rounded-[2rem] p-4 shadow-md border border-primary mb-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
           <p class="text-sm opacity-80">目標体重</p>
-          <p class="text-2xl font-bold"><%= @current_goal.target_weight %> kg</p>
+          <p class="text-2xl md:text-3xl font-bold"><%= @current_goal.target_weight %> kg</p>
           <p class="text-sm">期限: <%= @current_goal.target_date.strftime("%Y/%m/%d") %></p>
         </div>
 
         <div class="text-right">
           <% if @latest_weight %>
             <p class="text-sm opacity-80">あと</p>
-            <p class="text-xl font-semibold"><%= @current_goal.remaining_weight(@latest_weight.weight) %> kg</p>
+            <p class="text-xl md:text-2xl font-semibold"><%= @current_goal.remaining_weight(@latest_weight.weight) %> kg</p>
           <% else %>
-            <p class="text-xl font-semibold">-- kg</p>
+            <p class="text-xl md:text-2xl font-semibold">-- kg</p>
           <% end %>
           <p class="text-sm"><%= @current_goal.days_remaining %> 日</p>
         </div>
       </div>
     </div>
-  </div>
-<% else %>
-  <div class="max-w-md mx-auto px-4 mt-6">
-    <div class="bg-base-200 rounded-xl p-4 shadow text-center">
+  <% else %>
+    <div class="bg-base-200 rounded-[2rem] p-4 shadow-md text-center border border-base-200 mb-6">
       <p class="mb-2">目標がまだ設定されていません</p>
       <%= link_to "目標を設定する", settings_weight_goals_path, class: "text-primary text-sm underline" %>
     </div>
-  </div>
-<% end %>
+  <% end %>
 
-<div class="max-w-md mx-auto px-4 mt-6">
-  <div class="bg-base-100 rounded-xl p-4 shadow">
-    <h2 class="text-lg font-bold mb-2">体重・体脂肪グラフ</h2>
-    <canvas id="weightChart"></canvas>
+<div class="max-w-md md:max-w-2xl mx-auto mb-6">
+  <div class="bg-base-100 rounded-[2rem] p-4 shadow-md border border-base-200">
+
+    <!-- 親に高さ指定 -->
+    <div class="w-full h-45 md:h-60">
+      <canvas id="weightChart" class="w-full h-full"></canvas>
+    </div>
 
     <script id="body-records-data" type="application/json">
       {
@@ -44,42 +46,41 @@
   </div>
 </div>
 
-<div class="max-w-md mx-auto px-4 mt-6 mb-12">
-  <div class="bg-base-200 rounded-xl p-4 shadow">
-    <%= form_with model: @body_record, url: body_records_path, local: true do |f| %>
+  <!-- 体重入力フォーム -->
+  <div class="max-w-md md:max-w-2xl mx-auto mb-12">
+    <div class="bg-base-200 rounded-[2rem] p-4 shadow-md border border-base-200">
 
-      <div class="flex gap-4 mb-4">
-        <%# 体重入力 %>
-        <div class="flex-1">
-          <%= f.label :weight, "体重",
-      class: "text-sm font-bold" %>
-          <div class="flex items-center gap-2">
-            <%= f.number_field :weight, 
-                  step: 0.1, 
-                  min: 0.1, 
-                  required: true, 
-                  class: "input input-bordered w-full",
-                  placeholder: "0.0" %>
-            <span class="text-sm">kg</span>
+      <%= form_with model: @body_record, url: body_records_path, local: true do |f| %>
+        <div class="flex flex-col md:flex-row gap-4 mb-4">
+
+          <!-- 体重 -->
+          <div class="flex-1">
+            <%= f.label :weight, "体重", class: "text-sm font-bold" %>
+            <div class="flex items-center gap-2 mt-1">
+              <%= f.number_field :weight, step: 0.1, min: 0.1, required: true,
+                    class: "input input-bordered w-full", placeholder: "0.0" %>
+              <span class="text-sm">kg</span>
+            </div>
+          </div>
+
+          <!-- 体脂肪 -->
+          <div class="flex-1">
+            <%= f.label :body_fat, "体脂肪", class: "text-sm font-bold" %>
+            <div class="flex items-center gap-2 mt-1">
+              <%= f.number_field :body_fat, step: 0.1,
+                    class: "input input-bordered w-full", placeholder: "任意" %>
+              <span class="text-sm">%</span>
+            </div>
           </div>
         </div>
 
-        <%# 体脂肪入力 %>
-        <div class="flex-1">
-          <%= f.label :body_fat, "体脂肪",
-      class: "text-sm font-bold" %>
-          <div class="flex items-center gap-2">
-            <%= f.number_field :body_fat, 
-                  step: 0.1, 
-                  class: "input input-bordered w-full",
-                  placeholder: "任意" %>
-            <span class="text-sm">%</span>
-          </div>
+        <div class="flex justify-center mt-4">
+          <%= f.submit "入力を完了する",
+                class: "btn btn-primary btn-lg w-full max-w-md shadow-lg font-bold text-lg rounded-2xl" %>
         </div>
-      </div>
+      <% end %>
 
-      <%= f.submit "入力を完了する", class: "btn btn-primary w-full shadow-md" %>
-
-    <% end %>
+    </div>
   </div>
+
 </div>

@@ -1,23 +1,27 @@
-<div class="max-w-md mx-auto space-y-6 px-4 pb-32">
+<div class="max-w-md md:max-w-2xl mx-auto space-y-6 px-4 pb-32">
 
   <!-- 日時 -->
-  <div class="w-full mb-6 text-center">
-  <div class="bg-base-200 rounded-3xl p-5 shadow-sm border border-white/50 inline-block px-10">
-    <p class="text-[14px] text-gray-500 font-bold mb-1 tracking-widest">
-      <%= l(Date.current, format: "%m/%d") %> (<%= l(Date.current, format: "%a") %>)
-    </p>
-    
-    <p id="realtime-clock" class="text-5xl font-black text-gray-800 tracking-tighter leading-none">
-      <%= Time.current.strftime("%H:%M") %>
-    </p>
-  </div>
+ <!-- 日付・時刻 -->
+<div class="flex items-center justify-center gap-2 mb-2 text-base-500">
+
+  <p class="text-sm font-semibold tracking-wide">
+    <%= l(Date.current, format: "%m/%d") %> (<%= l(Date.current, format: "%a") %>)
+  </p>
+
+  <span class="text-gray-400">・</span>
+
+  <p id="realtime-clock"
+     class="text-xl font-bold tracking-tight">
+    <%= Time.current.strftime("%H:%M") %>
+  </p>
+
 </div>
 
 <script>
   // 時計を更新する関数
   function updateClock() {
     const clockElement = document.getElementById('realtime-clock');
-    if (!clockElement) return; // エレメントがない場合は何もしない
+    if (!clockElement) return;
 
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
@@ -34,28 +38,49 @@
 </script>
 
   <!-- バディからのメッセージ -->
-  <div id="buddy_message_area"> <div class="flex items-start gap-3 mb-2">
-    <div class="avatar">
-      <div class="w-14 h-14 rounded-full ring ring-pink-200 ring-offset-base-100 ring-offset-2 bg-pink-50 flex items-center justify-center shadow-sm overflow-hidden">
-        <%= image_tag "buddy/cat_tea.png", class: "w-full h-full object-cover" %>
+  <div id="buddy_message_area">
+  <div class="flex items-start gap-4 mb-3">
+
+    <!-- バディ -->
+    <div class="avatar flex-shrink-0">
+      <div class="w-28 h-28 md:w-36 md:h-36
+                  rounded-full
+                  ring ring-pink-200
+                  ring-offset-base-100
+                  ring-offset-2
+                  bg-pink-50
+                  flex items-center justify-center
+                  shadow-md
+                  overflow-hidden">
+
+        <%= image_tag buddy_image_path(current_user), class: "w-full h-full object-cover" %>
+
       </div>
     </div>
 
+    <!-- メッセージ -->
     <div class="relative bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-pink-100 flex-1">
-      <div class="absolute -left-2 top-0 w-0 h-0 border-t-[12px] border-t-white border-l-[12px] border-l-transparent"></div>
-      
-      <div class="space-y-1">
-        <p class="text-sm text-gray-700 leading-relaxed">
-          <%= @message %>
-        </p>
-      </div>
+
+      <!-- 吹き出しの三角 -->
+      <div class="absolute -left-2 top-4 w-0 h-0
+                  border-t-[12px] border-t-white
+                  border-l-[12px] border-l-transparent"></div>
+
+      <p class="text-sm text-gray-700 leading-relaxed">
+        <%= @message %>
+      </p>
+
     </div>
+
   </div>
 </div>
 
 <!-- TODOリスト -->
-<div class="bg-base-100 rounded-lg p-4 shadow space-y-2">
-  <h3 class="text-md font-bold">TODO</h3>
+<div class="bg-base-100 rounded-[2rem] p-4 shadow-md border border-base-200 space-y-3">
+
+  <h3 class="text-sm font-bold text-gray-500">
+    TODO
+  </h3>
 
   <div id='tasks'>
     <%= render @tasks %>
@@ -67,99 +92,117 @@
     </p>
   <% end %>
 
-  <!-- ボタン -->
-  <div id="task_form">
-    <%= button_to "タスク追加", tasks_path,
+  <!-- ＋ボタン -->
+  <div id="task_form" class="flex justify-center pt-2">
+    <%= button_to tasks_path,
         method: :post,
         form: { data: { turbo: true } },
-        class: "btn btn-primary w-full" %>
-        
+        class: "btn btn-circle btn-sm btn-primary" do %>
+      ＋
+    <% end %>
   </div>
+
+</div>
   
 
 <!-- 習慣リスト -->
-<div class="bg-base-200 rounded-lg p-4 shadow">
-  <h3 class="text-md font-bold">習慣</h3>
+<div class="bg-base-100 rounded-[2rem] p-4 shadow-md border border-base-200">
+
+  <div class="flex items-center justify-between">
+    <h3 class="text-sm font-bold text-gray-500">習慣</h3>
+  </div>
 
   <% if @habits.any? %>
-    <div class="space-y-2 mt-4">
+    <div class="space-y-2 mt-3">
       <% @habits.each do |habit| %>
-        <%# ★変更点：turbo_frame_tag をやめて、普通の div に ID を振る %>
         <div id="habit_<%= habit.id %>">
           <%= render "habits/habit_item", habit: habit %>
         </div>
       <% end %>
     </div>
   <% else %>
-    <p class="text-sm text-center text-gray-400 mt-4">まだ習慣がありません</p>
+    <p class="text-sm text-center text-gray-400 mt-4">
+      まだ習慣がありません
+    </p>
   <% end %>
+
 </div>
 
 
   <!-- メモ -->
 <div
   data-controller="inline-memo"
-  class="bg-base-100 rounded-lg p-4 shadow space-y-2"
+  class="bg-base-100 rounded-[2rem] p-4 shadow-md border border-base-200"
 >
-  <h3 class="text-md font-bold">ちょこっとメモ</h3>
 
-  <!-- 表示用 -->
+  <div class="flex items-center justify-between mb-2">
+    <h3 class="text-sm font-bold text-gray-500">ちょこっとメモ</h3>
+  </div>
+
+  <!-- 表示 -->
   <p
-    data-inline-memo-target="display"
-    data-action="click->inline-memo#edit"
-    class="textarea textarea-bordered w-full min-h-[6rem]
-           text-sm text-gray-600 cursor-text whitespace-pre-wrap"
-><%= @home_memo.content.presence || "タップしてメモを入力" %>
-  </p>
+  data-inline-memo-target="display"
+  data-action="click->inline-memo#edit"
+  class="w-full bg-base-200/60 border border-base-300 rounded-xl
+         p-3 text-sm text-gray-600 whitespace-pre-wrap cursor-text
+         min-h-[140px]"
+>
+  <%= @home_memo.content.presence || "タップしてメモを書く" %>
+</p>
 
-  <!-- 編集用 -->
-  <textarea
+<textarea
   id="home_memo_input"
   name="home_memo_content"
   data-inline-memo-target="input"
   data-action="blur->inline-memo#save"
-  class="textarea textarea-bordered w-full hidden"
-  rows="4"
-  ><%= @home_memo.content %></textarea>
-
+  class="w-full bg-base-200/60 border border-base-300 rounded-xl
+         p-3 text-sm text-gray-600 hidden
+         min-h-[140px] resize-none
+         focus:outline-none focus:ring-0 focus:border-black/50"
+><%= @home_memo.content %></textarea>
+</div>
 
  <!-- 体重目標 -->
-<div class="bg-base-100 rounded-lg p-4 shadow">
-  <h3 class="text-md font-bold">body</h3>
-  <div class="flex justify-between items-center mt-2 space-x-2">
+ <div class="bg-base-100 rounded-[2rem] p-4 shadow border border-base-200">
+
+  <div class="flex items-center justify-between">
+    <h3 class="text-sm font-bold text-gray-500">
+      体重目標
+    </h3>
+
+    <%= link_to body_records_path,
+        class: "btn btn-circle btn-sm btn-primary" do %>
+      <%= image_tag "pen.png", class: "w-4 h-4" %>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 mt-3 text-center">
 
     <!-- 残り日数 -->
-    <div class="input input-bordered flex items-center px-2 gap-2 w-1/2">
-      残り日数
-      <span class="grow text-right font-semibold">
+    <div class="bg-base-200 rounded-xl py-3">
+      <p class="text-xs text-gray-500">残り日数</p>
+      <p class="text-xl font-bold">
         <% if @latest_goal.present? %>
           <%= @latest_goal.days_remaining %>
         <% else %>
           --
         <% end %>
-      </span><span>日</span>
+        <span class="text-sm font-normal">日</span>
+      </p>
     </div>
 
     <!-- 残り体重 -->
-    <div class="input input-bordered flex items-center gap-2 w-1/2">
-      <span class="grow text-right font-semibold">
+    <div class="bg-base-200 rounded-xl py-3">
+      <p class="text-xs text-gray-500">残り体重</p>
+      <p class="text-xl font-bold">
         <% if @latest_goal.present? && @latest_body_record.present? %>
           <%= @latest_goal.remaining_weight(@latest_body_record.weight) %>
         <% else %>
           --
         <% end %>
-      </span>
-      <span>kg</span>
+        <span class="text-sm font-normal">kg</span>
+      </p>
     </div>
 
   </div>
-
-  <!-- ボタン -->
-  <div class="mt-2 text-right">
-    <%= link_to body_records_path,
-        class: "btn btn-circle bg-secondary text-white shadow-md" do %>
-      <%= image_tag "pen.png", class: "w-5 h-5" %>
-    <% end %>
-  </div>
-</div>
 </div>
