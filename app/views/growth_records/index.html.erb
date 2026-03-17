@@ -56,48 +56,50 @@
   <!-- 記録カード -->
   <div class="bg-white rounded-[2rem] p-4 shadow-md border border-base-200 mb-6">
 
-    <%= form_with model: @growth_record, url: child_growth_records_path(@child), local: true do |f| %>
-      <%= f.hidden_field :month_age, value: @month_age %>
+<%= form_with model: @growth_record,
+              url: @growth_record.persisted? ? child_growth_record_path(@child, @growth_record) : child_growth_records_path(@child),
+              method: @growth_record.persisted? ? :patch : :post,
+              local: true do |f| %>
 
-      <div class="space-y-3">
+  <%= f.hidden_field :month_age, value: @month_age %>
 
-        <!-- 身長・体重 -->
-        <div class="grid grid-cols-2 gap-4">
-          <div class="form-control">
-            <%= f.label :body_height, "身長 (cm)", class: "label-text font-bold text-gray-600" %>
-            <%= f.number_field :body_height,
-                  step: 0.1,
-                  class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
-          </div>
+  <div class="space-y-3">
 
-          <div class="form-control">
-            <%= f.label :body_weight, "体重 (kg)", class: "label-text font-bold text-gray-600" %>
-            <%= f.number_field :body_weight,
-                  step: 0.1,
-                  class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
-          </div>
-        </div>
-
-        <!-- メモ -->
-        <div class="form-control">
-          <%= f.label :content, "成長のメモ", class: "label-text font-bold text-gray-600" %>
-          <% default_text = "【食事】\n\n【好きな遊び】\n\n【言葉】\n\n【睡眠】\n\n【その他】" %>
-          <%= f.text_area :content,
-                value: f.object.content.presence || default_text,
-                style: "height: 240px;", 
-                class: "textarea textarea-bordered border-base-300 bg-white w-full rounded-2xl resize-none focus:border-primary leading-relaxed text-gray-700",
-                placeholder: "日常の記録をここに。" %>
-        </div>
-
+    <!-- 身長・体重 -->
+    <div class="grid grid-cols-2 gap-4">
+      <div class="form-control">
+        <%= f.label :body_height, "身長 (cm)", class: "label-text font-bold text-gray-600" %>
+        <%= f.number_field :body_height, step: 0.1,
+              class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
       </div>
 
-      <!-- ボタン -->
-      <div class="flex justify-center mt-4">
-        <%= f.submit "この内容で記録する",
-              class: "btn btn-primary btn-lg w-full max-w-md shadow-lg font-bold text-lg rounded-2xl" %>
+      <div class="form-control">
+        <%= f.label :body_weight, "体重 (kg)", class: "label-text font-bold text-gray-600" %>
+        <%= f.number_field :body_weight, step: 0.1,
+              class: "input input-bordered border-base-300 bg-white rounded-xl focus:border-primary text-lg w-full" %>
       </div>
+    </div>
 
-    <% end %>
+    <!-- メモ -->
+    <div class="form-control">
+      <%= f.label :content, "成長のメモ", class: "label-text font-bold text-gray-600" %>
+      <% default_text = "【食事】\n\n【好きな遊び】\n\n【言葉】\n\n【睡眠】\n\n【その他】" %>
+      <%= f.text_area :content,
+            value: f.object.content.presence || default_text,
+            style: "height: 240px;", 
+            class: "textarea textarea-bordered border-base-300 bg-white w-full rounded-2xl resize-none focus:border-primary leading-relaxed text-gray-700",
+            placeholder: "日常の記録をここに。" %>
+    </div>
+
+  </div>
+
+  <!-- ボタン -->
+  <div class="flex justify-center mt-4">
+    <%= f.submit "この内容で記録する",
+          class: "btn btn-primary btn-lg w-full max-w-md shadow-lg font-bold text-lg rounded-2xl" %>
+  </div>
+
+<% end %>
   </div>
 
 </div>

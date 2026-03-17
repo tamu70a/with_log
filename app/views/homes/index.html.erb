@@ -140,15 +140,12 @@
   </div>
 
   <!-- 表示 -->
-  <p
+<p
   data-inline-memo-target="display"
   data-action="click->inline-memo#edit"
   class="w-full bg-base-200/60 border border-base-300 rounded-xl
          p-3 text-sm text-gray-600 whitespace-pre-wrap cursor-text
-         min-h-[140px]"
->
-  <%= @home_memo.content.presence || "タップしてメモを書く" %>
-</p>
+         min-h-[140px]"><%= @home_memo.content.presence || "タップしてメモを書く" %></p>
 
 <textarea
   id="home_memo_input"
@@ -158,8 +155,7 @@
   class="w-full bg-base-200/60 border border-base-300 rounded-xl
          p-3 text-sm text-gray-600 hidden
          min-h-[140px] resize-none
-         focus:outline-none focus:ring-0 focus:border-black/50"
-><%= @home_memo.content %></textarea>
+         focus:outline-none focus:ring-0 focus:border-black/50"><%= @home_memo.content.to_s.strip %></textarea>
 </div>
 
  <!-- 体重目標 -->

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :memos
   resources :body_records, only: [ :index, :create ]
   resources :children, only: [] do # 名前空間を整理するため
-    resources :growth_records, only: [ :index, :create ]
+    resources :growth_records, only: [ :index, :create, :update ]
   end
   namespace :settings do
     root "dashboards#show"

@@ -4,8 +4,9 @@ class HomesController < ApplicationController
 
 # app/controllers/homes_controller.rb
 def index
-  # 先にデータを全部ロードする
-  @tasks = current_user.tasks.order(created_at: :desc)
+@tasks = current_user.tasks
+           .where.not(title: [ nil, "" ])
+           .order(created_at: :desc)
   @habits = current_user.habits.order(created_at: :desc)
 
   @habits.each do |habit|

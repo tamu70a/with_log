@@ -1,29 +1,26 @@
 <div id="task_<%= task.id %>"
-     class="flex flex-wrap sm:flex-nowrap items-center gap-2 p-2 rounded-lg shadow-sm border border-gray-100 bg-white">
+     class="flex items-center gap-2 p-2 rounded-lg border border-gray-200">
 
-  <%= form_with model: task, class: "flex-1 flex items-center gap-2 w-full" do |f| %>
+  <%= form_with model: task,
+        url: task.persisted? ? task_path(task) : tasks_path,
+        method: task.persisted? ? :patch : :post,
+        data: { turbo_stream: true },
+        class: "flex items-center gap-2 w-full" do |f| %>
 
-    <%# タイトル入力欄 %>
     <%= f.text_field :title,
           required: true,
-          class: "flex-1 min-w-0 h-9 px-2 rounded bg-gray-50 border-none focus:ring-1 focus:ring-primary placeholder-gray-400 text-sm",
+          class: "flex-1 min-w-0 h-9 px-2 rounded bg-gray-50 border-none focus:ring-1 focus:ring-primary text-sm",
           placeholder: "タスクを入力" %>
 
-    <%# ボタン群 %>
-    <div class="flex items-center gap-1 shrink-0">
-      <%# 保存ボタン %>
-      <%= f.submit "保存", class: "btn btn-xs btn-primary h-8 px-3" %>
+    <%= f.submit "保存", class: "btn btn-xs btn-primary h-8 px-3" %>
 
-      <%# 削除ボタン %>
-      <% if task.persisted? %>
-        <%# 削除ボタン：保存済みのときだけ表示 %>
-        <%= link_to task_path(task),
-              data: { turbo_method: :delete },
-              class: "btn btn-xs btn-outline btn-error h-8 px-2" do %>
-          削除
-        <% end %>
-      <% end %>
-    </div>
+    <% if task.persisted? %>
+      <%= link_to "削除",
+            task_path(task),
+            data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+            class: "btn btn-xs btn-outline btn-error h-8 px-2" %>
+    <% end %>
 
   <% end %>
+
 </div>

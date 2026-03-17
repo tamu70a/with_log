@@ -1,39 +1,47 @@
-<div class="max-w-md mx-auto px-4 pb-10">
-  <h1 class="text-xl font-bold text-center my-6">メモ編集</h1>
+<div class="max-w-md mx-auto px-4 pb-32">
 
-  <%= form_with model: @memo, class: "space-y-4" do |f| %>
+  <h1 class="text-xl font-bold text-center my-6">
+    メモ編集
+  </h1>
+
+  <%= form_with model: @memo, class: "space-y-5" do |f| %>
 
     <% if @memo.errors.any? %>
-      <div class="alert alert-error mb-4 shadow-lg p-4 bg-red-100 text-red-800 rounded-lg font-bold">
+      <div class="bg-red-100 border border-red-300 text-red-700 rounded-xl p-4 text-sm">
         <ul class="list-disc list-inside">
-          <% @memo.errors.each do |error| %>
-            <li>
-              <% if error.attribute == :content %>
-                メモ内容を入力してください
-              <% elsif error.attribute == :memo_date %>
-                記録日を入力してください
-              <% else %>
-                <%= error.full_message %>
-              <% end %>
-            </li>
+          <% @memo.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
 
-    <div class="bg-base-100 rounded-lg p-4 shadow">
-      <%= f.label :content, "メモ内容", class: "label font-bold" %>
-      <%= f.text_area :content, rows: 8, class: "textarea textarea-bordered w-full" %>
+    <div class="bg-white rounded-2xl p-4 shadow border border-base-200">
+
+      <%= f.text_area :content,
+            rows: 12,
+            class: "w-full textarea textarea-bordered resize-none text-sm leading-relaxed" %>
+
+    </div>
+<div class="bg-white rounded-2xl p-4 shadow border border-base-200">
+
+  <%= f.label :memo_date, "記録日", class: "text-sm font-bold text-gray-500" %>
+
+  <%= f.date_field :memo_date,
+        class: "input input-bordered w-full mt-2" %>
+
+</div>
+    <div class="flex gap-3 pt-4">
+
+      <%= link_to "キャンセル",
+          memo_path(@memo),
+          class: "btn btn-outline w-1/2" %>
+
+      <%= f.submit "更新",
+          class: "btn btn-primary w-1/2 font-bold" %>
+
     </div>
 
-    <div class="bg-base-100 rounded-lg p-4 shadow">
-      <%= f.label :memo_date, "記録日", class: "label font-bold" %>
-      <%= f.date_field :memo_date, class: "input input-bordered w-full" %>
-    </div>
-
-    <div class="flex gap-4 pt-4">
-      <%= link_to "キャンセル", memos_path, class: "btn btn-outline w-1/2" %>
-      <%= f.submit "更新する", class: "btn btn-primary w-1/2" %>
-    </div>
   <% end %>
+
 </div>
