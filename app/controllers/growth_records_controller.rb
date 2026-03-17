@@ -28,15 +28,17 @@ class GrowthRecordsController < ApplicationController
   end
 
   def update
-    @record = @child.growth_records.find(params[:id])
-    if @record.update(growth_record_params)
-      redirect_to child_growth_records_path(@child, month_age: @record.month_age),
-                  notice: "更新しました",
-                  status: :see_other
-    else
-      render :index, status: :unprocessable_entity
-    end
+  @record = @child.growth_records.find(params[:id])
+  if @record.update(growth_record_params)
+    redirect_to child_growth_records_path(@child, month_age: @record.month_age),
+                notice: "更新しました",
+                status: :see_other
+  else
+    @month_age = @record.month_age
+    @growth_record = @record
+    render :index, status: :unprocessable_entity
   end
+end
 
   private
 
