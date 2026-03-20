@@ -105,6 +105,11 @@ Rails.application.configure do
     protocol: "https"
   }
 
+  config.action_controller.default_url_options = {
+  host: "with-log.onrender.com",
+  protocol: "https"
+}
+
   config.action_mailer.sendgrid_actionmailer_settings = {
     api_key: ENV["SENDGRID_PASSWORD"]
   }

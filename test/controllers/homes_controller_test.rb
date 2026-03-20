@@ -6,8 +6,9 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
     @user.create_home_memo! unless @user.home_memo
     sign_in @user
   end
+
   test "should get index" do
-    get root_path
+    get homes_index_path
     assert_response :success
   end
 end

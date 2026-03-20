@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja" data-theme="pastel">
   <head>
-    <title><%= content_for(:title) || "Myapp" %></title>
+    <title><%= content_for(:title) || "WithLog+" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -9,6 +9,17 @@
     <%= csp_meta_tag %>
 
     <%= yield :head %>
+
+    <meta property="og:title" content="WithLog+">
+    <meta property="og:description" content="複数の機能をひとつにまとめた、バディ付きライフログアプリ。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:image" content="<%= "#{request.base_url}/ogp.png" %>">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WithLog+">
+    <meta name="twitter:description" content="複数の機能をひとつにまとめた、バディ付きライフログアプリ。">
+    <meta name="twitter:image" content="<%= "#{request.base_url}/ogp.png" %>">
 
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
@@ -21,31 +32,29 @@
 
   <body class="bg-gray-100 min-h-screen flex flex-col">
 
-  <% if notice.present? %>
-  <div class="toast toast-top toast-center z-50 mt-20" onclick="this.remove();">
-    <div class="alert alert-success shadow-lg cursor-pointer hover:scale-105 transition-all duration-200 group">
-      <div class="flex items-center justify-between w-full gap-2">
-        <span><%= notice %></span>
-        <span class="text-xs opacity-50 group-hover:opacity-100 font-bold">✕</span>
+    <% if notice.present? %>
+      <div class="toast toast-top toast-center z-50 mt-20" onclick="this.remove();">
+        <div class="alert alert-success shadow-lg cursor-pointer hover:scale-105 transition-all duration-200 group">
+          <div class="flex items-center justify-between w-full gap-2">
+            <span><%= notice %></span>
+            <span class="text-xs opacity-50 group-hover:opacity-100 font-bold">✕</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-<% end %>
+    <% end %>
 
-<% if alert.present? %>
-  <div class="toast toast-top toast-center z-50 mt-20" onclick="this.remove();">
-    <div class="alert alert-error shadow-lg cursor-pointer hover:scale-105 transition-all duration-200 group">
-      <div class="flex items-center justify-between w-full gap-2">
-        <span><%= alert %></span>
-        <span class="text-xs opacity-50 group-hover:opacity-100 font-bold">✕</span>
+    <% if alert.present? %>
+      <div class="toast toast-top toast-center z-50 mt-20" onclick="this.remove();">
+        <div class="alert alert-error shadow-lg cursor-pointer hover:scale-105 transition-all duration-200 group">
+          <div class="flex items-center justify-between w-full gap-2">
+            <span><%= alert %></span>
+            <span class="text-xs opacity-50 group-hover:opacity-100 font-bold">✕</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-<% end %>
+    <% end %>
 
-    <main class="<%= devise_controller? && controller_name == 'sessions' && action_name == 'new' ?
-      'max-w-md mx-auto mt-16 p-6 bg-white shadow rounded-lg' : 
-      'container mx-auto mt-16 px-4 flex-1 pb-24' %>">
+    <main class="<%= devise_controller? && controller_name == 'sessions' && action_name == 'new' ? 'max-w-md mx-auto mt-16 p-6 bg-white shadow rounded-lg' : 'container mx-auto mt-16 px-4 flex-1 pb-24' %>">
       <%= yield %>
     </main>
 
@@ -55,5 +64,4 @@
       <%= render "devise/shared/footer" %>
     <% end %>
   </body>
-  
 </html>
