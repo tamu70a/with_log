@@ -155,7 +155,7 @@ WithLog+ では、
 ### バックエンド
 - Ruby 3.3.6
 - Ruby on Rails 7.2.1
-- ライブラリ: Devise (認証), HTTParty (API通信), ruby-openai (AI連携)
+- ライブラリ: Devise (認証), HTTParty (API通信), OpenAI API
 
 ### フロントエンド
 - ERB
